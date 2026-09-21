@@ -2,8 +2,9 @@ name: Unity CI
 
 on:
   push:
-    branches: [main]
+    branch: [develop, SCRUM-21-combat-mod-enemies]
   pull_request:
+    branch: [develop]
   workflow_dispatch:
     inputs:
       verify_failure:
@@ -82,3 +83,9 @@ jobs:
         run: |
           echo "::error::Deliberately failing test did not fail the pipeline!"
           exit 1
+
+
+
+
+## stopklods på 10 min
+
