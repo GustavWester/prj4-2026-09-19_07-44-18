@@ -105,10 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d1fba57b82a44caa69a1a7c1b20f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
+  stats: {fileID: 11400000, guid: b168a2e7e15f0471f801a8a58fc8e8e9, type: 2}
   player: {fileID: 0}
   firePoint: {fileID: 7570866399368813192}
   movementPattern: 5
-  moveSpeed: 1
   linearDirection: {x: 0, y: -1}
   waypoints: []
   waypointReachedDistance: 0.2
@@ -118,13 +118,11 @@ MonoBehaviour:
   sineForwardDirection: {x: 0, y: -1}
   sineAmplitude: 1.5
   sineFrequency: 2
-  preferredDistance: 4
   distanceTolerance: 0.5
   attackPatterns:
   - {fileID: 11400000, guid: 69d3babc201a643c7ae929cc73b34fe6, type: 2}
-  attackInterval: 2
   randomizePatternOrder: 1
-  attackIntervalJitter: 0.3
+  attackCooldownJitter: 0.3
 --- !u!212 &6376709846731090098
 SpriteRenderer:
   serializedVersion: 2

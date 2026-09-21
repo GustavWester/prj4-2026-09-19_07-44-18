@@ -4,13 +4,16 @@ using UnityEngine;
 
 /// <summary>
 /// Universal behaviour for small enemies: movement + attacking only.
-/// No HP/stats here on purpose — pair this with a separate stats/health
-/// component. Movement is picked via a dropdown enum so you can reuse
-/// this one script across many enemy types just by changing values
-/// in the inspector (or on prefab variants).
+/// All tunable numbers (moveSpeed, ranges, cooldown, damage) come from
+/// the assigned EnemyStats asset — this script just reads them.
+/// Movement is picked via a dropdown enum so you can reuse this one
+/// script across many enemy types just by swapping the EnemyStats
+/// asset and inspector values on prefab variants.
 ///
-/// Attack patterns reuse the same BulletPatternSO assets and firing
-/// logic as the boss, via BulletPatternFirer.
+/// - EnemyClass.Ranged uses attackPatterns (BulletPatternSO), gated by
+///   stats.attackRange.
+/// - EnemyClass.Melee ignores attackPatterns and instead deals contact
+///   damage to the player when within stats.attackRange, on cooldown.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyBehaviour : MonoBehaviour
@@ -22,17 +25,19 @@ public class EnemyBehaviour : MonoBehaviour
         Waypoints,    // patrols a list of points, looping
         Orbit,        // circles around a center point
         Sine,         // moves along a direction while weaving side to side
-        ChasePlayer,  // moves straight at the player
+        ChasePlayer,  // moves straight at the player (only within detectionRange)
         KeepDistance  // approaches/retreats to sit at a preferred range
     }
 
+    [Header("Stats")]
+    public EnemyStats stats;
+
     [Header("Targeting")]
     public Transform player;
-    public Transform firePoint;
+    public Transform firePoint; // only needed for Ranged
 
     [Header("Movement pattern")]
     public MovementPattern movementPattern = MovementPattern.Linear;
-    public float moveSpeed = 3f;
 
     [Header("Linear settings")]
     public Vector2 linearDirection = Vector2.down;
@@ -55,17 +60,14 @@ public class EnemyBehaviour : MonoBehaviour
     private float sineTimer;
     private Vector3 sineOrigin;
 
-    [Header("Chase / keep-distance settings")]
-    public float preferredDistance = 4f;
+    [Header("Keep-distance settings")]
     public float distanceTolerance = 0.5f;
 
-    [Header("Attack")]
+    [Header("Ranged attack")]
     public List<BulletPatternSO> attackPatterns;
-    [Tooltip("Seconds between the start of one attack and the next.")]
-    public float attackInterval = 2f;
     public bool randomizePatternOrder = true;
-    [Tooltip("Small random +/- added to attackInterval each time, so enemies of the same type don't all fire in sync.")]
-    public float attackIntervalJitter = 0.3f;
+    [Tooltip("Small random +/- added to stats.attackCooldown each time, so enemies of the same type don't all fire in sync.")]
+    public float attackCooldownJitter = 0.3f;
 
     private Rigidbody2D rb;
     private int patternIndex;
@@ -86,9 +88,26 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Start()
     {
-        if (attackPatterns != null && attackPatterns.Count > 0 && firePoint != null)
-            StartCoroutine(AttackLoop());
+        if (stats == null)
+        {
+            Debug.LogWarning($"{name}: no EnemyStats assigned — falling back to default speeds/ranges.");
+        }
+
+        if (stats != null && stats.enemyClass == EnemyClass.Ranged
+            && attackPatterns != null && attackPatterns.Count > 0 && firePoint != null)
+        {
+            StartCoroutine(RangedAttackLoop());
+        }
+        else if (stats != null && stats.enemyClass == EnemyClass.Melee)
+        {
+            StartCoroutine(MeleeAttackLoop());
+        }
     }
+
+    private float MoveSpeed => stats != null ? stats.moveSpeed : 3f;
+    private float DetectionRange => stats != null ? stats.detectionRange : 6f;
+    private float AttackRange => stats != null ? stats.attackRange : 1.5f;
+    private float AttackCooldown => stats != null ? stats.attackCooldown : 1f;
 
     private void FixedUpdate()
     {
@@ -123,7 +142,7 @@ public class EnemyBehaviour : MonoBehaviour
     // ---------------------------------------------------------------
     private void MoveLinear()
     {
-        rb.linearVelocity = linearDirection.normalized * moveSpeed;
+        rb.linearVelocity = linearDirection.normalized * MoveSpeed;
     }
 
     private void MoveWaypoints()
@@ -143,7 +162,7 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         }
 
-        rb.linearVelocity = dir.normalized * moveSpeed;
+        rb.linearVelocity = dir.normalized * MoveSpeed;
     }
 
     private void MoveOrbit()
@@ -154,7 +173,6 @@ public class EnemyBehaviour : MonoBehaviour
         float rad = orbitAngleDeg * Mathf.Deg2Rad;
         Vector2 targetPos = center + new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * orbitRadius;
 
-        // MovePosition gives a clean circular path without fighting physics.
         rb.MovePosition(targetPos);
     }
 
@@ -165,7 +183,7 @@ public class EnemyBehaviour : MonoBehaviour
         Vector2 forward = sineForwardDirection.normalized;
         Vector2 perpendicular = new Vector2(-forward.y, forward.x);
 
-        Vector3 forwardOffset = (Vector3)(forward * moveSpeed * sineTimer);
+        Vector3 forwardOffset = (Vector3)(forward * MoveSpeed * sineTimer);
         float weave = Mathf.Sin(sineTimer * sineFrequency) * sineAmplitude;
         Vector3 sideOffset = (Vector3)(perpendicular * weave);
 
@@ -174,19 +192,19 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void MoveChasePlayer()
     {
-        if (player == null)
+        if (player == null || Vector2.Distance(rb.position, player.position) > DetectionRange)
         {
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
         Vector2 dir = (Vector2)player.position - rb.position;
-        rb.linearVelocity = dir.normalized * moveSpeed;
+        rb.linearVelocity = dir.normalized * MoveSpeed;
     }
 
     private void MoveKeepDistance()
     {
-        if (player == null)
+        if (player == null || Vector2.Distance(rb.position, player.position) > DetectionRange)
         {
             rb.linearVelocity = Vector2.zero;
             return;
@@ -194,27 +212,30 @@ public class EnemyBehaviour : MonoBehaviour
 
         Vector2 toPlayer = (Vector2)player.position - rb.position;
         float distance = toPlayer.magnitude;
+        float preferred = AttackRange * 0.8f; // sit just inside attack range by default
 
-        if (Mathf.Abs(distance - preferredDistance) <= distanceTolerance)
+        if (Mathf.Abs(distance - preferred) <= distanceTolerance)
         {
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        // Too far -> move closer. Too close -> back away.
-        float direction = distance > preferredDistance ? 1f : -1f;
-        rb.linearVelocity = toPlayer.normalized * moveSpeed * direction;
+        float direction = distance > preferred ? 1f : -1f;
+        rb.linearVelocity = toPlayer.normalized * MoveSpeed * direction;
     }
 
     // ---------------------------------------------------------------
-    // Attacking (reuses the boss's bullet-pattern assets and firing logic)
+    // Ranged attack (bullet patterns), gated by stats.attackRange
     // ---------------------------------------------------------------
-    private IEnumerator AttackLoop()
+    private IEnumerator RangedAttackLoop()
     {
         while (true)
         {
-            float jitter = Random.Range(-attackIntervalJitter, attackIntervalJitter);
-            yield return new WaitForSeconds(Mathf.Max(0.05f, attackInterval + jitter));
+            float jitter = Random.Range(-attackCooldownJitter, attackCooldownJitter);
+            yield return new WaitForSeconds(Mathf.Max(0.05f, AttackCooldown + jitter));
+
+            if (player == null || Vector2.Distance(transform.position, player.position) > AttackRange)
+                continue;
 
             BulletPatternSO pattern = PickPattern();
             if (pattern != null)
@@ -234,11 +255,6 @@ public class EnemyBehaviour : MonoBehaviour
         return next;
     }
 
-    // ---------------------------------------------------------------
-    // Firing logic (same patterns/behaviour as BossController, kept
-    // local here so this script has no dependency on other files
-    // beyond BulletPatternSO and Bullet).
-    // ---------------------------------------------------------------
     private IEnumerator RunPattern(BulletPatternSO pattern)
     {
         for (int volley = 0; volley < pattern.volleys; volley++)
@@ -317,5 +333,30 @@ public class EnemyBehaviour : MonoBehaviour
         GameObject go = Instantiate(pattern.bulletPrefab, firePoint.position, Quaternion.identity);
         Bullet b = go.GetComponent<Bullet>();
         if (b != null) b.Init(dir, pattern.bulletSpeed);
+        // Hook up stats.attackDamage on the bullet here if/when Bullet.Init
+        // takes a damage parameter, e.g. b.Init(dir, pattern.bulletSpeed, stats.attackDamage);
+    }
+
+    // ---------------------------------------------------------------
+    // Melee attack: contact damage on cooldown when close enough,
+    // no bullets involved at all.
+    // ---------------------------------------------------------------
+    private IEnumerator MeleeAttackLoop()
+    {
+        while (true)
+        {
+            float jitter = Random.Range(-attackCooldownJitter, attackCooldownJitter);
+            yield return new WaitForSeconds(Mathf.Max(0.05f, AttackCooldown + jitter));
+
+            if (player == null) continue;
+
+            float distance = Vector2.Distance(transform.position, player.position);
+            if (distance <= AttackRange)
+            {
+                // Replace with your actual player-health hook, e.g.:
+                // player.GetComponent<PlayerHealth>()?.TakeDamage(stats.attackDamage);
+                Debug.Log($"{name} melee-hit player for {stats.attackDamage} damage.");
+            }
+        }
     }
 }
