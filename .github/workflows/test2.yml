@@ -2,7 +2,7 @@ name: Unity CI
 
 on:
   push:
-    branches: [main]
+    branches: [SCRUM-37-ci-test-til-unity-projekt]
   pull_request:
   workflow_dispatch:
     inputs:
