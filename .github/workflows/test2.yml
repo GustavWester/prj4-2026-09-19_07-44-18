@@ -1,0 +1,84 @@
+name: Unity CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      verify_failure:
+        description: "Run the deliberately failing test and expect the runner to report failure"
+        type: boolean
+        default: false
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+  UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+
+jobs:
+  editmode:
+    name: EditMode tests
+    if: ${{ !inputs.verify_failure }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: true }
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-
+      - uses: game-ci/unity-test-runner@v4
+        with:
+          testMode: editmode
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          customParameters: -testCategory "!ShouldFail"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: editmode-results
+          path: artifacts
+
+  smoke:
+    name: Smoke test (PlayMode)
+    if: ${{ !inputs.verify_failure }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: true }
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-
+      - uses: game-ci/unity-test-runner@v4
+        with:
+          testMode: playmode
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          customParameters: -testCategory "Smoke"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-results
+          path: artifacts
+
+  verify-failure:
+    name: Pipeline catches failures
+    if: ${{ inputs.verify_failure }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: true }
+      - id: run
+        uses: game-ci/unity-test-runner@v4
+        continue-on-error: true
+        with:
+          testMode: editmode
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          customParameters: -testCategory "ShouldFail"
+      - name: Require the runner to have failed
+        if: steps.run.outcome == 'success'
+        run: |
+          echo "::error::Deliberately failing test did not fail the pipeline!"
+          exit 1
