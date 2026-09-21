@@ -2208,6 +2208,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1068059801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068059794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4764384190414f35a9de094752baacc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  fireballPrefab: {fileID: 8155128158161312045, guid: aec48452c2988437f8f83f46deb344c0, type: 3}
+  cooldown: 0.2
 --- !u!1 &1566832206
 GameObject:
   m_ObjectHideFlags: 0
@@ -9018,6 +9032,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1068059798}
+    - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1068059801}
   m_SourcePrefab: {fileID: 100100000, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

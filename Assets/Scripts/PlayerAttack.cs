@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Skyder en fireball mod musen, når man klikker med venstre museknap.
+/// Skyder en fireball i den retning, spilleren vender, når man trykker Enter.
 /// </summary>
+[RequireComponent(typeof(MovementController))]
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject fireballPrefab;
@@ -15,14 +16,13 @@ public class PlayerAttack : MonoBehaviour
     {
         cooldownTimer -= Time.deltaTime;
 
-        if (Mouse.current == null || !Mouse.current.leftButton.wasPressedThisFrame || cooldownTimer > 0f) return;
+        var kb = Keyboard.current;
+        if (kb == null || cooldownTimer > 0f) return;
+        if (!kb.enterKey.wasPressedThisFrame && !kb.numpadEnterKey.wasPressedThisFrame) return;
 
-        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 direction = (mouseWorld - (Vector2)transform.position).normalized;
-
-        // Rotation gør, at fireballens transform.right peger mod musen.
-        Quaternion rotation = Quaternion.FromToRotation(Vector3.right, direction);
-        Instantiate(fireballPrefab, transform.position, rotation);
+        GameObject fireball = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
+        fireball.GetComponent<Fireball>().Launch(GetComponent<MovementController>().FacingDirection);
+        GetComponent<Animator>().SetTrigger("Attack");
         cooldownTimer = cooldown;
     }
 }

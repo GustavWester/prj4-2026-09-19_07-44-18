@@ -30,6 +30,8 @@ public class MovementController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lastMoveDirection = Vector2.down;
 
+    public Vector2 FacingDirection => lastMoveDirection;
+
     private bool isDashing = false;
     private float dashTimer = 0f;
     private float dashCooldownTimer = 0f;
