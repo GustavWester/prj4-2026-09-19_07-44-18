@@ -1,0 +1,84 @@
+name: Unity_Build_Verification_v2.0
+
+on:
+  push:
+    branches: [develop, SCRUM-37-ci-test-til-unity-projekt]
+  pull_request:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: StandaloneWindows64
+            build_name: Windows
+            build_path: build/Windows/Game.exe
+          - os: macos-latest
+            platform: StandaloneOSX
+            build_name: macOS
+            build_path: build/macOS/Game.app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: { lfs: true }
+
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-Mono2x-${{ matrix.os }}-Build-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-Mono2x-${{ matrix.os }}-Build-
+
+      - name: Install Unity Hub and Editor
+        uses: RageAgainstThePixel/unity-setup@v2
+        with:
+          version-file: ProjectSettings/ProjectVersion.txt
+          cache-installation: true
+
+      - name: Activate Unity license
+        uses: RageAgainstThePixel/activate-unity-license@v2
+        with:
+          license: personal
+          username: ${{ secrets.UNITY_EMAIL }}
+          password: ${{ secrets.UNITY_PASSWORD }}
+
+      - name: Build player
+        shell: bash
+        env:
+          UNITY_BUILD_TARGET: ${{ matrix.platform }}
+        run: |
+          mkdir -p "build/${{ matrix.build_name }}"
+          editor_path="$UNITY_EDITOR_PATH"
+          build_path="$PWD/${{ matrix.build_path }}"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
+            build_path="$(cygpath -w "$build_path")"
+          fi
+          export UNITY_BUILD_PATH="$build_path"
+          "$editor_path" -batchmode -nographics -quit -projectPath "$PWD" \
+            -scriptingBackend Mono2x \
+            -buildTarget "${UNITY_BUILD_TARGET}" \
+            -executeMethod CiBuild.Build \
+            -logFile -
+
+      - name: Confirm build output
+        shell: bash
+        run: test -e "${{ matrix.build_path }}"
+
+      - name: Upload build artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unity-build-${{ matrix.build_name }}
+          path: build/${{ matrix.build_name }}
+          if-no-files-found: error
