@@ -1,10 +1,10 @@
-name: Unity CI Test-v1.1
+name: Unity CI Test-v1.2
 
 on:
   push:
-    branch: [develop, SCRUM-21-combat-mod-enemies]
+    branches: [develop, SCRUM-21-combat-mod-enemies, SCRUM-37-ci-test-til-unity-projekt]
   pull_request:
-    branch: [develop, SCRUM-21-combat-mod-enemies]
+    branches: [develop, SCRUM-21-combat-mod-enemies]
   workflow_dispatch:
     inputs:
       verify_failure:
@@ -12,139 +12,131 @@ on:
         type: boolean
         default: false
 
-env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-  UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+# Unity is installed directly on the runner (no Docker):
+#   unity-setup            -> installs Unity Hub + the Editor from ProjectSettings/ProjectVersion.txt
+#                             and exports UNITY_EDITOR_PATH
+#   activate-unity-license -> activates a Personal license with the Unity ID in UNITY_EMAIL / UNITY_PASSWORD
+#                             (the license is returned automatically when the job ends)
+# Tests are then run by calling the Editor directly with -runTests.
+#
+# Unity exit codes for -runTests: 0 = all passed, 2 = some tests failed, anything else = crash/setup error.
+
+permissions:
+  contents: read
 
 jobs:
-  editmode:
-    name: EditMode tests
+  tests:
+    name: ${{ matrix.name }}
     if: ${{ !inputs.verify_failure }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: EditMode tests
+            platform: EditMode
+            category: "!ShouldFail"
+            results: editmode-results
+          - name: Smoke test (PlayMode)
+            platform: PlayMode
+            category: "Smoke"
+            results: smoke-results
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
         with: { lfs: true }
 
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ matrix.platform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-${{ matrix.platform }}-
 
-      - name: Install Unity CLI
-        run: |
-          curl -fsSL https://public-cdn.cloud.unity3d.com/hub/prod/cli/install.sh | UNITY_CLI_CHANNEL=beta bash
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          unity --version
+      - name: Install Unity Hub and Editor
+        uses: RageAgainstThePixel/unity-setup@v2
+        with:
+          version-file: ProjectSettings/ProjectVersion.txt
+          cache-installation: true
 
-      - name: Install Unity Editor
-        run: |
-          unity install "$UNITY_EDITOR_VERSION" --yes --accept-eula
-          unity editors -i
+      - name: Activate Unity license
+        uses: RageAgainstThePixel/activate-unity-license@v2
+        with:
+          license: personal
+          username: ${{ secrets.UNITY_EMAIL }}
+          password: ${{ secrets.UNITY_PASSWORD }}
 
-      - name: Activate license
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      - name: Run ${{ matrix.platform }} tests
         run: |
-          EDITOR_PATH=$(unity editors -i --format json | jq -r --arg v "$UNITY_EDITOR_VERSION" '.[] | select(.version==$v) | .path' | head -n1)
-          if [ -z "$EDITOR_PATH" ]; then
-            EDITOR_PATH=$(find /opt /home -name Unity -type f 2>/dev/null | head -n1)
-          fi
-          echo "Using editor: $EDITOR_PATH"
-          "$EDITOR_PATH" -batchmode -nographics -quit \
-            -LICENSE "$UNITY_LICENSE" \
-            -username "$UNITY_EMAIL" \
-            -password "$UNITY_PASSWORD" \
+          mkdir -p results
+          set +e
+          "$UNITY_EDITOR_PATH" -batchmode -nographics -projectPath "$PWD" \
+            -runTests -testPlatform ${{ matrix.platform }} \
+            -testCategory "${{ matrix.category }}" \
+            -testResults "$PWD/results/${{ matrix.results }}.xml" \
             -logFile -
-
-      - name: Run EditMode tests
-        run: |
-          unity test "$GITHUB_WORKSPACE" \
-            --editor-version "$UNITY_EDITOR_VERSION" \
-            --mode EditMode \
-            --output "$GITHUB_WORKSPACE/test-results.xml" \
-            --report-format nunit,junit \
-            --allow-install \
-            --timeout 600 \
-            --format github \
-            -- \
-            -nographics
+          code=$?
+          echo "Unity exited with code $code"
+          if [ "$code" -eq 0 ] && ! grep -q 'total="[1-9]' "results/${{ matrix.results }}.xml"; then
+            echo "::error::Unity reported success but ran 0 tests - check the -testCategory filter."
+            exit 1
+          fi
+          exit $code
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: editmode-test-results
-          path: |
-            test-results.xml
-            test-results.junit.xml
-            Logs/**
+          name: ${{ matrix.results }}
+          path: results
           if-no-files-found: warn
-
-      - name: Return license
-        if: always()
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        run: |
-          EDITOR_PATH=$(unity editors -i --format json | jq -r --arg v "$UNITY_EDITOR_VERSION" '.[] | select(.version==$v) | .path' | head -n1)
-          if [ -z "$EDITOR_PATH" ]; then
-            EDITOR_PATH=$(find /opt /home -name Unity -type f 2>/dev/null | head -n1)
-          fi
-          echo "Returning license with: $EDITOR_PATH"
-          "$EDITOR_PATH" -batchmode -nographics -quit \
-            -returnlicense \
-            -username "$UNITY_EMAIL" \
-            -password "$UNITY_PASSWORD" \
-            -logFile - || true
-
-  smoke:
-    name: Smoke test (PlayMode)
-    if: ${{ !inputs.verify_failure }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { lfs: true }
-      - uses: actions/cache@v4
-        with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: Library-
-      - uses: game-ci/unity-test-runner@v4
-        with:
-          testMode: playmode
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          customParameters: -testCategory "Smoke"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: smoke-results
-          path: artifacts
 
   verify-failure:
     name: Pipeline catches failures
     if: ${{ inputs.verify_failure }}
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with: { lfs: true }
-      - id: run
-        uses: game-ci/unity-test-runner@v4
-        continue-on-error: true
+
+      - name: Install Unity Hub and Editor
+        uses: RageAgainstThePixel/unity-setup@v2
         with:
-          testMode: editmode
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          customParameters: -testCategory "ShouldFail"
-      - name: Require the runner to have failed
-        if: steps.run.outcome == 'success'
+          version-file: ProjectSettings/ProjectVersion.txt
+          cache-installation: true
+
+      - name: Activate Unity license
+        uses: RageAgainstThePixel/activate-unity-license@v2
+        with:
+          license: personal
+          username: ${{ secrets.UNITY_EMAIL }}
+          password: ${{ secrets.UNITY_PASSWORD }}
+
+      - name: Run the deliberately failing test (must fail with exit code 2)
         run: |
-          echo "::error::Deliberately failing test did not fail the pipeline!"
-          exit 1
+          mkdir -p results
+          set +e
+          "$UNITY_EDITOR_PATH" -batchmode -nographics -projectPath "$PWD" \
+            -runTests -testPlatform EditMode \
+            -testCategory "ShouldFail" \
+            -testResults "$PWD/results/verify-failure.xml" \
+            -logFile -
+          code=$?
+          echo "Unity exited with code $code"
+          if [ "$code" -eq 2 ]; then
+            echo "OK: Unity reported the failing test, so the pipeline detects failures."
+          else
+            echo "::error::Expected exit code 2 (test failure) but got $code"
+            exit 1
+          fi
 
-
-
-
-## stopklods på 10 min
-## namechange workflow for at differenciere
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-failure-results
+          path: results
+          if-no-files-found: warn
