@@ -46,6 +46,8 @@ public class MovementController : MonoBehaviour
     {
         ReadInput();
         animator.SetBool("Move", moveInput.sqrMagnitude > 0f);
+        animator.SetFloat("DirX", Mathf.Abs(lastMoveDirection.x)); // venstre spejles af flipX
+        animator.SetFloat("DirY", lastMoveDirection.y);
         HandleDashInput();
         TickTimers();
     }
