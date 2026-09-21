@@ -23,6 +23,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float dashCooldown = 0.5f;
 
     private Rigidbody2D rb;
+    private Animator animator;
     private Vector2 moveInput;
     private Vector2 lastMoveDirection = Vector2.down;
 
@@ -33,11 +34,13 @@ public class MovementController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         ReadInput();
+        animator.SetBool("Move", moveInput.sqrMagnitude > 0f);
         HandleDashInput();
         TickTimers();
     }
