@@ -1,9 +1,7 @@
 using UnityEngine;
 
-/// <summary>
-/// Flyver ligeud i den retning, den bliver skudt afsted i, og skader det første den rammer.
-/// Animationen vælges efter retning (højre/foran/bagved) via blend tree i Animator.
-/// </summary>
+// Flyver ligeud i den retning, den bliver skudt afsted i, og skader det første den rammer.
+// Animationen vælges efter retning (højre/foran/bagved) via blend tree i Animator.
 public class Fireball : MonoBehaviour
 {
     [SerializeField] private float speed = 8f;
@@ -12,7 +10,7 @@ public class Fireball : MonoBehaviour
 
     private Vector2 direction = Vector2.right;
 
-    public void Launch(Vector2 dir)
+    public void Launch(Vector2 dir) //kaldes af den der skyder ildkuglen
     {
         direction = dir.normalized;
 
@@ -27,12 +25,12 @@ public class Fireball : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, lifetime);
+        Destroy(gameObject, lifetime); //sletter kuglen igen efter 3 sekunder, hvis den ikke har ramt noget
     }
 
     private void Update()
     {
-        transform.position += (Vector3)(direction * (speed * Time.deltaTime));
+        transform.position += (Vector3)(direction * (speed * Time.deltaTime)); //farten er uafhængigt af vores framerate
     }
 
     private void OnTriggerEnter2D(Collider2D other)

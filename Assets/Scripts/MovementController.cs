@@ -30,6 +30,7 @@ public class MovementController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lastMoveDirection = Vector2.down;
 
+    // Læses af PlayerAttack, så fireballen flyver i den retning, spilleren vender.
     public Vector2 FacingDirection => lastMoveDirection;
 
     private bool isDashing = false;
@@ -48,7 +49,8 @@ public class MovementController : MonoBehaviour
     {
         ReadInput();
         animator.SetBool("Move", moveInput.sqrMagnitude > 0f);
-        animator.SetFloat("DirX", Mathf.Abs(lastMoveDirection.x)); // venstre spejles af flipX
+        // DirX/DirY styrer blend trees i Animator (Idle, Walk og Cast), så de vælger Right/Front/Behind.
+        animator.SetFloat("DirX", Mathf.Abs(lastMoveDirection.x)); // Abs, fordi venstre spejles af flipX i stedet for egen animation
         animator.SetFloat("DirY", lastMoveDirection.y);
         HandleDashInput();
         TickTimers();
