@@ -23,6 +23,9 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float dashCooldown = 0.5f;
 
     private Rigidbody2D rb;
+
+    SpriteRenderer spriteRenderer;
+
     private Animator animator;
     private Vector2 moveInput;
     private Vector2 lastMoveDirection = Vector2.down;
@@ -35,6 +38,8 @@ public class MovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     private void Update()
@@ -82,6 +87,9 @@ public class MovementController : MonoBehaviour
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) x += 1f;
         if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) y -= 1f;
         if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) y += 1f;
+        
+
+        if (x != 0f) spriteRenderer.flipX = x < 0f; //går man til venstre -1 til højre +1, hvis man går til venstre er flip true, til højre falsk
 
         moveInput = new Vector2(x, y).normalized;
 
