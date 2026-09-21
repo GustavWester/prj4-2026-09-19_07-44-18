@@ -1,11 +1,14 @@
-name: Unity_Build_Verification_v2.0
+name: Unity_Build_Verification_v2.1
 
 on:
-  push:
-    branches: [develop, SCRUM-37-ci-test-til-unity-projekt]
   pull_request:
     branches: [develop]
   workflow_dispatch:
+    inputs:
+      verify_failure:
+        description: "Run the deliberately failing test and expect the runner to report failure"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -13,6 +16,7 @@ permissions:
 jobs:
   build:
     name: Build ${{ matrix.platform }}
+    if: ${{ !inputs.verify_failure }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     strategy:
@@ -23,10 +27,12 @@ jobs:
             platform: StandaloneWindows64
             build_name: Windows
             build_path: build/Windows/Game.exe
+            modules: windows-mono
           - os: macos-latest
             platform: StandaloneOSX
             build_name: macOS
             build_path: build/macOS/Game.app
+            modules: mac-mono
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,9 +46,11 @@ jobs:
           restore-keys: Library-Mono2x-${{ matrix.os }}-Build-
 
       - name: Install Unity Hub and Editor
-        uses: RageAgainstThePixel/unity-setup@v2
+        uses: RageAgainstThePixel/unity-setup@v2.6.0
         with:
           version-file: ProjectSettings/ProjectVersion.txt
+          modules: ${{ matrix.modules }}
+          auto-update-hub: false
           cache-installation: true
 
       - name: Activate Unity license
@@ -51,6 +59,35 @@ jobs:
           license: personal
           username: ${{ secrets.UNITY_EMAIL }}
           password: ${{ secrets.UNITY_PASSWORD }}
+
+      - name: Run PlayMode smoke test
+        if: ${{ matrix.platform == 'StandaloneWindows64' }}
+        shell: bash
+        run: |
+          mkdir -p results
+          editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
+          set +e
+          "$editor_path" -batchmode -nographics -projectPath "$PWD" \
+            -scriptingBackend Mono2x \
+            -runTests -testPlatform PlayMode \
+            -testCategory "Smoke" \
+            -testResults "$PWD/results/smoke-results.xml" \
+            -logFile - -quit
+          code=$?
+          echo "Unity exited with code $code"
+          if [ "$code" -eq 0 ] && ! grep -q 'total="[1-9]' results/smoke-results.xml; then
+            echo "::error::Unity reported success but ran 0 PlayMode tests."
+            exit 1
+          fi
+          exit $code
+
+      - name: Upload smoke test results
+        if: ${{ always() && matrix.platform == 'StandaloneWindows64' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playmode-smoke-results-windows
+          path: results
+          if-no-files-found: warn
 
       - name: Build player
         shell: bash
@@ -82,3 +119,54 @@ jobs:
           name: unity-build-${{ matrix.build_name }}
           path: build/${{ matrix.build_name }}
           if-no-files-found: error
+
+  verify-failure:
+    name: Pipeline catches failures (Windows)
+    if: ${{ inputs.verify_failure }}
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: { lfs: true }
+
+      - name: Install Unity Hub and Editor
+        uses: RageAgainstThePixel/unity-setup@v2.6.0
+        with:
+          version-file: ProjectSettings/ProjectVersion.txt
+          modules: ''
+          auto-update-hub: false
+          cache-installation: true
+
+      - name: Activate Unity license
+        uses: RageAgainstThePixel/activate-unity-license@v2
+        with:
+          license: personal
+          username: ${{ secrets.UNITY_EMAIL }}
+          password: ${{ secrets.UNITY_PASSWORD }}
+
+      - name: Run deliberate failure test
+        shell: bash
+        run: |
+          mkdir -p results
+          editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
+          set +e
+          "$editor_path" -batchmode -nographics -projectPath "$PWD" \
+            -scriptingBackend Mono2x \
+            -runTests -testPlatform EditMode \
+            -testCategory "ShouldFail" \
+            -testResults "$PWD/results/verify-failure.xml" \
+            -logFile - -quit
+          code=$?
+          if [ "$code" -ne 2 ]; then
+            echo "::error::Expected exit code 2 but got $code"
+            exit 1
+          fi
+
+      - name: Upload failure-test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-failure-results-windows
+          path: results
+          if-no-files-found: warn
