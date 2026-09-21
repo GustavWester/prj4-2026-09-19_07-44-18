@@ -1,4 +1,4 @@
-name: Unity CI Test-v1.4
+name: Unity CI Test-v1.5
 
 on:
   push:
@@ -26,13 +26,14 @@ permissions:
 
 jobs:
   tests:
-    name: ${{ matrix.name }}
+    name: ${{ matrix.name }} (${{ matrix.os }})
     if: ${{ !inputs.verify_failure }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
+        os: [windows-latest, macos-latest]
         include:
           - name: EditMode tests
             platform: EditMode
@@ -51,14 +52,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: Library
-          key: Library-${{ matrix.platform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: Library-${{ matrix.platform }}-
-
-      # Unity Hub >= 3.20 installs to /usr/lib/unityhub, but the unity-cli bundled in
-      # unity-setup@v2 still looks in /opt/unityhub (binary AND resources/app.asar).
-      # Point the whole old directory at the new one (dangling until apt installs the Hub).
-      - name: Unity Hub path workaround
-        run: sudo ln -sfn /usr/lib/unityhub /opt/unityhub
+          key: Library-${{ matrix.os }}-${{ matrix.platform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-${{ matrix.os }}-${{ matrix.platform }}-
 
       - name: Install Unity Hub and Editor
         uses: RageAgainstThePixel/unity-setup@v2
@@ -74,10 +69,15 @@ jobs:
           password: ${{ secrets.UNITY_PASSWORD }}
 
       - name: Run ${{ matrix.platform }} tests
+        shell: bash
         run: |
           mkdir -p results
           set +e
-          "$UNITY_EDITOR_PATH" -batchmode -nographics -projectPath "$PWD" \
+          editor_path="$UNITY_EDITOR_PATH"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
+          fi
+          "$editor_path" -batchmode -nographics -projectPath "$PWD" \
             -runTests -testPlatform ${{ matrix.platform }} \
             -testCategory "${{ matrix.category }}" \
             -testResults "$PWD/results/${{ matrix.results }}.xml" \
@@ -94,25 +94,23 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.results }}
+          name: ${{ matrix.results }}-${{ matrix.os }}
           path: results
           if-no-files-found: warn
 
   verify-failure:
-    name: Pipeline catches failures
+    name: Pipeline catches failures (${{ matrix.os }})
     if: ${{ inputs.verify_failure }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with: { lfs: true }
-
-      # Unity Hub >= 3.20 installs to /usr/lib/unityhub, but the unity-cli bundled in
-      # unity-setup@v2 still looks in /opt/unityhub (binary AND resources/app.asar).
-      # Point the whole old directory at the new one (dangling until apt installs the Hub).
-      - name: Unity Hub path workaround
-        run: sudo ln -sfn /usr/lib/unityhub /opt/unityhub
 
       - name: Install Unity Hub and Editor
         uses: RageAgainstThePixel/unity-setup@v2
@@ -128,10 +126,15 @@ jobs:
           password: ${{ secrets.UNITY_PASSWORD }}
 
       - name: Run the deliberately failing test (must fail with exit code 2)
+        shell: bash
         run: |
           mkdir -p results
           set +e
-          "$UNITY_EDITOR_PATH" -batchmode -nographics -projectPath "$PWD" \
+          editor_path="$UNITY_EDITOR_PATH"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
+          fi
+          "$editor_path" -batchmode -nographics -projectPath "$PWD" \
             -runTests -testPlatform EditMode \
             -testCategory "ShouldFail" \
             -testResults "$PWD/results/verify-failure.xml" \
@@ -149,6 +152,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: verify-failure-results
+          name: verify-failure-results-${{ matrix.os }}
           path: results
           if-no-files-found: warn
