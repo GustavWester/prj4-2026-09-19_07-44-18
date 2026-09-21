@@ -1,4 +1,4 @@
-name: Unity CI Test-v1.3
+name: Unity CI Test-v1.4
 
 on:
   push:
@@ -54,12 +54,11 @@ jobs:
           key: Library-${{ matrix.platform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: Library-${{ matrix.platform }}-
 
-      # Unity Hub >= 3.20 installs its binary to /usr/bin/unityhub, but unity-setup still
-      # looks for /opt/unityhub/unityhub and fails with ENOENT. Point the old path at the new one.
+      # Unity Hub >= 3.20 installs to /usr/lib/unityhub, but the unity-cli bundled in
+      # unity-setup@v2 still looks in /opt/unityhub (binary AND resources/app.asar).
+      # Point the whole old directory at the new one (dangling until apt installs the Hub).
       - name: Unity Hub path workaround
-        run: |
-          sudo mkdir -p /opt/unityhub
-          sudo ln -sf /usr/bin/unityhub /opt/unityhub/unityhub
+        run: sudo ln -sfn /usr/lib/unityhub /opt/unityhub
 
       - name: Install Unity Hub and Editor
         uses: RageAgainstThePixel/unity-setup@v2
@@ -109,12 +108,11 @@ jobs:
         uses: actions/checkout@v4
         with: { lfs: true }
 
-      # Unity Hub >= 3.20 installs its binary to /usr/bin/unityhub, but unity-setup still
-      # looks for /opt/unityhub/unityhub and fails with ENOENT. Point the old path at the new one.
+      # Unity Hub >= 3.20 installs to /usr/lib/unityhub, but the unity-cli bundled in
+      # unity-setup@v2 still looks in /opt/unityhub (binary AND resources/app.asar).
+      # Point the whole old directory at the new one (dangling until apt installs the Hub).
       - name: Unity Hub path workaround
-        run: |
-          sudo mkdir -p /opt/unityhub
-          sudo ln -sf /usr/bin/unityhub /opt/unityhub/unityhub
+        run: sudo ln -sfn /usr/lib/unityhub /opt/unityhub
 
       - name: Install Unity Hub and Editor
         uses: RageAgainstThePixel/unity-setup@v2
