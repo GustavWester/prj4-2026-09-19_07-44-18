@@ -1,4 +1,4 @@
-name: Unity_Build_Verification_v2.2
+name: Unity_Build_Verification_v2.3
 
 on:
   pull_request:
@@ -73,22 +73,42 @@ jobs:
         if: ${{ matrix.platform == 'StandaloneWindows64' }}
         shell: bash
         run: |
+          set -uo pipefail
+
           mkdir -p results
+
           editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
+          project_path="$(cygpath -w "$PWD")"
+          results_path="$(cygpath -w "$PWD/results/smoke-results.xml")"
+
           set +e
-          "$editor_path" -batchmode -nographics -projectPath "$PWD" \
+          "$editor_path" \
+            -batchmode \
+            -nographics \
+            -projectPath "$project_path" \
+            -buildTarget StandaloneWindows64 \
             -scriptingBackend Mono2x \
-            -runTests -testPlatform PlayMode \
-            -testCategory "Smoke" \
-            -testResults "$PWD/results/smoke-results.xml" \
-            -logFile - -quit
+            -runTests \
+            -testPlatform PlayMode \
+            -testCategory Smoke \
+            -testResults "$results_path" \
+            -logFile -
           code=$?
+          set -e
+
           echo "Unity exited with code $code"
-          if [ "$code" -eq 0 ] && ! grep -q 'total="[1-9]' results/smoke-results.xml; then
-            echo "::error::Unity reported success but ran 0 PlayMode tests."
+
+          if [ ! -f results/smoke-results.xml ]; then
+            echo "::error::Unity did not produce results/smoke-results.xml"
             exit 1
           fi
-          exit $code
+
+          if ! grep -Eq 'total="[1-9][0-9]*"' results/smoke-results.xml; then
+            echo "::error::No PlayMode smoke tests were executed"
+            exit 1
+          fi
+
+          exit "$code"
 
       - name: Upload smoke test results
         if: ${{ always() && matrix.platform == 'StandaloneWindows64' }}

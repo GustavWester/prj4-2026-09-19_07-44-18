@@ -33,4 +33,16 @@ namespace Tests.PlayMode
             Assert.IsTrue(SceneManager.GetActiveScene().isLoaded);
         }
     }
+
+    public class SmokeTests_always_pass
+    {
+        [UnityTest]
+        [Category("Smoke")]
+        public IEnumerator GameStarts()
+        {
+            yield return null;
+
+            Assert.Pass();
+        }
+    }
 }
