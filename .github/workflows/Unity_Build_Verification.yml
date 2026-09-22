@@ -1,4 +1,4 @@
-name: Unity_Build_Verification_v2.1
+name: Unity_Build_Verification_v2.2
 
 on:
   pull_request:
@@ -59,6 +59,15 @@ jobs:
           license: personal
           username: ${{ secrets.UNITY_EMAIL }}
           password: ${{ secrets.UNITY_PASSWORD }}
+
+      - name: Warm up Library (prime asset import)
+        if: ${{ matrix.platform == 'StandaloneWindows64' }}
+        shell: bash
+        run: |
+          editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
+          "$editor_path" -batchmode -nographics -quit -projectPath "$PWD" \
+            -scriptingBackend Mono2x \
+            -logFile -
 
       - name: Run PlayMode smoke test
         if: ${{ matrix.platform == 'StandaloneWindows64' }}
