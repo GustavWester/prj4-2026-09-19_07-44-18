@@ -3,7 +3,7 @@ using UnityEngine.Rendering.Universal; // Light2D
 
 // Flyver ligeud i den retning, den bliver skudt afsted i, og skader det første den rammer.
 // Animationen vælges efter retning (højre/foran/bagved) via blend tree i Animator.
-public class Fireball : MonoBehaviour
+public class Fireball1 : MonoBehaviour
 {
     [SerializeField] private float speed = 8f;
     [SerializeField] private int damage = 1;
