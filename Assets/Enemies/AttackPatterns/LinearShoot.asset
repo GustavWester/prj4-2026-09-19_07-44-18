@@ -16,7 +16,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6917748795328823539, guid: 73f15bb0f8e104f0391dbc2ac48bd538, type: 3}
   bulletCount: 1
   spreadAngle: 0
-  bulletSpeed: 4
+  bulletSpeed: 8
   volleys: 3
   delayBetweenVolleys: 0.4
   spiralRotationSpeedDeg: 20

@@ -31,9 +31,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) 
         {
-            // other.GetComponent<PlayerHealth>()?.TakeDamage(1);
+            other.GetComponent<Health>()?.TakeDamage(1);
             Destroy(gameObject);
         }
         if (other.CompareTag("Wall"))

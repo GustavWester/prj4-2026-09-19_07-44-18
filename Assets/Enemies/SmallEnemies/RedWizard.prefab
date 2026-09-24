@@ -123,6 +123,7 @@ MonoBehaviour:
   distanceTolerance: 0.5
   attackPatterns:
   - {fileID: 11400000, guid: 69d3babc201a643c7ae929cc73b34fe6, type: 2}
+  - {fileID: 11400000, guid: 81793534d70ac48ec93e80afbbd2dab6, type: 2}
   randomizePatternOrder: 1
   attackCooldownJitter: 0.3
 --- !u!212 &6376709846731090098

@@ -59,6 +59,8 @@ public class Fireball : MonoBehaviour
     {
         if (other.GetComponent<MovementController>() != null) return; // ignorer spilleren
 
+        if (other.CompareTag("Bullet")) return;
+        
         // SendMessage, så enemies bare skal have en TakeDamage(int)-metode. Ingen krav om fælles klasse.
         other.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
 

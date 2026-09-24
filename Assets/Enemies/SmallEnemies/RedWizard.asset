@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: RedWizard
   enemyClass: 1
   Health: 100
-  attackDamage: 5
+  attackDamage: 1
   moveSpeed: 1
   attackRange: 20
   attackCooldown: 1

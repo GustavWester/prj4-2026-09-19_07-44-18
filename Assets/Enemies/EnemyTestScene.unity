@@ -224,6 +224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wizard2
       objectReference: {fileID: 0}
+    - target: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -240,6 +244,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
       insertIndex: -1
       addedObject: {fileID: 262156054}
+    - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 262156063}
   m_SourcePrefab: {fileID: 100100000, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
 --- !u!1 &262156053 stripped
 GameObject:
@@ -348,6 +355,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 991018825683479353, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
   m_PrefabInstance: {fileID: 262156052}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &262156063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262156053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c0fd5266d9eaf448a3797e9e52f022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  stats: {fileID: 0}
+  maxHealth: 5
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthPercentChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 262156053}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &283821561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -383,6 +425,10 @@ PrefabInstance:
     - target: {fileID: 315773566631582011, guid: bfb23a150341d4fefb93ba1661a33741, type: 3}
       propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075263057690649747, guid: bfb23a150341d4fefb93ba1661a33741, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2829554569575052017, guid: bfb23a150341d4fefb93ba1661a33741, type: 3}
       propertyPath: m_Name
@@ -432,6 +478,22 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 262156060}
+    - target: {fileID: 6591515781812324738, guid: bfb23a150341d4fefb93ba1661a33741, type: 3}
+      propertyPath: randomizePatternOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6591515781812324738, guid: bfb23a150341d4fefb93ba1661a33741, type: 3}
+      propertyPath: attackPatterns.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6591515781812324738, guid: bfb23a150341d4fefb93ba1661a33741, type: 3}
+      propertyPath: 'attackPatterns.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 63989259313254344ba99f2ca1be3ccf, type: 2}
+    - target: {fileID: 6591515781812324738, guid: bfb23a150341d4fefb93ba1661a33741, type: 3}
+      propertyPath: 'attackPatterns.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f2bf87d851144ccc94550883e76c76a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7244,7 +7306,7 @@ GameObject:
   - component: {fileID: 969755354}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9120,7 +9182,7 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8356786, b: 0.6556604, a: 1}
   m_Intensity: 0.4
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
