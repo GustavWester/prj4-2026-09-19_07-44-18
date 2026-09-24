@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 2075263057690649747}
   - component: {fileID: 6591515781812324738}
   - component: {fileID: 6376709846731090098}
+  - component: {fileID: 7878268105137351951}
+  - component: {fileID: 315773566631582011}
   m_Layer: 0
   m_Name: RedWizard
   m_TagString: Untagged
@@ -170,7 +172,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1105936589707565553, guid: 024c4457245c74568846de1879f3eec0, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -182,3 +184,63 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!70 &7878268105137351951
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829554569575052017}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.005383615, y: -0.022586482}
+  m_Size: {x: 0.11482724, y: 0.11482724}
+  m_Direction: 0
+--- !u!114 &315773566631582011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829554569575052017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c0fd5266d9eaf448a3797e9e52f022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  stats: {fileID: 11400000, guid: b168a2e7e15f0471f801a8a58fc8e8e9, type: 2}
+  maxHealth: 100
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthPercentChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
