@@ -2125,62 +2125,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
   m_PrefabInstance: {fileID: 8344945232833038831}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1068059798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068059794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8759112c48a749feb71c29df5398eea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovementController
-  speed: 5
-  sprintEnabled: 0
-  sprintMultiplier: 1.5
-  dashEnabled: 0
-  dashSpeed: 15
-  dashDuration: 0.15
-  dashCooldown: 0.5
---- !u!70 &1068059799
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068059794}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.0029985225, y: -0.0004997424}
-  m_Size: {x: 0.15599711, y: 0.18499753}
-  m_Direction: 0
 --- !u!50 &1068059800
 Rigidbody2D:
   serializedVersion: 5
@@ -2208,20 +2152,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1068059801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068059794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4764384190414f35a9de094752baacc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  fireballPrefab: {fileID: 8155128158161312045, guid: aec48452c2988437f8f83f46deb344c0, type: 3}
-  cooldown: 0.2
 --- !u!1 &1566832206
 GameObject:
   m_ObjectHideFlags: 0
@@ -8975,6 +8905,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8498065389073280689, guid: 04079fc672b2e407594c7492aae787d2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 991018825683479353, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.805
@@ -9015,13 +8949,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1508152896652456296, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
       propertyPath: m_Name
       value: Wizard2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8498065389073280689, guid: 04079fc672b2e407594c7492aae787d2, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9030,15 +8964,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1068059800}
-    - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1068059799}
-    - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1068059798}
-    - targetCorrespondingSourceObject: {fileID: 6285184095884308798, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1068059801}
   m_SourcePrefab: {fileID: 100100000, guid: edd22b54f5351481b8baff4f889cb641, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
