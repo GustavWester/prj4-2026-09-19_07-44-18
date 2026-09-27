@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
     {
         direction = dir.normalized;
         speed = bulletSpeed;
+        transform.right = direction; // pil peger i flyveretningen
     }
 
     private void Awake()

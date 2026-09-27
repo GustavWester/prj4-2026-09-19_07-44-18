@@ -71,10 +71,28 @@ public class EnemyBehaviour : MonoBehaviour
 
     private Rigidbody2D rb;
     private int patternIndex;
+    private Animator animator;             // optional: only animated enemies (e.g. goblins) have one
+    private SpriteRenderer spriteRenderer;
+    private Health health;
+    private bool IsDead => health != null && health.IsDead;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        health = GetComponent<Health>();
+        if (health != null && animator != null)
+        {
+            health.onDamaged.AddListener(() => { if (!health.IsDead) animator.SetTrigger("Hurt"); });
+            health.onDeath.AddListener(() =>
+            {
+                animator.SetTrigger("Death");
+                // fjern fjenden når death-animationen er færdig
+                AnimationClip death = System.Array.Find(animator.runtimeAnimatorController.animationClips, c => c.name == "Death");
+                Destroy(gameObject, death != null ? death.length : 0f);
+            });
+        }
 
         if (player == null)
         {
@@ -111,6 +129,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsDead)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         switch (movementPattern)
         {
             case MovementPattern.Stationary:
@@ -135,6 +159,13 @@ public class EnemyBehaviour : MonoBehaviour
                 MoveKeepDistance();
                 break;
         }
+
+        // Orbit/Sine move via MovePosition, so velocity stays 0 and they animate as Idle
+        if (animator != null) animator.SetFloat("Speed", rb.linearVelocity.magnitude);
+        // kig på spilleren når den er opdaget, ellers i gå-retningen
+        bool seesPlayer = player != null && Vector2.Distance(rb.position, player.position) <= DetectionRange;
+        float faceX = seesPlayer ? player.position.x - rb.position.x : rb.linearVelocity.x;
+        if (spriteRenderer != null && faceX != 0f) spriteRenderer.flipX = faceX < 0f; // venstre spejles
     }
 
     // ---------------------------------------------------------------
@@ -199,6 +230,12 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         Vector2 dir = (Vector2)player.position - rb.position;
+        // melee stopper lidt inden for attackRange i stedet for at skubbe ind i spilleren
+        if (stats != null && stats.enemyClass == EnemyClass.Melee && dir.magnitude <= AttackRange * 0.8f)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         rb.linearVelocity = dir.normalized * MoveSpeed;
     }
 
@@ -236,6 +273,11 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (player == null || Vector2.Distance(transform.position, player.position) > AttackRange)
                 continue;
+
+            if (IsDead) yield break;
+
+            // med Animator skyder AttackHit() (Animation Event) på det rigtige frame
+            if (animator != null) { animator.SetTrigger("Attack"); continue; }
 
             BulletPatternSO pattern = PickPattern();
             if (pattern != null)
@@ -348,15 +390,37 @@ public class EnemyBehaviour : MonoBehaviour
             float jitter = Random.Range(-attackCooldownJitter, attackCooldownJitter);
             yield return new WaitForSeconds(Mathf.Max(0.05f, AttackCooldown + jitter));
 
+            if (IsDead) yield break;
             if (player == null) continue;
 
             float distance = Vector2.Distance(transform.position, player.position);
             if (distance <= AttackRange)
             {
-                // Replace with your actual player-health hook, e.g.:
-                // player.GetComponent<PlayerHealth>()?.TakeDamage(stats.attackDamage);
-                Debug.Log($"{name} melee-hit player for {stats.attackDamage} damage.");
+                // med Animator giver AttackHit() (Animation Event) skaden på slag-framet
+                if (animator != null) animator.SetTrigger("Attack");
+                else player.GetComponent<Health>()?.TakeDamage(stats.attackDamage);
             }
+        }
+    }
+
+    /// <summary>
+    /// Kaldes af en Animation Event på Attack-klippets slag-frame.
+    /// Bliver angrebet afbrudt (Hurt/Death) når eventet aldrig, og der sker ingen skade.
+    /// </summary>
+    public void AttackHit()
+    {
+        if (IsDead || player == null || stats == null) return;
+
+        if (stats.enemyClass == EnemyClass.Melee)
+        {
+            // spilleren kan være gået ud af rækkevidde under wind-up
+            if (Vector2.Distance(transform.position, player.position) <= AttackRange)
+                player.GetComponent<Health>()?.TakeDamage(stats.attackDamage);
+        }
+        else
+        {
+            BulletPatternSO pattern = PickPattern();
+            if (pattern != null) StartCoroutine(RunPattern(pattern));
         }
     }
 }
