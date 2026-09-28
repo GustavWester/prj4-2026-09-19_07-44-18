@@ -1,4 +1,4 @@
-public enum EnemyClass
+public enum ClassSO
 {
     Melee,
     Ranged

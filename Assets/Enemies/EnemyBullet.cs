@@ -5,7 +5,7 @@ using UnityEngine;
 /// after a lifetime or when leaving the arena bounds.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class Bullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     public float lifetime = 6f;
     private Vector2 direction;

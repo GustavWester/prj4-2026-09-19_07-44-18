@@ -57,7 +57,7 @@ public class Fireball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<MovementController>() != null) return; // ignorer spilleren
+        if (other.CompareTag("Player")) return; // ignorer spilleren
 
         if (other.CompareTag("Bullet")) return;
         

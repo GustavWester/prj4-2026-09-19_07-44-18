@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// Understøtter både WASD og piletaster.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class MovementController : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     [Header("Base Movement")]
     [SerializeField] private float speed = 5f;

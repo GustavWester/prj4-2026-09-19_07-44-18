@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Skyder en fireball i den retning, spilleren vender, når man trykker Enter.
 /// </summary>
-[RequireComponent(typeof(MovementController))]
-public class PlayerAttack : MonoBehaviour
+[RequireComponent(typeof(PlayerMovementController))]
+public class PlayerAttackController : MonoBehaviour
 {
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private float cooldown = 0.4f;
@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
         if (!kb.enterKey.wasPressedThisFrame && !kb.numpadEnterKey.wasPressedThisFrame) return; // wasPressedThisFrame er kun true i den frame, hvor tasten trykkes ned.
 
         GameObject fireball = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
-        fireball.GetComponent<Fireball>().Launch(GetComponent<MovementController>().FacingDirection); //sender spillerens retning videre til fireBall scriptet
+        fireball.GetComponent<Fireball>().Launch(GetComponent<PlayerMovementController>().FacingDirection); //sender spillerens retning videre til fireBall scriptet
         GetComponent<Animator>().SetTrigger("Attack"); //afspiller angribsanimationen
         cooldownTimer = cooldown; //starter nedtælling
     }
