@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
 {
     [Header("Stats source (optional)")]
     [Tooltip("If assigned, maxHealth is pulled from stats.Health at Awake. Leave empty for things (e.g. a boss or the player) that set maxHealth directly instead.")]
-    public EnemyStats stats;
+    public StatsSO stats;
 
     [Header("Health")]
     [Tooltip("Used directly if no EnemyStats is assigned.")]

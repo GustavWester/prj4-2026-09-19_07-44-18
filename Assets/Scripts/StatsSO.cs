@@ -1,11 +1,11 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyStats", menuName = "Scriptable Objects/EnemyStats")]
-public class EnemyStats : ScriptableObject
+public class StatsSO : ScriptableObject
 {
     [Header("Identity")]
     public string enemyName;
-    public EnemyClass enemyClass;
+    public ClassSO classSo;
 
     [Header ("Core Stats")]
     public int Health = 100;

@@ -266,7 +266,7 @@ public class BossController : MonoBehaviour
     {
         if (prefab == null || firePoint == null) return;
         GameObject go = Instantiate(prefab, firePoint.position, Quaternion.identity);
-        Bullet b = go.GetComponent<Bullet>();
+        EnemyBullet b = go.GetComponent<EnemyBullet>();
         if (b != null) b.Init(dir, speed);
     }
 

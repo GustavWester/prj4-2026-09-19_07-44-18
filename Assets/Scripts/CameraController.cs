@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     public GameObject player;
     private Vector3 offset = new Vector3(0, 0, - 10);

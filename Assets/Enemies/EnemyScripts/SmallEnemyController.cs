@@ -16,7 +16,7 @@ using UnityEngine;
 ///   damage to the player when within stats.attackRange, on cooldown.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyBehaviour : MonoBehaviour
+public class SmallEnemyController : MonoBehaviour
 {
     public enum MovementPattern
     {
@@ -30,7 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     [Header("Stats")]
-    public EnemyStats stats;
+    public StatsSO stats;
 
     [Header("Targeting")]
     public Transform player;
@@ -111,12 +111,12 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.LogWarning($"{name}: no EnemyStats assigned — falling back to default speeds/ranges.");
         }
 
-        if (stats != null && stats.enemyClass == EnemyClass.Ranged
+        if (stats != null && stats.classSo == ClassSO.Ranged
             && attackPatterns != null && attackPatterns.Count > 0 && firePoint != null)
         {
             StartCoroutine(RangedAttackLoop());
         }
-        else if (stats != null && stats.enemyClass == EnemyClass.Melee)
+        else if (stats != null && stats.classSo == ClassSO.Melee)
         {
             StartCoroutine(MeleeAttackLoop());
         }
@@ -231,7 +231,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         Vector2 dir = (Vector2)player.position - rb.position;
         // melee stopper lidt inden for attackRange i stedet for at skubbe ind i spilleren
-        if (stats != null && stats.enemyClass == EnemyClass.Melee && dir.magnitude <= AttackRange * 0.8f)
+        if (stats != null && stats.classSo == ClassSO.Melee && dir.magnitude <= AttackRange * 0.8f)
         {
             rb.linearVelocity = Vector2.zero;
             return;
@@ -373,7 +373,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (pattern.bulletPrefab == null || firePoint == null) return;
         GameObject go = Instantiate(pattern.bulletPrefab, firePoint.position, Quaternion.identity);
-        Bullet b = go.GetComponent<Bullet>();
+        EnemyBullet b = go.GetComponent<EnemyBullet>();
         if (b != null) b.Init(dir, pattern.bulletSpeed);
         // Hook up stats.attackDamage on the bullet here if/when Bullet.Init
         // takes a damage parameter, e.g. b.Init(dir, pattern.bulletSpeed, stats.attackDamage);
@@ -411,7 +411,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (IsDead || player == null || stats == null) return;
 
-        if (stats.enemyClass == EnemyClass.Melee)
+        if (stats.classSo == ClassSO.Melee)
         {
             // spilleren kan være gået ud af rækkevidde under wind-up
             if (Vector2.Distance(transform.position, player.position) <= AttackRange)
