@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "EnemyStats", menuName = "Scriptable Objects/EnemyStats")]
 public class StatsSO : ScriptableObject
 {
     [Header("Identity")]
     public string enemyName;
-    public ClassSO classSo;
+    [FormerlySerializedAs("enemyClass")] public ClassSO classSo;
 
     [Header ("Core Stats")]
     public int Health = 100;
