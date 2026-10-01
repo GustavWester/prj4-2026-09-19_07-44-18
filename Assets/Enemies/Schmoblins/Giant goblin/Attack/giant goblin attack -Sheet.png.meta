@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: 259708a39cff14b7f8d731e7d22a4e3e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6006570360071661955
+    second: giant goblin attack -Sheet_0
+  - first:
+      213: 8609992851514953544
+    second: giant goblin attack -Sheet_1
+  - first:
+      213: 8456610657041170887
+    second: giant goblin attack -Sheet_2
+  - first:
+      213: -4331701545997313794
+    second: giant goblin attack -Sheet_3
+  - first:
+      213: -5802689221922740639
+    second: giant goblin attack -Sheet_4
+  - first:
+      213: 2268446693553749478
+    second: giant goblin attack -Sheet_5
+  - first:
+      213: 8188910385980721627
+    second: giant goblin attack -Sheet_6
+  - first:
+      213: 8107187849039446265
+    second: giant goblin attack -Sheet_7
+  - first:
+      213: -6213037101084660153
+    second: giant goblin attack -Sheet_8
+  - first:
+      213: 1021575741384315759
+    second: giant goblin attack -Sheet_9
+  - first:
+      213: -6782132868746790104
+    second: giant goblin attack -Sheet_10
+  - first:
+      213: -811911322967843076
+    second: giant goblin attack -Sheet_11
+  - first:
+      213: 6816149863465700792
+    second: giant goblin attack -Sheet_12
+  - first:
+      213: -4905788488747072146
+    second: giant goblin attack -Sheet_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d76d989e41064aca0800000000000000
+      internalID: -6006570360071661955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84f833971e6dc7770800000000000000
+      internalID: 8609992851514953544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 0
+        width: 43
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c1c8b8669aeb5570800000000000000
+      internalID: 8456610657041170887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 0
+        width: 43
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef8d1dde464b2e3c0800000000000000
+      internalID: -4331701545997313794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 166ae4985e4b87fa0800000000000000
+      internalID: -5802689221922740639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed3e21cf342b7f10800000000000000
+      internalID: 2268446693553749478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd943edfb9ad4a170800000000000000
+      internalID: 8188910385980721627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f00c5d1564828070800000000000000
+      internalID: 8107187849039446265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74ea685bcabd6c9a0800000000000000
+      internalID: -6213037101084660153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 0
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f635e5869bd5d2e00800000000000000
+      internalID: 1021575741384315759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 0
+        width: 72
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82bb8d2d61601e1a0800000000000000
+      internalID: -6782132868746790104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 0
+        width: 81
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfe526514f28bb4f0800000000000000
+      internalID: -811911322967843076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 0
+        width: 70
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bd43b3ff24d79e50800000000000000
+      internalID: 6816149863465700792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: giant goblin attack -Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 0
+        width: 63
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e65c7098c532bebb0800000000000000
+      internalID: -4905788488747072146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      giant goblin attack -Sheet_0: -6006570360071661955
+      giant goblin attack -Sheet_1: 8609992851514953544
+      giant goblin attack -Sheet_10: -6782132868746790104
+      giant goblin attack -Sheet_11: -811911322967843076
+      giant goblin attack -Sheet_12: 6816149863465700792
+      giant goblin attack -Sheet_13: -4905788488747072146
+      giant goblin attack -Sheet_2: 8456610657041170887
+      giant goblin attack -Sheet_3: -4331701545997313794
+      giant goblin attack -Sheet_4: -5802689221922740639
+      giant goblin attack -Sheet_5: 2268446693553749478
+      giant goblin attack -Sheet_6: 8188910385980721627
+      giant goblin attack -Sheet_7: 8107187849039446265
+      giant goblin attack -Sheet_8: -6213037101084660153
+      giant goblin attack -Sheet_9: 1021575741384315759
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
