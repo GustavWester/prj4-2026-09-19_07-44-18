@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcherGoblin
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyName: ArcherGoblin
-  enemyClass: 1
+  classSo: 1
   Health: 20
   attackDamage: 1
   moveSpeed: 2
