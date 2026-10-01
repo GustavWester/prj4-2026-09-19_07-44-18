@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MageGoblin
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyName: MageGoblin
-  enemyClass: 1
+  classSo: 1
   Health: 25
   attackDamage: 1
   moveSpeed: 2
