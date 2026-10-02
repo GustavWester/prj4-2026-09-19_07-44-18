@@ -183,6 +183,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -190,12 +216,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 0
         y: 0
-        width: 28
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,12 +238,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_1
       rect:
         serializedVersion: 2
-        x: 71
+        x: 64
         y: 0
-        width: 28
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,12 +260,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_2
       rect:
         serializedVersion: 2
-        x: 135
+        x: 128
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,12 +282,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_3
       rect:
         serializedVersion: 2
-        x: 199
+        x: 192
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,12 +304,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_4
       rect:
         serializedVersion: 2
-        x: 263
+        x: 256
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -300,12 +326,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_5
       rect:
         serializedVersion: 2
-        x: 327
+        x: 320
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -322,12 +348,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_6
       rect:
         serializedVersion: 2
-        x: 391
+        x: 384
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -344,12 +370,12 @@ TextureImporter:
       name: mage goblin attack-Sheet_7
       rect:
         serializedVersion: 2
-        x: 455
+        x: 448
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -366,19 +392,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_8
       rect:
         serializedVersion: 2
-        x: 519
+        x: 512
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ef28e0b6adbf54710800000000000000
+      spriteID: 3d4dbe69667d34da1a09e4418718237d
       internalID: 1677023351782933246
       vertices: []
       indices: 
@@ -388,19 +414,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_9
       rect:
         serializedVersion: 2
-        x: 583
+        x: 576
         y: 0
-        width: 26
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 697c02f4054c9cdf0800000000000000
+      spriteID: 4cca570f350fb45e0b5c74c3f7bb825e
       internalID: -159380462590965866
       vertices: []
       indices: 
@@ -410,19 +436,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_10
       rect:
         serializedVersion: 2
-        x: 647
+        x: 640
         y: 0
-        width: 26
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 58339d9d846ec03e0800000000000000
+      spriteID: cd3f32a3876e04b52900445c7607848a
       internalID: -2086039326812458107
       vertices: []
       indices: 
@@ -432,19 +458,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_11
       rect:
         serializedVersion: 2
-        x: 711
+        x: 704
         y: 0
-        width: 26
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 341755fba61b0bc40800000000000000
+      spriteID: 23ae8a3bc881e4a4486a0428355e3fbf
       internalID: 5526111814818296131
       vertices: []
       indices: 
@@ -454,19 +480,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_12
       rect:
         serializedVersion: 2
-        x: 775
+        x: 768
         y: 0
-        width: 26
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 689f38e918b373860800000000000000
+      spriteID: 04e0b57b90e4441cab857baf04ca782a
       internalID: 7509536331559860614
       vertices: []
       indices: 
@@ -476,19 +502,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_13
       rect:
         serializedVersion: 2
-        x: 839
+        x: 832
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9416eb06d3bd723d0800000000000000
+      spriteID: 48920c406ef21440d8356f3d090636a2
       internalID: -3231373150952464055
       vertices: []
       indices: 
@@ -498,19 +524,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_14
       rect:
         serializedVersion: 2
-        x: 903
+        x: 896
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3c32a0c8488d96be0800000000000000
+      spriteID: 8f108692059384e169cec42d95a3f969
       internalID: -1483416538445110333
       vertices: []
       indices: 
@@ -520,19 +546,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_15
       rect:
         serializedVersion: 2
-        x: 967
+        x: 960
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: eb2b4d5b3fac21990800000000000000
+      spriteID: 715b308260d314ebcb28d361b85881c3
       internalID: -7416642488249306434
       vertices: []
       indices: 
@@ -542,19 +568,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_16
       rect:
         serializedVersion: 2
-        x: 1031
+        x: 1024
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ab4a764f49cd8e5a0800000000000000
+      spriteID: eb3bfdb5c3e1046e9b09e82d5110d5e2
       internalID: -6491696330540866374
       vertices: []
       indices: 
@@ -564,19 +590,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_17
       rect:
         serializedVersion: 2
-        x: 1095
+        x: 1088
         y: 0
-        width: 33
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4a6f8e5a12c3be3a0800000000000000
+      spriteID: d001b962e7a574ef990ef3c9c2db7e8f
       internalID: -6635143510785198428
       vertices: []
       indices: 
@@ -586,19 +612,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_18
       rect:
         serializedVersion: 2
-        x: 1159
+        x: 1152
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4fa202f78feeb3c90800000000000000
+      spriteID: ccd730aed34fc4146acffebbb0c37d9e
       internalID: -7188889629114750220
       vertices: []
       indices: 
@@ -608,19 +634,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_19
       rect:
         serializedVersion: 2
-        x: 1185
-        y: 10
-        width: 16
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1216
+        y: 0
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c2e19238d4fdf9b20800000000000000
+      spriteID: c85bb04ee9fd24208a8b99eb88975725
       internalID: 3143476588933881388
       vertices: []
       indices: 
@@ -630,19 +656,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_20
       rect:
         serializedVersion: 2
-        x: 1223
+        x: 1280
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 992d9c5263626bc50800000000000000
+      spriteID: 26aaadd75cb1d4692ad318c4c4432996
       internalID: 6680569111254782617
       vertices: []
       indices: 
@@ -652,19 +678,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_21
       rect:
         serializedVersion: 2
-        x: 1253
-        y: 10
-        width: 16
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1344
+        y: 0
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3c442cb2755a2a2c0800000000000000
+      spriteID: fe6cd6632c8724cc3933df597cd13526
       internalID: -4421790090309516093
       vertices: []
       indices: 
@@ -674,19 +700,19 @@ TextureImporter:
       name: mage goblin attack-Sheet_22
       rect:
         serializedVersion: 2
-        x: 1287
+        x: 1408
         y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a610fd3b4cef09810800000000000000
+      spriteID: 4734d78ace7884139922f0f7794ccf2b
       internalID: 1770194774341386602
       vertices: []
       indices: 
@@ -696,152 +722,20 @@ TextureImporter:
       name: mage goblin attack-Sheet_23
       rect:
         serializedVersion: 2
-        x: 1325
-        y: 10
-        width: 16
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1472
+        y: 0
+        width: 64
+        height: 32
+      alignment: 9
+      pivot: {x: 0.296875, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6b48e6927ceb906e0800000000000000
+      spriteID: c5e54583217be48529f00aaabec3798d
       internalID: -1870754407592852298
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mage goblin attack-Sheet_24
-      rect:
-        serializedVersion: 2
-        x: 1351
-        y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 23c24ee14a5d0acc0800000000000000
-      internalID: -3701723992828924878
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mage goblin attack-Sheet_25
-      rect:
-        serializedVersion: 2
-        x: 1400
-        y: 7
-        width: 9
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d878b6cce0618c190800000000000000
-      internalID: -7942073690052917363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mage goblin attack-Sheet_26
-      rect:
-        serializedVersion: 2
-        x: 1415
-        y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 22b6269c94db01ce0800000000000000
-      internalID: -1436440156522255582
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mage goblin attack-Sheet_27
-      rect:
-        serializedVersion: 2
-        x: 1465
-        y: 8
-        width: 8
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 53a79f0f739777d20800000000000000
-      internalID: 3276220535108368949
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mage goblin attack-Sheet_28
-      rect:
-        serializedVersion: 2
-        x: 1479
-        y: 0
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 21ea3eed741c03530800000000000000
-      internalID: 3832775797318594066
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mage goblin attack-Sheet_29
-      rect:
-        serializedVersion: 2
-        x: 1530
-        y: 9
-        width: 6
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f738fefb01645dca0800000000000000
-      internalID: -5992806691393010817
       vertices: []
       indices: 
       edges: []
@@ -850,7 +744,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 994d610e66f31442aa4f98fdb1be9927
     internalID: 0
     vertices: []
     indices: 
@@ -858,7 +752,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":24.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.296875,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":1,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       mage goblin attack-Sheet_0: 1166177187519317457
       mage goblin attack-Sheet_1: 5413785296109833145
@@ -877,12 +773,6 @@ TextureImporter:
       mage goblin attack-Sheet_21: -4421790090309516093
       mage goblin attack-Sheet_22: 1770194774341386602
       mage goblin attack-Sheet_23: -1870754407592852298
-      mage goblin attack-Sheet_24: -3701723992828924878
-      mage goblin attack-Sheet_25: -7942073690052917363
-      mage goblin attack-Sheet_26: -1436440156522255582
-      mage goblin attack-Sheet_27: 3276220535108368949
-      mage goblin attack-Sheet_28: 3832775797318594066
-      mage goblin attack-Sheet_29: -5992806691393010817
       mage goblin attack-Sheet_3: -2186914181309309062
       mage goblin attack-Sheet_4: 2120648587362677310
       mage goblin attack-Sheet_5: 4193492228358787315

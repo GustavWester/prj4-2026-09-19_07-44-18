@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LinearShoot
   m_EditorClassIdentifier: Assembly-CSharp::BulletPatternSO
   type: 2
-  bulletPrefab: {fileID: 6917748795328823539, guid: 73f15bb0f8e104f0391dbc2ac48bd538, type: 3}
+  bulletPrefab: {fileID: 6917748795328823539, guid: 13c074c27b3eb4ef7a922e8e347c6740, type: 3}
   bulletCount: 1
   spreadAngle: 0
   bulletSpeed: 8
