@@ -1,0 +1,3289 @@
+fileFormatVersion: 2
+guid: 52bc95be14268d34e8d7c02999a85609
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8857802099881120449
+    second: _all_tabs_0
+  - first:
+      213: -7899178773328400550
+    second: _all_tabs_1
+  - first:
+      213: 2654893832502430663
+    second: _all_tabs_2
+  - first:
+      213: 8570926878062507173
+    second: _all_tabs_3
+  - first:
+      213: -7979296290563109975
+    second: _all_tabs_4
+  - first:
+      213: 1274753151687275164
+    second: _all_tabs_5
+  - first:
+      213: 1097862057895392251
+    second: _all_tabs_6
+  - first:
+      213: 3814851648839034430
+    second: _all_tabs_7
+  - first:
+      213: 1268943903102414062
+    second: _all_tabs_8
+  - first:
+      213: -3662053891087355470
+    second: _all_tabs_9
+  - first:
+      213: -1298141424992265196
+    second: _all_tabs_10
+  - first:
+      213: -2146030080983367403
+    second: _all_tabs_11
+  - first:
+      213: 5017868013702631445
+    second: _all_tabs_12
+  - first:
+      213: -6862689588354791556
+    second: _all_tabs_13
+  - first:
+      213: -5315056234831906003
+    second: _all_tabs_14
+  - first:
+      213: -3897511058043144711
+    second: _all_tabs_15
+  - first:
+      213: -2761320526696665633
+    second: _all_tabs_16
+  - first:
+      213: 1684711664068288457
+    second: _all_tabs_17
+  - first:
+      213: -5723330303050032143
+    second: _all_tabs_18
+  - first:
+      213: -6201829274019058510
+    second: _all_tabs_19
+  - first:
+      213: 7476205025279757448
+    second: _all_tabs_20
+  - first:
+      213: 8434992149178357277
+    second: _all_tabs_21
+  - first:
+      213: -1801365012468817952
+    second: _all_tabs_22
+  - first:
+      213: -8382811705132554015
+    second: _all_tabs_23
+  - first:
+      213: 6744190404107065072
+    second: _all_tabs_24
+  - first:
+      213: 1737137561391529325
+    second: _all_tabs_25
+  - first:
+      213: 1678928823865823366
+    second: _all_tabs_26
+  - first:
+      213: -1854284014899490420
+    second: _all_tabs_27
+  - first:
+      213: 5763949563394040362
+    second: _all_tabs_28
+  - first:
+      213: 358478404141534008
+    second: _all_tabs_29
+  - first:
+      213: 1395942868574496460
+    second: _all_tabs_30
+  - first:
+      213: 4307522211030027937
+    second: _all_tabs_31
+  - first:
+      213: -5054848012010306134
+    second: _all_tabs_32
+  - first:
+      213: -832365156504960493
+    second: _all_tabs_33
+  - first:
+      213: 4104937555810680541
+    second: _all_tabs_34
+  - first:
+      213: 200243232307480535
+    second: _all_tabs_35
+  - first:
+      213: -1207196794705529872
+    second: _all_tabs_36
+  - first:
+      213: 1928488124794842421
+    second: _all_tabs_37
+  - first:
+      213: 5176394591862562290
+    second: _all_tabs_38
+  - first:
+      213: -3850055965474917837
+    second: _all_tabs_39
+  - first:
+      213: -8479864185121261519
+    second: _all_tabs_40
+  - first:
+      213: -6037831541319675837
+    second: _all_tabs_41
+  - first:
+      213: -6361675046474733859
+    second: _all_tabs_42
+  - first:
+      213: -2792093855424701401
+    second: _all_tabs_43
+  - first:
+      213: 3634986211398702083
+    second: _all_tabs_44
+  - first:
+      213: 1442557900820013052
+    second: _all_tabs_45
+  - first:
+      213: -1061347639168197883
+    second: _all_tabs_46
+  - first:
+      213: 5130683834237323446
+    second: _all_tabs_47
+  - first:
+      213: 6753110872722576030
+    second: _all_tabs_48
+  - first:
+      213: -4057296077999326177
+    second: _all_tabs_49
+  - first:
+      213: 3396829081050863137
+    second: _all_tabs_50
+  - first:
+      213: 6574683030449332928
+    second: _all_tabs_51
+  - first:
+      213: -8765758272291098441
+    second: _all_tabs_52
+  - first:
+      213: -1086982983986130839
+    second: _all_tabs_53
+  - first:
+      213: 6016969934812245757
+    second: _all_tabs_54
+  - first:
+      213: -1926978848634892866
+    second: _all_tabs_55
+  - first:
+      213: -3379255066293068140
+    second: _all_tabs_56
+  - first:
+      213: 1675003489299567228
+    second: _all_tabs_57
+  - first:
+      213: -3124898131417045116
+    second: _all_tabs_58
+  - first:
+      213: 2612591667390300267
+    second: _all_tabs_59
+  - first:
+      213: 3315669879616935556
+    second: _all_tabs_60
+  - first:
+      213: -3782499865322150549
+    second: _all_tabs_61
+  - first:
+      213: 3203721320991372865
+    second: _all_tabs_62
+  - first:
+      213: -4334680581743116771
+    second: _all_tabs_63
+  - first:
+      213: 502705470437724939
+    second: _all_tabs_64
+  - first:
+      213: -4256338433037814704
+    second: _all_tabs_65
+  - first:
+      213: 1677666070901589980
+    second: _all_tabs_66
+  - first:
+      213: -6063963598089350662
+    second: _all_tabs_67
+  - first:
+      213: -6273656586538483977
+    second: _all_tabs_68
+  - first:
+      213: -505640652123924347
+    second: _all_tabs_69
+  - first:
+      213: 8354496721638924820
+    second: _all_tabs_70
+  - first:
+      213: 4368296190964886398
+    second: _all_tabs_71
+  - first:
+      213: 7432699700428385182
+    second: _all_tabs_72
+  - first:
+      213: 8479958795567466203
+    second: _all_tabs_73
+  - first:
+      213: 1327772726850683781
+    second: _all_tabs_74
+  - first:
+      213: 7644720159495673315
+    second: _all_tabs_75
+  - first:
+      213: 4902075019989374236
+    second: _all_tabs_76
+  - first:
+      213: -4664115510997136653
+    second: _all_tabs_77
+  - first:
+      213: 7529106201334717173
+    second: _all_tabs_78
+  - first:
+      213: 1566537225692192333
+    second: _all_tabs_79
+  - first:
+      213: -3145070444566883477
+    second: _all_tabs_80
+  - first:
+      213: -8211407557738109616
+    second: _all_tabs_81
+  - first:
+      213: 3933749551784007126
+    second: _all_tabs_82
+  - first:
+      213: -3549379895942390660
+    second: _all_tabs_83
+  - first:
+      213: 3555915389926369637
+    second: _all_tabs_84
+  - first:
+      213: -798825865790550148
+    second: _all_tabs_85
+  - first:
+      213: -4555846415112667586
+    second: _all_tabs_86
+  - first:
+      213: -3138735851713945494
+    second: _all_tabs_87
+  - first:
+      213: 8330561272122892892
+    second: _all_tabs_88
+  - first:
+      213: -6248600997949977900
+    second: _all_tabs_89
+  - first:
+      213: -5085081639817510563
+    second: _all_tabs_90
+  - first:
+      213: -7054865418316962395
+    second: _all_tabs_91
+  - first:
+      213: 5945823623827564622
+    second: _all_tabs_92
+  - first:
+      213: -4566028384032839293
+    second: _all_tabs_93
+  - first:
+      213: -8190136098396858386
+    second: _all_tabs_94
+  - first:
+      213: -6901779555809810580
+    second: _all_tabs_95
+  - first:
+      213: -5350011047379417077
+    second: _all_tabs_96
+  - first:
+      213: -3621359236496827288
+    second: _all_tabs_97
+  - first:
+      213: 8820684116153917703
+    second: _all_tabs_98
+  - first:
+      213: -651919172877297252
+    second: _all_tabs_99
+  - first:
+      213: 56498328306712391
+    second: _all_tabs_100
+  - first:
+      213: 2089197505334485567
+    second: _all_tabs_101
+  - first:
+      213: -471414388175593105
+    second: _all_tabs_102
+  - first:
+      213: -3122596116644464633
+    second: _all_tabs_103
+  - first:
+      213: 1592480437856049740
+    second: _all_tabs_104
+  - first:
+      213: -5273146454437161470
+    second: _all_tabs_105
+  - first:
+      213: -3554822378087562225
+    second: _all_tabs_106
+  - first:
+      213: -3385084815396627431
+    second: _all_tabs_107
+  - first:
+      213: 5580553134391708008
+    second: _all_tabs_108
+  - first:
+      213: 4117822903334340428
+    second: _all_tabs_109
+  - first:
+      213: -6299824883883976415
+    second: _all_tabs_110
+  - first:
+      213: -5147716415724641787
+    second: _all_tabs_111
+  - first:
+      213: -1719958065011752124
+    second: _all_tabs_112
+  - first:
+      213: -2460156604904650448
+    second: _all_tabs_113
+  - first:
+      213: 8591957743379275421
+    second: _all_tabs_114
+  - first:
+      213: 582966434026014160
+    second: _all_tabs_115
+  - first:
+      213: -8199238977930763852
+    second: _all_tabs_116
+  - first:
+      213: 5539512881693477555
+    second: _all_tabs_117
+  - first:
+      213: 61098776934221300
+    second: _all_tabs_118
+  - first:
+      213: 118648707097803533
+    second: _all_tabs_119
+  - first:
+      213: 8935993932987075754
+    second: _all_tabs_120
+  - first:
+      213: -5216433065910741789
+    second: _all_tabs_121
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: _all_tabs_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 326
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c29f16441c3dea70800000000000000
+      internalID: 8857802099881120449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 326
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5f647ed1ca706290800000000000000
+      internalID: -7899178773328400550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_2
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 293
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cbceaadfd318d420800000000000000
+      internalID: 2654893832502430663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_3
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 294
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a473cab59c02f670800000000000000
+      internalID: 8570926878062507173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_4
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 293
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abc463cc48d34190800000000000000
+      internalID: -7979296290563109975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_5
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 294
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9231aecc35d0b110800000000000000
+      internalID: 1274753151687275164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_6
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 293
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3fb3599b36c3f00800000000000000
+      internalID: 1097862057895392251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_7
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 294
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e362dd7dc5311f430800000000000000
+      internalID: 3814851648839034430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_8
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 293
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eec2158b1c13c9110800000000000000
+      internalID: 1268943903102414062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_9
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 294
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b1b6617365cd2dc0800000000000000
+      internalID: -3662053891087355470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_10
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 293
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41cdd1770431cfde0800000000000000
+      internalID: -1298141424992265196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_11
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 294
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5110fa1f205c732e0800000000000000
+      internalID: -2146030080983367403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_12
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 293
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5105a866f5c03a540800000000000000
+      internalID: 5017868013702631445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_13
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 294
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c774752fd24d2c0a0800000000000000
+      internalID: -6862689588354791556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_14
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 261
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b7e99c3802d36b0800000000000000
+      internalID: -5315056234831906003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_15
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 262
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f57e25b75249e9c0800000000000000
+      internalID: -3897511058043144711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_16
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 261
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdd204f6c91dda9d0800000000000000
+      internalID: -2761320526696665633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_17
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 262
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cf5fbd155c416710800000000000000
+      internalID: 1684711664068288457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_18
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 261
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb5972b965a290b0800000000000000
+      internalID: -5723330303050032143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_19
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 262
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bca97c422daee9a0800000000000000
+      internalID: -6201829274019058510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_20
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 261
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88c4acf1cd0d0c760800000000000000
+      internalID: 7476205025279757448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_21
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 262
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d161cfe4bac1f0570800000000000000
+      internalID: 8434992149178357277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_22
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 261
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ef9af0b0144007e0800000000000000
+      internalID: -1801365012468817952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_23
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 262
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e866901b254aab80800000000000000
+      internalID: -8382811705132554015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_24
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 261
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f65666b07d289d50800000000000000
+      internalID: 6744190404107065072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_25
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 262
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6dfab8886d8b1810800000000000000
+      internalID: 1737137561391529325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_26
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 229
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 680dfa5bed0cc4710800000000000000
+      internalID: 1678928823865823366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_27
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 230
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c811b3b43824446e0800000000000000
+      internalID: -1854284014899490420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_28
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 229
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a22ae55d699adff40800000000000000
+      internalID: 5763949563394040362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_29
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 230
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83b4182953299f400800000000000000
+      internalID: 358478404141534008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_30
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 229
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc66f1894a26f5310800000000000000
+      internalID: 1395942868574496460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_31
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 230
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aecc82f0a467cb30800000000000000
+      internalID: 4307522211030027937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_32
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 229
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa5498ac38299d9b0800000000000000
+      internalID: -5054848012010306134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_33
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 230
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3120c1bdc48d274f0800000000000000
+      internalID: -832365156504960493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_34
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 229
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dde714745faa7f830800000000000000
+      internalID: 4104937555810680541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_35
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 230
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d70d5aa82867c200800000000000000
+      internalID: 200243232307480535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_36
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 229
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f3369549ec2f3fe0800000000000000
+      internalID: -1207196794705529872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_37
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 230
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53da4ff5bbd53ca10800000000000000
+      internalID: 1928488124794842421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_38
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 197
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fd9831a47f36d740800000000000000
+      internalID: 5176394591862562290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_39
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 198
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3327e747f7ad19ac0800000000000000
+      internalID: -3850055965474917837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_40
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 197
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1383a4ea378715a80800000000000000
+      internalID: -8479864185121261519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_41
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 198
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 340ddf5f330553ca0800000000000000
+      internalID: -6037831541319675837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_42
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 197
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd62866304ac6b7a0800000000000000
+      internalID: -6361675046474733859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_43
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 198
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72c1cdf7e6d7049d0800000000000000
+      internalID: -2792093855424701401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_44
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 197
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 304dcd543b0127230800000000000000
+      internalID: 3634986211398702083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_45
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 198
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cff5f4e84cef40410800000000000000
+      internalID: 1442557900820013052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_46
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 197
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b1e2802f55541f0800000000000000
+      internalID: -1061347639168197883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_47
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 198
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b80e8283c9d33740800000000000000
+      internalID: 5130683834237323446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_48
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 197
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9215792f8ed7bd50800000000000000
+      internalID: 6753110872722576030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_49
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 198
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1cb34aa6b691b7c0800000000000000
+      internalID: -4057296077999326177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_50
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 165
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 126d0c25d06f32f20800000000000000
+      internalID: 3396829081050863137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_51
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 166
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c2a8bcc167fd3b50800000000000000
+      internalID: 6574683030449332928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_52
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 165
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b0b5295b45c95680800000000000000
+      internalID: -8765758272291098441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_53
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 166
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 960dc923cb24ae0f0800000000000000
+      internalID: -1086982983986130839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_54
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 165
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfe60b4c642908350800000000000000
+      internalID: 6016969934812245757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_55
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 166
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd0d6d52fef145e0800000000000000
+      internalID: -1926978848634892866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_56
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 165
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49e9928db697a11d0800000000000000
+      internalID: -3379255066293068140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_57
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 166
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c729d398ccece3710800000000000000
+      internalID: 1675003489299567228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_58
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 165
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 487ea95b4b122a4d0800000000000000
+      internalID: -3124898131417045116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_59
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 166
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b60c1f5874ac14420800000000000000
+      internalID: 2612591667390300267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_60
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 165
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48697073030a30e20800000000000000
+      internalID: 3315669879616935556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_61
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 166
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b65a28cb96cd18bc0800000000000000
+      internalID: -3782499865322150549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_62
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 133
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14639014197e57c20800000000000000
+      internalID: 3203721320991372865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_63
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 134
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1efa6e1afe18d3c0800000000000000
+      internalID: -4334680581743116771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_64
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 133
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b03161046f7f9f600800000000000000
+      internalID: 502705470437724939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_65
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 134
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05430f60fb27ee4c0800000000000000
+      internalID: -4256338433037814704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_66
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 133
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd780df1764484710800000000000000
+      internalID: 1677666070901589980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_67
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 134
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af11cfc5c3978dba0800000000000000
+      internalID: -6063963598089350662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_68
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 133
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fe7594e29e7fe8a0800000000000000
+      internalID: -6273656586538483977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_69
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 134
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5881822818a9bf8f0800000000000000
+      internalID: -505640652123924347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_70
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 133
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 412247a118221f370800000000000000
+      internalID: 8354496721638924820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_71
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 134
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7b6720dd3e4f9c30800000000000000
+      internalID: 4368296190964886398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_72
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 133
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9baf265ff0462760800000000000000
+      internalID: 7432699700428385182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_73
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 134
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd68fb7889ddea570800000000000000
+      internalID: 8479958795567466203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_74
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 101
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 583036e92423d6210800000000000000
+      internalID: 1327772726850683781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_75
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 102
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e5d10a4b70871a60800000000000000
+      internalID: 7644720159495673315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_76
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 101
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1558c4224ba70440800000000000000
+      internalID: 4902075019989374236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_77
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 102
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fa40af77abb54fb0800000000000000
+      internalID: -4664115510997136653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_78
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 101
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fa1fbef232cc7860800000000000000
+      internalID: 7529106201334717173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_79
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 102
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4e1fc09e457db510800000000000000
+      internalID: 1566537225692192333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_80
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 101
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b63d20e08177a54d0800000000000000
+      internalID: -3145070444566883477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_81
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 102
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 055ef0705583b0e80800000000000000
+      internalID: -8211407557738109616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_82
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 101
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d5107d106c779630800000000000000
+      internalID: 3933749551784007126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_83
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 102
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7cd0714ac11ebec0800000000000000
+      internalID: -3549379895942390660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_84
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 101
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 569e7e30536295130800000000000000
+      internalID: 3555915389926369637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_85
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 102
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7f09208b100ae4f0800000000000000
+      internalID: -798825865790550148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_86
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 69
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3ef8f7c2d166c0c0800000000000000
+      internalID: -4555846415112667586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_87
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 70
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a60aec26f58f074d0800000000000000
+      internalID: -3138735851713945494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_88
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 69
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c52e28cf6591c9370800000000000000
+      internalID: 8330561272122892892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_89
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 70
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4da4a06bf728849a0800000000000000
+      internalID: -6248600997949977900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_90
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 69
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5101d4c0392e69b0800000000000000
+      internalID: -5085081639817510563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_91
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 70
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a5a703c745181e90800000000000000
+      internalID: -7054865418316962395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_92
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 69
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e482e53651fc38250800000000000000
+      internalID: 5945823623827564622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_93
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 70
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3892f57606532a0c0800000000000000
+      internalID: -4566028384032839293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_94
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 69
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee793f89c9ac65e80800000000000000
+      internalID: -8190136098396858386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_95
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 70
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6727e9af04f730a0800000000000000
+      internalID: -6901779555809810580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_96
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 69
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b08c8884c41f0c5b0800000000000000
+      internalID: -5350011047379417077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_97
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 70
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86cd68016f85ebdc0800000000000000
+      internalID: -3621359236496827288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_98
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 37
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 701e84b387d596a70800000000000000
+      internalID: 8820684116153917703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_99
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 38
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c99d16e57fae3f6f0800000000000000
+      internalID: -651919172877297252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_100
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 37
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74fff152ee8b8c000800000000000000
+      internalID: 56498328306712391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_101
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 38
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f322813ef025efc10800000000000000
+      internalID: 2089197505334485567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_102
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 37
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6129c29c133579f0800000000000000
+      internalID: -471414388175593105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_103
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 38
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 708746a406f4aa4d0800000000000000
+      internalID: -3122596116644464633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_104
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 37
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4a1b2a5580a91610800000000000000
+      internalID: 1592480437856049740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_105
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 38
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20699aeec3502d6b0800000000000000
+      internalID: -5273146454437161470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_106
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 37
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f044b72a1ebbaaec0800000000000000
+      internalID: -3554822378087562225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_107
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 38
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91c17bb9b43c501d0800000000000000
+      internalID: -3385084815396627431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_108
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 37
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8694c99328b127d40800000000000000
+      internalID: 5580553134391708008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_109
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 38
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4706390d12752930800000000000000
+      internalID: 4117822903334340428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_110
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 5
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 129dde065a68298a0800000000000000
+      internalID: -6299824883883976415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_111
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 6
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50229449133af88b0800000000000000
+      internalID: -5147716415724641787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_112
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 5
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 443086aa04b7128e0800000000000000
+      internalID: -1719958065011752124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_113
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 6
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 039c3d03a94cbddd0800000000000000
+      internalID: -2460156604904650448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_114
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 5
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9ed943ab04cc3770800000000000000
+      internalID: 8591957743379275421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_115
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 6
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d5c81012ec171800800000000000000
+      internalID: 582966434026014160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_116
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 5
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b166eb4793763e80800000000000000
+      internalID: -8199238977930763852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_117
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 6
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ba4a06cd9d40ec40800000000000000
+      internalID: 5539512881693477555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_118
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 5
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f5006f830119d000800000000000000
+      internalID: 61098776934221300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_119
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 6
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0bbf97de5685a100800000000000000
+      internalID: 118648707097803533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_120
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 5
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aac8dba1327030c70800000000000000
+      internalID: 8935993932987075754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _all_tabs_121
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 6
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e4d9cfa3c18b97b0800000000000000
+      internalID: -5216433065910741789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      _all_tabs_0: 8857802099881120449
+      _all_tabs_1: -7899178773328400550
+      _all_tabs_10: -1298141424992265196
+      _all_tabs_100: 56498328306712391
+      _all_tabs_101: 2089197505334485567
+      _all_tabs_102: -471414388175593105
+      _all_tabs_103: -3122596116644464633
+      _all_tabs_104: 1592480437856049740
+      _all_tabs_105: -5273146454437161470
+      _all_tabs_106: -3554822378087562225
+      _all_tabs_107: -3385084815396627431
+      _all_tabs_108: 5580553134391708008
+      _all_tabs_109: 4117822903334340428
+      _all_tabs_11: -2146030080983367403
+      _all_tabs_110: -6299824883883976415
+      _all_tabs_111: -5147716415724641787
+      _all_tabs_112: -1719958065011752124
+      _all_tabs_113: -2460156604904650448
+      _all_tabs_114: 8591957743379275421
+      _all_tabs_115: 582966434026014160
+      _all_tabs_116: -8199238977930763852
+      _all_tabs_117: 5539512881693477555
+      _all_tabs_118: 61098776934221300
+      _all_tabs_119: 118648707097803533
+      _all_tabs_12: 5017868013702631445
+      _all_tabs_120: 8935993932987075754
+      _all_tabs_121: -5216433065910741789
+      _all_tabs_13: -6862689588354791556
+      _all_tabs_14: -5315056234831906003
+      _all_tabs_15: -3897511058043144711
+      _all_tabs_16: -2761320526696665633
+      _all_tabs_17: 1684711664068288457
+      _all_tabs_18: -5723330303050032143
+      _all_tabs_19: -6201829274019058510
+      _all_tabs_2: 2654893832502430663
+      _all_tabs_20: 7476205025279757448
+      _all_tabs_21: 8434992149178357277
+      _all_tabs_22: -1801365012468817952
+      _all_tabs_23: -8382811705132554015
+      _all_tabs_24: 6744190404107065072
+      _all_tabs_25: 1737137561391529325
+      _all_tabs_26: 1678928823865823366
+      _all_tabs_27: -1854284014899490420
+      _all_tabs_28: 5763949563394040362
+      _all_tabs_29: 358478404141534008
+      _all_tabs_3: 8570926878062507173
+      _all_tabs_30: 1395942868574496460
+      _all_tabs_31: 4307522211030027937
+      _all_tabs_32: -5054848012010306134
+      _all_tabs_33: -832365156504960493
+      _all_tabs_34: 4104937555810680541
+      _all_tabs_35: 200243232307480535
+      _all_tabs_36: -1207196794705529872
+      _all_tabs_37: 1928488124794842421
+      _all_tabs_38: 5176394591862562290
+      _all_tabs_39: -3850055965474917837
+      _all_tabs_4: -7979296290563109975
+      _all_tabs_40: -8479864185121261519
+      _all_tabs_41: -6037831541319675837
+      _all_tabs_42: -6361675046474733859
+      _all_tabs_43: -2792093855424701401
+      _all_tabs_44: 3634986211398702083
+      _all_tabs_45: 1442557900820013052
+      _all_tabs_46: -1061347639168197883
+      _all_tabs_47: 5130683834237323446
+      _all_tabs_48: 6753110872722576030
+      _all_tabs_49: -4057296077999326177
+      _all_tabs_5: 1274753151687275164
+      _all_tabs_50: 3396829081050863137
+      _all_tabs_51: 6574683030449332928
+      _all_tabs_52: -8765758272291098441
+      _all_tabs_53: -1086982983986130839
+      _all_tabs_54: 6016969934812245757
+      _all_tabs_55: -1926978848634892866
+      _all_tabs_56: -3379255066293068140
+      _all_tabs_57: 1675003489299567228
+      _all_tabs_58: -3124898131417045116
+      _all_tabs_59: 2612591667390300267
+      _all_tabs_6: 1097862057895392251
+      _all_tabs_60: 3315669879616935556
+      _all_tabs_61: -3782499865322150549
+      _all_tabs_62: 3203721320991372865
+      _all_tabs_63: -4334680581743116771
+      _all_tabs_64: 502705470437724939
+      _all_tabs_65: -4256338433037814704
+      _all_tabs_66: 1677666070901589980
+      _all_tabs_67: -6063963598089350662
+      _all_tabs_68: -6273656586538483977
+      _all_tabs_69: -505640652123924347
+      _all_tabs_7: 3814851648839034430
+      _all_tabs_70: 8354496721638924820
+      _all_tabs_71: 4368296190964886398
+      _all_tabs_72: 7432699700428385182
+      _all_tabs_73: 8479958795567466203
+      _all_tabs_74: 1327772726850683781
+      _all_tabs_75: 7644720159495673315
+      _all_tabs_76: 4902075019989374236
+      _all_tabs_77: -4664115510997136653
+      _all_tabs_78: 7529106201334717173
+      _all_tabs_79: 1566537225692192333
+      _all_tabs_8: 1268943903102414062
+      _all_tabs_80: -3145070444566883477
+      _all_tabs_81: -8211407557738109616
+      _all_tabs_82: 3933749551784007126
+      _all_tabs_83: -3549379895942390660
+      _all_tabs_84: 3555915389926369637
+      _all_tabs_85: -798825865790550148
+      _all_tabs_86: -4555846415112667586
+      _all_tabs_87: -3138735851713945494
+      _all_tabs_88: 8330561272122892892
+      _all_tabs_89: -6248600997949977900
+      _all_tabs_9: -3662053891087355470
+      _all_tabs_90: -5085081639817510563
+      _all_tabs_91: -7054865418316962395
+      _all_tabs_92: 5945823623827564622
+      _all_tabs_93: -4566028384032839293
+      _all_tabs_94: -8190136098396858386
+      _all_tabs_95: -6901779555809810580
+      _all_tabs_96: -5350011047379417077
+      _all_tabs_97: -3621359236496827288
+      _all_tabs_98: 8820684116153917703
+      _all_tabs_99: -651919172877297252
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

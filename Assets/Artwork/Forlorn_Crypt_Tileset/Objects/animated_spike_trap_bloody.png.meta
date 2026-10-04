@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 2a13a447209706045a399319a9db3123
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7273405971685319679
+    second: animated_spike_trap_bloody_0
+  - first:
+      213: 7564104673678343432
+    second: animated_spike_trap_bloody_1
+  - first:
+      213: -5510378907676063396
+    second: animated_spike_trap_bloody_2
+  - first:
+      213: 7012857285968446985
+    second: animated_spike_trap_bloody_3
+  - first:
+      213: -736898116861733018
+    second: animated_spike_trap_bloody_4
+  - first:
+      213: -5223375521855582154
+    second: animated_spike_trap_bloody_5
+  - first:
+      213: -2105768716220002612
+    second: animated_spike_trap_bloody_6
+  - first:
+      213: -6580656480957657340
+    second: animated_spike_trap_bloody_7
+  - first:
+      213: 5783158164786311740
+    second: animated_spike_trap_bloody_8
+  - first:
+      213: -3157875029642533860
+    second: animated_spike_trap_bloody_9
+  - first:
+      213: -5044357446582654297
+    second: animated_spike_trap_bloody_10
+  - first:
+      213: -9221354855402016032
+    second: animated_spike_trap_bloody_11
+  - first:
+      213: -8985081975776094509
+    second: animated_spike_trap_bloody_12
+  - first:
+      213: 4161961844417678034
+    second: animated_spike_trap_bloody_13
+  - first:
+      213: 3704788875433779844
+    second: animated_spike_trap_bloody_14
+  - first:
+      213: -2743871791951077404
+    second: animated_spike_trap_bloody_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 8
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10cdd7e0ecbaf0b90800000000000000
+      internalID: -7273405971685319679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80d3876df1919f860800000000000000
+      internalID: 7564104673678343432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_2
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 8
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c59c92624933783b0800000000000000
+      internalID: -5510378907676063396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_3
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 2
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 906c8aebb8ca25160800000000000000
+      internalID: 7012857285968446985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_4
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 8
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6675dc4211306c5f0800000000000000
+      internalID: -736898116861733018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_5
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 2
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 630d35333a7d287b0800000000000000
+      internalID: -5223375521855582154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_6
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 8
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce839a628ec6c2e0800000000000000
+      internalID: -2105768716220002612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_7
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 2
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40f85afdbcfcca4a0800000000000000
+      internalID: -6580656480957657340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_8
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 8
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c32fcfbd5b7e14050800000000000000
+      internalID: 5783158164786311740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_9
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 2
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c14a4154469fc24d0800000000000000
+      internalID: -3157875029642533860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_10
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 8
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aa2854e0a7def9b0800000000000000
+      internalID: -5044357446582654297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_11
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 2
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e270f7ad9a270080800000000000000
+      internalID: -9221354855402016032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_12
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 8
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d6d91c4c839e4380800000000000000
+      internalID: -8985081975776094509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_13
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 2
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dace391f3242c930800000000000000
+      internalID: 4161961844417678034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_14
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 8
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 482ac087add0a6330800000000000000
+      internalID: 3704788875433779844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animated_spike_trap_bloody_15
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 2
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ef9a83942fcbe9d0800000000000000
+      internalID: -2743871791951077404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      animated_spike_trap_bloody_0: -7273405971685319679
+      animated_spike_trap_bloody_1: 7564104673678343432
+      animated_spike_trap_bloody_10: -5044357446582654297
+      animated_spike_trap_bloody_11: -9221354855402016032
+      animated_spike_trap_bloody_12: -8985081975776094509
+      animated_spike_trap_bloody_13: 4161961844417678034
+      animated_spike_trap_bloody_14: 3704788875433779844
+      animated_spike_trap_bloody_15: -2743871791951077404
+      animated_spike_trap_bloody_2: -5510378907676063396
+      animated_spike_trap_bloody_3: 7012857285968446985
+      animated_spike_trap_bloody_4: -736898116861733018
+      animated_spike_trap_bloody_5: -5223375521855582154
+      animated_spike_trap_bloody_6: -2105768716220002612
+      animated_spike_trap_bloody_7: -6580656480957657340
+      animated_spike_trap_bloody_8: 5783158164786311740
+      animated_spike_trap_bloody_9: -3157875029642533860
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
