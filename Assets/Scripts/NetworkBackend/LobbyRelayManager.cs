@@ -15,6 +15,8 @@ public class LobbyRelayManager : MonoBehaviour
     private Lobby lobby;
     private bool isHost;
     private float heartbeatTimer;
+    
+    private string statusMessage = "";
 
     private async void Start()
     {
@@ -46,12 +48,21 @@ public class LobbyRelayManager : MonoBehaviour
 
     public async void JoinGame(string code)
     {
-        lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code);
-        var joinAlloc = await RelayService.Instance.JoinAllocationAsync(lobby.Data["RelayCode"].Value);
 
-        NetworkManager.Singleton.GetComponent<UnityTransport>()
-            .SetRelayServerData(new RelayServerData(joinAlloc, "dtls"));
-        NetworkManager.Singleton.StartClient();
+        try
+        {
+            lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code);
+            var joinAlloc = await RelayService.Instance.JoinAllocationAsync(lobby.Data["RelayCode"].Value);
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>()
+                .SetRelayServerData(new RelayServerData(joinAlloc, "dtls"));
+            NetworkManager.Singleton.StartClient();
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.LogWarning($"Kunne ikke joine: {e.Message}");
+            statusMessage = "Forkert lobby-id";
+        }
     }
 
     private async void Update()
@@ -63,5 +74,28 @@ public class LobbyRelayManager : MonoBehaviour
             heartbeatTimer = 15;
             await LobbyService.Instance.SendHeartbeatPingAsync(lobby.Id);
         }
+    }
+    
+    
+    
+    //---------TEST---------
+    private string joinCode = "";
+
+    private void OnGUI()
+    {
+        if (NetworkManager.Singleton != null &&
+            (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer))
+        {
+            GUILayout.Label($"Connected players: {NetworkManager.Singleton.ConnectedClients.Count}");
+            if (lobby != null) GUILayout.Label($"Room code: {lobby.LobbyCode}");
+            return;
+        }
+
+        if (GUILayout.Button("Host", GUILayout.Width(150), GUILayout.Height(40)))
+            CreateGame();
+
+        joinCode = GUILayout.TextField(joinCode, GUILayout.Width(150));
+        if (GUILayout.Button("Join", GUILayout.Width(150), GUILayout.Height(40)))
+            JoinGame(joinCode.Trim().ToUpper());
     }
 }
