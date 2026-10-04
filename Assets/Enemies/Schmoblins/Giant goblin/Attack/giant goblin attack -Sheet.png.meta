@@ -135,6 +135,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -142,12 +168,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -164,12 +190,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_1
       rect:
         serializedVersion: 2
-        x: 98
+        x: 96
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -186,12 +212,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_2
       rect:
         serializedVersion: 2
-        x: 194
+        x: 192
         y: 0
-        width: 43
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -208,12 +234,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_3
       rect:
         serializedVersion: 2
-        x: 290
+        x: 288
         y: 0
-        width: 43
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -230,12 +256,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_4
       rect:
         serializedVersion: 2
-        x: 386
+        x: 384
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -252,12 +278,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_5
       rect:
         serializedVersion: 2
-        x: 482
+        x: 480
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -274,12 +300,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_6
       rect:
         serializedVersion: 2
-        x: 577
+        x: 576
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -296,12 +322,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_7
       rect:
         serializedVersion: 2
-        x: 673
+        x: 672
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -318,12 +344,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_8
       rect:
         serializedVersion: 2
-        x: 769
+        x: 768
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -340,12 +366,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_9
       rect:
         serializedVersion: 2
-        x: 867
+        x: 864
         y: 0
-        width: 43
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -362,12 +388,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_10
       rect:
         serializedVersion: 2
-        x: 974
+        x: 960
         y: 0
-        width: 72
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -384,12 +410,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_11
       rect:
         serializedVersion: 2
-        x: 1070
+        x: 1056
         y: 0
-        width: 81
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -406,12 +432,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_12
       rect:
         serializedVersion: 2
-        x: 1166
+        x: 1152
         y: 0
-        width: 70
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -428,12 +454,12 @@ TextureImporter:
       name: giant goblin attack -Sheet_13
       rect:
         serializedVersion: 2
-        x: 1262
+        x: 1248
         y: 0
-        width: 63
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 96
+        height: 48
+      alignment: 9
+      pivot: {x: 0.26041666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -450,7 +476,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5ce4fe5dd5c7d45adafde9ed1612505e
     internalID: 0
     vertices: []
     indices: 
@@ -458,7 +484,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":14.0,"y":1.0},"gridSpriteSize":{"x":96.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       giant goblin attack -Sheet_0: -6006570360071661955
       giant goblin attack -Sheet_1: 8609992851514953544
