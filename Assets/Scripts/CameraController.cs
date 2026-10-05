@@ -12,7 +12,8 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset ; //henter positionen af player og sætter det til vores camera position
         if (player == null) return; // ingen spiller før man har joinet
+        transform.position = player.transform.position + offset ; //henter positionen af player og sætter det til vores camera position
+
     }
 }
