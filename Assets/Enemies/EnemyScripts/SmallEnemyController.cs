@@ -117,12 +117,21 @@ public class SmallEnemyController : NetworkBehaviour
                 SetTrigger("Death");
                 // fjern fjenden når death-animationen er færdig
                 AnimationClip death = System.Array.Find(animator.runtimeAnimatorController.animationClips, c => c.name == "Death");
-                Destroy(gameObject, death != null ? death.length : 0f);
+                float delay = death != null ? death.length : 0f;
+                if (IsSpawned) StartCoroutine(DespawnAfter(delay));
+                else Destroy(gameObject, delay); // offline
             });
         }
 
         sineOrigin = transform.position;
         orbitAngleDeg = Random.Range(0f, 360f); // stagger multiple orbiters
+    }
+
+    // Destroy() på hosten fjerner ikke scene-placerede fjender hos klienterne, Despawn() gør
+    private IEnumerator DespawnAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        NetworkObject.Despawn();
     }
 
     private void Start()
