@@ -187,6 +187,26 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8837239713099834957, guid: b82f0baf6e1a4808bbe910ee4bdef922, type: 3}
+      propertyPath: m_InScenePlaced
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837239713099834957, guid: b82f0baf6e1a4808bbe910ee4bdef922, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 463838755
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837239713099834957, guid: b82f0baf6e1a4808bbe910ee4bdef922, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837239713099834957, guid: b82f0baf6e1a4808bbe910ee4bdef922, type: 3}
+      propertyPath: m_InScenePlacedDisabledByDefault
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837239713099834957, guid: b82f0baf6e1a4808bbe910ee4bdef922, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 324145852
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -298,11 +318,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4267423297816135305, guid: db044f819d314271b23ebb0ee98ff2a8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4511776026656779742, guid: db044f819d314271b23ebb0ee98ff2a8, type: 3}
       propertyPath: player
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130551254873342723, guid: db044f819d314271b23ebb0ee98ff2a8, type: 3}
+      propertyPath: m_InScenePlaced
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130551254873342723, guid: db044f819d314271b23ebb0ee98ff2a8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3335788327
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130551254873342723, guid: db044f819d314271b23ebb0ee98ff2a8, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130551254873342723, guid: db044f819d314271b23ebb0ee98ff2a8, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3380517672
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2424,6 +2460,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874734787387261434, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
+      propertyPath: m_InScenePlaced
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 874734787387261434, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2292431035
+      objectReference: {fileID: 0}
+    - target: {fileID: 874734787387261434, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874734787387261434, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
+      propertyPath: m_InScenePlacedDisabledByDefault
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 874734787387261434, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3250060424
+      objectReference: {fileID: 0}
     - target: {fileID: 3510852485184068842, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
       propertyPath: m_Name
       value: MageGoblin
@@ -2503,7 +2559,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 187583892366987139, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538651324194408374, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
+      propertyPath: m_InScenePlaced
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538651324194408374, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2009126216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538651324194408374, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
+      propertyPath: SceneMigrationSynchronization
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538651324194408374, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
+      propertyPath: m_InScenePlacedDisabledByDefault
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538651324194408374, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 4075496303
       objectReference: {fileID: 0}
     - target: {fileID: 2025229159568634788, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
       propertyPath: player
