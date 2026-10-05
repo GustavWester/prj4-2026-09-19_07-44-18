@@ -61,8 +61,10 @@ public class Fireball : MonoBehaviour
 
         if (other.CompareTag("Bullet")) return;
         
-        // SendMessage, så enemies bare skal have en TakeDamage(int)-metode. Ingen krav om fælles klasse.
-        other.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+        // Hver klient har sin egen fireball, så kun hosten må give skade (ellers tælles den dobbelt)
+        var nm = Unity.Netcode.NetworkManager.Singleton;
+        if (nm == null || !nm.IsListening || nm.IsServer)
+            other.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
 
         PlayImpactJuice();
         Destroy(gameObject);
