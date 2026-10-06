@@ -36,6 +36,7 @@ public class SmallEnemyController : NetworkBehaviour
 
     [Header("Targeting")]
     private Transform player; // nærmeste spiller, findes på ny hver FixedUpdate
+    private Collider2D room;  // rummet fjenden starter i. Den angriber kun spillere der står i det (null = alle)
     public Transform firePoint; // only needed for Ranged
 
     [Header("Movement pattern")]
@@ -96,6 +97,7 @@ public class SmallEnemyController : NetworkBehaviour
         float best = float.MaxValue;
         foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
         {
+            if (room != null && !room.OverlapPoint(p.transform.position)) continue; // ikke i mit rum endnu
             float d = ((Vector2)p.transform.position - rb.position).sqrMagnitude;
             if (d < best) { best = d; player = p.transform; }
         }
@@ -108,16 +110,21 @@ public class SmallEnemyController : NetworkBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         health = GetComponent<Health>();
         netAnimator = GetComponent<NetworkAnimator>();
-        if (health != null && animator != null)
+        if (health != null)
         {
-            health.onDamaged.AddListener(() => { if (RunsAI && !health.IsDead) SetTrigger("Hurt"); });
+            if (animator != null)
+                health.onDamaged.AddListener(() => { if (RunsAI && !health.IsDead) SetTrigger("Hurt"); });
             health.onDeath.AddListener(() =>
             {
                 if (!RunsAI) return; // hosten afspiller døden og fjerner fjenden for alle
-                SetTrigger("Death");
-                // fjern fjenden når death-animationen er færdig
-                AnimationClip death = System.Array.Find(animator.runtimeAnimatorController.animationClips, c => c.name == "Death");
-                float delay = death != null ? death.length : 0f;
+                // fjenden fjernes når death-animationen er færdig, eller med det samme hvis den ikke har en (fx RedWizard)
+                float delay = 0f;
+                if (animator != null)
+                {
+                    SetTrigger("Death");
+                    AnimationClip death = System.Array.Find(animator.runtimeAnimatorController.animationClips, c => c.name == "Death");
+                    if (death != null) delay = death.length;
+                }
                 if (IsSpawned) StartCoroutine(DespawnAfter(delay));
                 else Destroy(gameObject, delay); // offline
             });
@@ -136,6 +143,7 @@ public class SmallEnemyController : NetworkBehaviour
 
     private void Start()
     {
+        room = RoomVisibility.RoomAt(transform.position);
         if (stats == null)
         {
             Debug.LogWarning($"{name}: no EnemyStats assigned — falling back to default speeds/ranges.");

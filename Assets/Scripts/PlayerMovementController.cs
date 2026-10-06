@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Simpel movement controller til top-down 2D bullet hell.
@@ -43,8 +44,26 @@ public class PlayerMovementController : NetworkBehaviour
     public bool HasControl => !IsSpawned || IsOwner;
     public override void OnNetworkSpawn()
     {
+        if (!IsOwner) return;
         // kameraet skal kun følge min egen wizard
-        if (IsOwner) Camera.main.GetComponent<CameraController>().player = gameObject;
+        Camera.main.GetComponent<CameraController>().player = gameObject;
+
+        // i editoren og menuen er hele banen oplyst (Global Light 2D = 1). Nu bliver alt mørkt,
+        // og RoomVisibility tænder kun rummet man står i
+        foreach (var light in FindObjectsByType<Light2D>())
+            if (light.lightType == Light2D.LightType.Global) light.intensity = 0f;
+        foreach (var room in FindObjectsByType<RoomVisibility>())
+            room.GetComponent<Light2D>().enabled = false;
+
+        // NetworkManager spawner ved prefab'ens position. Findes et "PlayerSpawn" i scenen, starter vi der,
+        // forskudt 1 enhed pr. spiller så de ikke står oven i hinanden
+        GameObject spawn = GameObject.Find("PlayerSpawn");
+        if (spawn != null)
+        {
+            Vector3 pos = spawn.transform.position + Vector3.right * OwnerClientId;
+            transform.position = pos;
+            rb.position = pos;
+        }
     }
     private bool isDashing = false;
     private float dashTimer = 0f;
