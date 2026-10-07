@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Netcode;
 
 /// <summary>
 /// Universal "can take damage and die" component. Used by bosses,
@@ -14,7 +15,7 @@ using UnityEngine.Events;
 ///   (typical for a boss or the player, which don't use EnemyStats).
 /// </summary>
 [DisallowMultipleComponent]
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour
 {
     [Header("Stats source (optional)")]
     [Tooltip("If assigned, maxHealth is pulled from stats.Health at Awake. Leave empty for things (e.g. a boss or the player) that set maxHealth directly instead.")]
@@ -24,7 +25,9 @@ public class Health : MonoBehaviour
     [Tooltip("Used directly if no EnemyStats is assigned.")]
     public int maxHealth = 100;
 
-    public int CurrentHealth { get; private set; }
+    // Serveren ejer livet. Klienter får værdien automatisk og kører de samme events.
+    private readonly NetworkVariable<int> netHealth = new();
+    public int CurrentHealth => netHealth.Value;
     public float HealthPercent => maxHealth > 0 ? (float)CurrentHealth / maxHealth : 0f;
     public bool IsDead { get; private set; }
     public bool IsInvulnerable { get; set; }
@@ -42,27 +45,32 @@ public class Health : MonoBehaviour
         if (stats != null)
             maxHealth = stats.Health;
 
-        CurrentHealth = maxHealth;
+        netHealth.Value = maxHealth;
+        // kører både på serveren (når den skriver) og på klienter (når de modtager)
+        netHealth.OnValueChanged += OnHealthChanged;
     }
 
     public void TakeDamage(int amount)
     {
+        if (IsSpawned && !IsServer) return; // kun hosten giver skade - gælder fireball, pile og melee
         if (IsInvulnerable || IsDead || amount <= 0) return;
 
-        CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
-        onDamaged?.Invoke();
-        onHealthPercentChanged?.Invoke(HealthPercent);
-
-        if (CurrentHealth <= 0)
-            Die();
+        netHealth.Value = Mathf.Max(0, CurrentHealth - amount);
     }
 
     public void Heal(int amount)
     {
+        if (IsSpawned && !IsServer) return;
         if (IsDead || amount <= 0) return;
 
-        CurrentHealth = Mathf.Min(maxHealth, CurrentHealth + amount);
+        netHealth.Value = Mathf.Min(maxHealth, CurrentHealth + amount);
+    }
+
+    private void OnHealthChanged(int previous, int current)
+    {
+        if (current < previous) onDamaged?.Invoke();
         onHealthPercentChanged?.Invoke(HealthPercent);
+        if (current <= 0 && !IsDead) Die();
     }
 
     private void Die()

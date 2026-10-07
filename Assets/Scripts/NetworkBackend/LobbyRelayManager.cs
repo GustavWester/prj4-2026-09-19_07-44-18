@@ -78,24 +78,53 @@ public class LobbyRelayManager : MonoBehaviour
     
     
     
-    //---------TEST---------
-    private string joinCode = "";
+   //---------MENU---------
+private string joinCode = "";
+private bool showJoin; // false = Host/Join-knapper, true = felt til lobby-id
+private GUIStyle titleStyle, buttonStyle, fieldStyle, labelStyle;
 
-    private void OnGUI()
+private void OnGUI()
+{
+    if (NetworkManager.Singleton != null &&
+        (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer))
     {
-        if (NetworkManager.Singleton != null &&
-            (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer))
-        {
-            GUILayout.Label($"Connected players: {NetworkManager.Singleton.ConnectedClients.Count}");
-            if (lobby != null) GUILayout.Label($"Room code: {lobby.LobbyCode}");
-            return;
-        }
-
-        if (GUILayout.Button("Host", GUILayout.Width(150), GUILayout.Height(40)))
-            CreateGame();
-
-        joinCode = GUILayout.TextField(joinCode, GUILayout.Width(150));
-        if (GUILayout.Button("Join", GUILayout.Width(150), GUILayout.Height(40)))
-            JoinGame(joinCode.Trim().ToUpper());
+        GUILayout.Label($"Connected players: {NetworkManager.Singleton.ConnectedClients.Count}");
+        if (lobby != null) GUILayout.Label($"Room code: {lobby.LobbyCode}");
+        return;
     }
+
+    if (titleStyle == null) // GUI.skin findes kun inde i OnGUI, så styles laves her første gang
+    {
+        titleStyle  = new GUIStyle(GUI.skin.label)     { fontSize = 64, fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
+        buttonStyle = new GUIStyle(GUI.skin.button)    { fontSize = 32 };
+        fieldStyle  = new GUIStyle(GUI.skin.textField) { fontSize = 32, alignment = TextAnchor.MiddleCenter };
+        labelStyle  = new GUIStyle(GUI.skin.label)     { fontSize = 24, alignment = TextAnchor.MiddleCenter };
+    }
+
+    // en kolonne midt på skærmen
+    float w = 500;
+    GUILayout.BeginArea(new Rect((Screen.width - w) / 2, Screen.height * 0.15f, w, Screen.height * 0.8f));
+    GUILayout.Label("Dungeon Quest", titleStyle, GUILayout.Height(120));
+    GUILayout.Space(40);
+
+    if (!showJoin)
+    {
+        if (GUILayout.Button("Host", buttonStyle, GUILayout.Height(70))) CreateGame();
+        GUILayout.Space(20);
+        if (GUILayout.Button("Join", buttonStyle, GUILayout.Height(70))) showJoin = true;
+    }
+    else
+    {
+        GUILayout.Label("Lobby-id", labelStyle);
+        joinCode = GUILayout.TextField(joinCode, fieldStyle, GUILayout.Height(60));
+        GUILayout.Space(20);
+        if (GUILayout.Button("Join", buttonStyle, GUILayout.Height(70))) JoinGame(joinCode.Trim().ToUpper());
+        GUILayout.Space(10);
+        if (GUILayout.Button("Tilbage", buttonStyle, GUILayout.Height(50))) { showJoin = false; statusMessage = ""; }
+    }
+
+    // statusMessage ("Forkert lobby-id") blev sat før, men aldrig vist
+    if (statusMessage != "") GUILayout.Label(statusMessage, labelStyle);
+    GUILayout.EndArea();
+}
 }

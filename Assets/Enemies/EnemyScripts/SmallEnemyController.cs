@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 
 /// <summary>
 /// Universal behaviour for small enemies: movement + attacking only.
@@ -16,7 +18,7 @@ using UnityEngine;
 ///   damage to the player when within stats.attackRange, on cooldown.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class SmallEnemyController : MonoBehaviour
+public class SmallEnemyController : NetworkBehaviour
 {
     public enum MovementPattern
     {
@@ -33,7 +35,8 @@ public class SmallEnemyController : MonoBehaviour
     public StatsSO stats;
 
     [Header("Targeting")]
-    public Transform player;
+    private Transform player; // nærmeste spiller, findes på ny hver FixedUpdate
+    private Collider2D room;  // rummet fjenden starter i. Den angriber kun spillere der står i det (null = alle)
     public Transform firePoint; // only needed for Ranged
 
     [Header("Movement pattern")]
@@ -75,6 +78,30 @@ public class SmallEnemyController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Health health;
     private bool IsDead => health != null && health.IsDead;
+    private NetworkAnimator netAnimator;
+    private readonly NetworkVariable<bool> netFlipX = new();
+    // AI, angreb og skade kører kun på hosten (eller offline)
+    private bool RunsAI => !IsSpawned || IsServer;
+
+    // NetworkAnimator.SetTrigger giver fejl når vi ikke er online
+    private void SetTrigger(string trigger)
+    {
+        if (IsSpawned) netAnimator.SetTrigger(trigger);
+        else animator.SetTrigger(trigger);
+    }
+
+    private void FindNearestPlayer()
+    {
+        //  søger alle spillere hver physics-frame, fint med få fjender 
+        player = null;
+        float best = float.MaxValue;
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (room != null && !room.OverlapPoint(p.transform.position)) continue; // ikke i mit rum endnu
+            float d = ((Vector2)p.transform.position - rb.position).sqrMagnitude;
+            if (d < best) { best = d; player = p.transform; }
+        }
+    }
 
     private void Awake()
     {
@@ -82,30 +109,41 @@ public class SmallEnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         health = GetComponent<Health>();
-        if (health != null && animator != null)
+        netAnimator = GetComponent<NetworkAnimator>();
+        if (health != null)
         {
-            health.onDamaged.AddListener(() => { if (!health.IsDead) animator.SetTrigger("Hurt"); });
+            if (animator != null)
+                health.onDamaged.AddListener(() => { if (RunsAI && !health.IsDead) SetTrigger("Hurt"); });
             health.onDeath.AddListener(() =>
             {
-                animator.SetTrigger("Death");
-                // fjern fjenden når death-animationen er færdig
-                AnimationClip death = System.Array.Find(animator.runtimeAnimatorController.animationClips, c => c.name == "Death");
-                Destroy(gameObject, death != null ? death.length : 0f);
+                if (!RunsAI) return; // hosten afspiller døden og fjerner fjenden for alle
+                // fjenden fjernes når death-animationen er færdig, eller med det samme hvis den ikke har en (fx RedWizard)
+                float delay = 0f;
+                if (animator != null)
+                {
+                    SetTrigger("Death");
+                    AnimationClip death = System.Array.Find(animator.runtimeAnimatorController.animationClips, c => c.name == "Death");
+                    if (death != null) delay = death.length;
+                }
+                if (IsSpawned) StartCoroutine(DespawnAfter(delay));
+                else Destroy(gameObject, delay); // offline
             });
-        }
-
-        if (player == null)
-        {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null) player = playerObj.transform;
         }
 
         sineOrigin = transform.position;
         orbitAngleDeg = Random.Range(0f, 360f); // stagger multiple orbiters
     }
 
+    // Destroy() på hosten fjerner ikke scene-placerede fjender hos klienterne, Despawn() gør
+    private IEnumerator DespawnAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        NetworkObject.Despawn();
+    }
+
     private void Start()
     {
+        room = RoomVisibility.RoomAt(transform.position);
         if (stats == null)
         {
             Debug.LogWarning($"{name}: no EnemyStats assigned — falling back to default speeds/ranges.");
@@ -129,6 +167,13 @@ public class SmallEnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!RunsAI)
+        {
+            if (spriteRenderer != null) spriteRenderer.flipX = netFlipX.Value;
+            return; // position og animation kommer fra hosten
+        }
+        FindNearestPlayer();
+
         if (IsDead)
         {
             rb.linearVelocity = Vector2.zero;
@@ -166,6 +211,8 @@ public class SmallEnemyController : MonoBehaviour
         bool seesPlayer = player != null && Vector2.Distance(rb.position, player.position) <= DetectionRange;
         float faceX = seesPlayer ? player.position.x - rb.position.x : rb.linearVelocity.x;
         if (spriteRenderer != null && faceX != 0f) spriteRenderer.flipX = faceX < 0f; // venstre spejles
+         if (IsSpawned && spriteRenderer != null) netFlipX.Value = spriteRenderer.flipX;
+
     }
 
     // ---------------------------------------------------------------
@@ -271,13 +318,13 @@ public class SmallEnemyController : MonoBehaviour
             float jitter = Random.Range(-attackCooldownJitter, attackCooldownJitter);
             yield return new WaitForSeconds(Mathf.Max(0.05f, AttackCooldown + jitter));
 
-            if (player == null || Vector2.Distance(transform.position, player.position) > AttackRange)
+            if (!RunsAI || player == null || Vector2.Distance(transform.position, player.position) > AttackRange)
                 continue;
 
             if (IsDead) yield break;
 
             // med Animator skyder AttackHit() (Animation Event) på det rigtige frame
-            if (animator != null) { animator.SetTrigger("Attack"); continue; }
+            if (animator != null) { SetTrigger("Attack"); continue; }
 
             BulletPatternSO pattern = PickPattern();
             if (pattern != null)
@@ -372,7 +419,20 @@ public class SmallEnemyController : MonoBehaviour
     private void SpawnBullet(BulletPatternSO pattern, Vector2 dir)
     {
         if (pattern.bulletPrefab == null || firePoint == null) return;
-        GameObject go = Instantiate(pattern.bulletPrefab, firePoint.position, Quaternion.identity);
+        // prefabs kan ikke sendes over netværket, så vi sender pattern'ets nummer i listen
+        int index = attackPatterns.IndexOf(pattern);
+        if (IsSpawned) SpawnBulletRpc(index, firePoint.position, dir);
+        else SpawnBulletLocal(index, firePoint.position, dir);
+    }
+
+    // en RPC pr. kugle, fint til små mønstre - send hele volley'en i én RPC hvis det lagger
+    [Rpc(SendTo.Everyone)]
+    private void SpawnBulletRpc(int index, Vector2 pos, Vector2 dir) => SpawnBulletLocal(index, pos, dir);
+
+    private void SpawnBulletLocal(int index, Vector2 pos, Vector2 dir)
+    {
+        BulletPatternSO pattern = attackPatterns[index];
+        GameObject go = Instantiate(pattern.bulletPrefab, pos, Quaternion.identity);
         EnemyBullet b = go.GetComponent<EnemyBullet>();
         if (b != null) b.Init(dir, pattern.bulletSpeed);
         // Hook up stats.attackDamage on the bullet here if/when Bullet.Init
@@ -391,13 +451,13 @@ public class SmallEnemyController : MonoBehaviour
             yield return new WaitForSeconds(Mathf.Max(0.05f, AttackCooldown + jitter));
 
             if (IsDead) yield break;
-            if (player == null) continue;
+            if (!RunsAI || player == null) continue;
 
             float distance = Vector2.Distance(transform.position, player.position);
             if (distance <= AttackRange)
             {
                 // med Animator giver AttackHit() (Animation Event) skaden på slag-framet
-                if (animator != null) animator.SetTrigger("Attack");
+                if (animator != null) SetTrigger("Attack");
                 else player.GetComponent<Health>()?.TakeDamage(stats.attackDamage);
             }
         }
@@ -409,7 +469,7 @@ public class SmallEnemyController : MonoBehaviour
     /// </summary>
     public void AttackHit()
     {
-        if (IsDead || player == null || stats == null) return;
+        if (!RunsAI || IsDead || player == null || stats == null) return;
 
         if (stats.classSo == ClassSO.Melee)
         {

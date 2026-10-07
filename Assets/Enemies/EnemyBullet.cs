@@ -37,7 +37,9 @@ public class EnemyBullet : MonoBehaviour
             other.GetComponent<Health>()?.TakeDamage(1);
             Destroy(gameObject);
         }
-        if (other.CompareTag("Wall"))
+        // alt solidt stopper kuglen (vægge, døre, kister ...), undtagen fjenderne selv, så den ikke dør i skytten.
+        // Trigger-zoner (rum, dørens E-område) og andre kugler ignoreres
+        else if (!other.isTrigger && other.GetComponentInParent<SmallEnemyController>() == null)
         {
             Destroy(gameObject);
         }
