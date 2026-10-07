@@ -1,0 +1,163 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
+/// <summary>
+/// Viser spillerens character sheet: navn, portræt, HP, MP og abilities.
+///
+/// Setup:
+/// - Sæt scriptet på et objekt der altid er aktivt (fx Canvas), og træk
+///   CharacterWindow ind i 'window'. Så kan vinduet slås til/fra uden at
+///   scriptet selv bliver deaktiveret.
+/// - HP/MP-bar: et Image med Image Type = Filled (Horizontal).
+/// - Spilleren skal have CharacterProfile, Health og (valgfrit) Mana.
+/// </summary>
+public class CharacterSheetUI : MonoBehaviour
+{
+    [Header("Window")]
+    [SerializeField] private GameObject window;
+    [SerializeField] private Key toggleKey = Key.C;
+    [SerializeField] private bool startOpen = false;
+
+    [Header("Target")]
+    [Tooltip("Spilleren der vises. Er den tom, findes objektet med tagget 'Player' ved Start.")]
+    [SerializeField] private GameObject target;
+
+    [Header("Identity")]
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private Image portraitImage;
+
+    [Header("Health")]
+    [SerializeField] private Image healthFill;
+    [SerializeField] private TMP_Text healthText;
+
+    [Header("Mana")]
+    [SerializeField] private Image manaFill;
+    [SerializeField] private TMP_Text manaText;
+
+    [Header("Abilities")]
+    [Tooltip("Forælder til ability-rækkerne, fx et objekt med Vertical Layout Group.")]
+    [SerializeField] private Transform abilityListRoot;
+    [SerializeField] private AbilityEntryUI abilityEntryPrefab;
+
+    private CharacterProfile profile;
+    private Health health;
+    private Mana mana;
+
+    public bool IsOpen => window != null && window.activeSelf;
+
+    private void Start()
+    {
+        if (target == null)
+            target = GameObject.FindGameObjectWithTag("Player");
+
+        SetTarget(target);
+        SetOpen(startOpen);
+    }
+
+    private void Update()
+    {
+        var kb = Keyboard.current;
+        if (kb != null && kb[toggleKey].wasPressedThisFrame)
+            Toggle();
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
+    }
+
+    // Kan kaldes udefra, fx når den lokale netværksspiller er spawnet.
+    public void SetTarget(GameObject newTarget)
+    {
+        Unsubscribe();
+
+        target = newTarget;
+        profile = target != null ? target.GetComponent<CharacterProfile>() : null;
+        health = target != null ? target.GetComponent<Health>() : null;
+        mana = target != null ? target.GetComponent<Mana>() : null;
+
+        if (health != null) health.onHealthPercentChanged.AddListener(OnHealthChanged);
+        if (mana != null) mana.onManaChanged.AddListener(OnManaChanged);
+
+        RefreshAll();
+    }
+
+    // Kobles på CloseButton's OnClick i inspectoren.
+    public void Close() => SetOpen(false);
+    public void Toggle() => SetOpen(!IsOpen);
+
+    public void SetOpen(bool open)
+    {
+        if (window == null) return;
+
+        window.SetActive(open);
+        if (open) RefreshAll(); // værdier kan have ændret sig mens vinduet var lukket
+    }
+
+    private void Unsubscribe()
+    {
+        if (health != null) health.onHealthPercentChanged.RemoveListener(OnHealthChanged);
+        if (mana != null) mana.onManaChanged.RemoveListener(OnManaChanged);
+    }
+
+    private void RefreshAll()
+    {
+        RefreshIdentity();
+        RefreshHealth();
+        RefreshMana();
+        RebuildAbilities();
+    }
+
+    private void RefreshIdentity()
+    {
+        if (nameText != null)
+            nameText.text = profile != null ? profile.characterName : "-";
+
+        if (portraitImage != null)
+        {
+            portraitImage.sprite = profile != null ? profile.portrait : null;
+            portraitImage.enabled = portraitImage.sprite != null;
+        }
+    }
+
+    private void OnHealthChanged(float _) => RefreshHealth();
+    private void OnManaChanged(int current, int max) => RefreshMana();
+
+    private void RefreshHealth()
+    {
+        int current = health != null ? health.CurrentHealth : 0;
+        int max = health != null ? health.maxHealth : 0;
+        SetBar(healthFill, healthText, current, max);
+    }
+
+    private void RefreshMana()
+    {
+        int current = mana != null ? mana.CurrentMana : 0;
+        int max = mana != null ? mana.maxMana : 0;
+        SetBar(manaFill, manaText, current, max);
+    }
+
+    private static void SetBar(Image fill, TMP_Text label, int current, int max)
+    {
+        if (fill != null) fill.fillAmount = max > 0 ? (float)current / max : 0f;
+        if (label != null) label.text = $"{current} / {max}";
+    }
+
+    private void RebuildAbilities()
+    {
+        if (abilityListRoot == null || abilityEntryPrefab == null) return;
+
+        for (int i = abilityListRoot.childCount - 1; i >= 0; i--)
+            Destroy(abilityListRoot.GetChild(i).gameObject);
+
+        if (profile == null) return;
+
+        foreach (var ability in profile.abilities)
+        {
+            if (ability == null) continue;
+            Instantiate(abilityEntryPrefab, abilityListRoot).Bind(ability);
+        }
+    }
+}

@@ -8,6 +8,10 @@ public class Fireball : MonoBehaviour
     [SerializeField] private float speed = 8f;
     [SerializeField] private int damage = 1;
     [SerializeField] private float lifetime = 3f;
+    [Tooltip("Mana det koster at skyde én fireball. Trækkes af PlayerAttackController.")]
+    [SerializeField, Min(0)] private int manaCost = 5;
+
+    public int ManaCost => manaCost;
 
     [Header("Juice - light")]
     [Tooltip("Optional: a Light2D on this fireball (or a child of it) for the glow/bloom effect while it flies.")]
