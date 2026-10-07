@@ -21,7 +21,7 @@ public class CharacterSheetUI : MonoBehaviour
     [SerializeField] private bool startOpen = false;
 
     [Header("Target")]
-    [Tooltip("Spilleren der vises. Er den tom, findes objektet med tagget 'Player' ved Start.")]
+    [Tooltip("Spilleren der vises. Er den tom, følges LocalPlayer (min egen wizard, også online).")]
     [SerializeField] private GameObject target;
 
     [Header("Identity")]
@@ -47,10 +47,17 @@ public class CharacterSheetUI : MonoBehaviour
 
     public bool IsOpen => window != null && window.activeSelf;
 
+    private bool followLocalPlayer;
+
     private void Start()
     {
-        if (target == null)
-            target = GameObject.FindGameObjectWithTag("Player");
+        // Online spawner wizarden først efter scenen er startet, så vi lytter efter den.
+        followLocalPlayer = target == null;
+        if (followLocalPlayer)
+        {
+            LocalPlayer.Changed += SetTarget;
+            target = LocalPlayer.Current;
+        }
 
         SetTarget(target);
         SetOpen(startOpen);
@@ -65,10 +72,10 @@ public class CharacterSheetUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (followLocalPlayer) LocalPlayer.Changed -= SetTarget;
         Unsubscribe();
     }
 
-    // Kan kaldes udefra, fx når den lokale netværksspiller er spawnet.
     public void SetTarget(GameObject newTarget)
     {
         Unsubscribe();

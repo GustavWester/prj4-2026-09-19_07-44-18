@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class InventoryUI : MonoBehaviour
 {
-    [Tooltip("Spilleren hvis inventory vises. Er den tom, findes objektet med tagget 'Player'.")]
+    [Tooltip("Inventory der vises. Er den tom, følges LocalPlayer (min egen wizard, også online).")]
     [SerializeField] private Inventory inventory;
 
     [SerializeField] private Transform slotGrid;
@@ -22,39 +22,53 @@ public class InventoryUI : MonoBehaviour
 
     private readonly List<InventorySlotUI> slotViews = new();
     private int selectedIndex = -1;
-
-    private void Awake()
-    {
-        if (inventory == null)
-        {
-            var player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null) inventory = player.GetComponent<Inventory>();
-        }
-    }
+    private bool followLocalPlayer;
 
     private void Start()
     {
-        if (inventory == null)
+        // Online spawner wizarden først efter scenen er startet, så vi lytter efter den.
+        followLocalPlayer = inventory == null;
+        if (followLocalPlayer)
         {
-            Debug.LogWarning("InventoryUI: no Inventory found on the player.", this);
-            return;
+            LocalPlayer.Changed += OnLocalPlayerChanged;
+            OnLocalPlayerChanged(LocalPlayer.Current);
         }
-
-        BuildSlots();
-        inventory.onChanged.AddListener(Refresh);
-        Refresh();
+        else
+        {
+            SetInventory(inventory);
+        }
     }
 
     private void OnDestroy()
     {
-        if (inventory != null)
-            inventory.onChanged.RemoveListener(Refresh);
+        if (followLocalPlayer) LocalPlayer.Changed -= OnLocalPlayerChanged;
+        if (inventory != null) inventory.onChanged.RemoveListener(Refresh);
+    }
+
+    private void OnLocalPlayerChanged(GameObject player)
+    {
+        SetInventory(player != null ? player.GetComponent<Inventory>() : null);
+    }
+
+    public void SetInventory(Inventory newInventory)
+    {
+        if (inventory != null) inventory.onChanged.RemoveListener(Refresh);
+
+        inventory = newInventory;
+        selectedIndex = -1;
+        BuildSlots();
+
+        if (inventory != null) inventory.onChanged.AddListener(Refresh);
+        Refresh();
     }
 
     private void BuildSlots()
     {
+        slotViews.Clear();
         for (int i = slotGrid.childCount - 1; i >= 0; i--)
             Destroy(slotGrid.GetChild(i).gameObject);
+
+        if (inventory == null) return;
 
         for (int i = 0; i < inventory.Capacity; i++)
         {
@@ -73,11 +87,11 @@ public class InventoryUI : MonoBehaviour
 
     private void Refresh()
     {
-        var slots = inventory.Slots;
+        var slots = inventory != null ? inventory.Slots : null;
         for (int i = 0; i < slotViews.Count; i++)
             slotViews[i].Show(slots[i], i == selectedIndex);
 
-        var selected = selectedIndex >= 0 ? slots[selectedIndex] : null;
+        var selected = slots != null && selectedIndex >= 0 ? slots[selectedIndex] : null;
         bool hasItem = selected != null && !selected.IsEmpty;
 
         if (itemNameText != null)
