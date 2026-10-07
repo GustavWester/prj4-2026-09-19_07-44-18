@@ -5118,6 +5118,7 @@ MonoBehaviour:
   speed: 10
   damage: 5
   lifetime: 3
+  manaCost: 10
   glowLight: {fileID: 8722798820312519238}
   baseLightIntensity: 3.98
   lightPulseSpeed: 10
