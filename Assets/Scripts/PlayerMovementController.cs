@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Simpel movement controller til top-down 2D bullet hell.
 /// Håndterer kun bevægelse: base speed, optional sprint og optional dash.
 /// Understøtter både WASD og piletaster.
+/// Online: kun ejeren læse input.
+/// retning og "går/står" synkes via NetworkVariables
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementController : NetworkBehaviour
 {
     [Header("Base Movement")]
     [SerializeField] private float speed = 5f;
@@ -33,6 +37,34 @@ public class PlayerMovementController : MonoBehaviour
     // Læses af PlayerAttack, så fireballen flyver i den retning, spilleren vender.
     public Vector2 FacingDirection => lastMoveDirection;
 
+    // Kun ejeren må skrive. Alle andre læser og afspiller animationen ud fra dem.
+    private readonly NetworkVariable<Vector2> netFacing = new(Vector2.down, writePerm: NetworkVariableWritePermission.Owner);
+    private readonly NetworkVariable<bool> netMoving = new(writePerm: NetworkVariableWritePermission.Owner);
+    // true hvis det er min spiller, eller hvis vi kører offline
+    public bool HasControl => !IsSpawned || IsOwner;
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) return;
+        // kameraet skal kun følge min egen wizard
+        Camera.main.GetComponent<CameraController>().player = gameObject;
+
+        // i editoren og menuen er hele banen oplyst (Global Light 2D = 1). Nu bliver alt mørkt,
+        // og RoomVisibility tænder kun rummet man står i
+        foreach (var light in FindObjectsByType<Light2D>())
+            if (light.lightType == Light2D.LightType.Global) light.intensity = 0f;
+        foreach (var room in FindObjectsByType<RoomVisibility>())
+            room.GetComponent<Light2D>().enabled = false;
+
+        // NetworkManager spawner ved prefab'ens position. Findes et "PlayerSpawn" i scenen, starter vi der,
+        // forskudt 1 enhed pr. spiller så de ikke står oven i hinanden
+        GameObject spawn = GameObject.Find("PlayerSpawn");
+        if (spawn != null)
+        {
+            Vector3 pos = spawn.transform.position + Vector3.right * OwnerClientId;
+            transform.position = pos;
+            rb.position = pos;
+        }
+    }
     private bool isDashing = false;
     private float dashTimer = 0f;
     private float dashCooldownTimer = 0f;
@@ -47,17 +79,35 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        ReadInput();
-        animator.SetBool("Move", moveInput.sqrMagnitude > 0f);
-        // DirX/DirY styrer blend trees i Animator (Idle, Walk og Cast), så de vælger Right/Front/Behind.
-        animator.SetFloat("DirX", Mathf.Abs(lastMoveDirection.x)); // Abs, fordi venstre spejles af flipX i stedet for egen animation
-        animator.SetFloat("DirY", lastMoveDirection.y);
-        HandleDashInput();
-        TickTimers();
+      bool moving;
+          if (HasControl)
+          {
+              ReadInput(); //læs input fra tastatur
+              HandleDashInput(); //funktionen der håndterer dash input
+              TickTimers();
+              moving = moveInput.sqrMagnitude > 0f;
+              if (IsSpawned) //her sender vi vores tilstand til netværket
+              {
+                  netFacing.Value = lastMoveDirection; // sendes kun når værdien ændrer sig
+                  netMoving.Value = moving;
+              }
+          }
+          else //er der en anden spiller, læser vi deres værdier?
+          {
+              lastMoveDirection = netFacing.Value;
+              moving = netMoving.Value;
+          }
+        //vis deres animationer
+      if (lastMoveDirection.x != 0f) spriteRenderer.flipX = lastMoveDirection.x < 0f;
+      animator.SetBool("Move", moving);
+      // DirX/DirY styrer blend trees i Animator (Idle, Walk og Cast), så de vælger Right/Front/Behind.
+      animator.SetFloat("DirX", Mathf.Abs(lastMoveDirection.x)); // Abs, fordi venstre spejles af flipX i stedet for egen animation
+      animator.SetFloat("DirY", lastMoveDirection.y);
     }
 
     private void FixedUpdate()
     {
+        if(!HasControl) return; //andres wizard flyttes tl netværket
         if (isDashing)
         {
             rb.linearVelocity = lastMoveDirection * dashSpeed;
@@ -94,9 +144,6 @@ public class PlayerMovementController : MonoBehaviour
         if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) y -= 1f;
         if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) y += 1f;
         
-
-        if (x != 0f) spriteRenderer.flipX = x < 0f; //går man til venstre -1 til højre +1, hvis man går til venstre er flip true, til højre falsk
-
         moveInput = new Vector2(x, y).normalized;
 
         if (moveInput.sqrMagnitude > 0f)
