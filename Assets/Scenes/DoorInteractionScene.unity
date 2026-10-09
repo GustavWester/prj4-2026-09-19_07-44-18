@@ -3373,6 +3373,10 @@ PrefabInstance:
       propertyPath: distanceTolerance
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8837239713099834957, guid: b82f0baf6e1a4808bbe910ee4bdef922, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3977775733
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3386,6 +3390,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874734787387261434, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4143503507
+      objectReference: {fileID: 0}
     - target: {fileID: 2154662794883681928, guid: a5e4723e07e64f93853b3b0a2bbd0489, type: 3}
       propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -3734,6 +3742,10 @@ PrefabInstance:
     - target: {fileID: 187583892366987139, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
       propertyPath: m_Name
       value: RogueGoblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538651324194408374, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2088668308
       objectReference: {fileID: 0}
     - target: {fileID: 2025229159568634788, guid: 1ae6a3193dead4ab69862239149c6523, type: 3}
       propertyPath: player
@@ -10044,6 +10056,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1965918727}
+    - target: {fileID: 9130551254873342723, guid: db044f819d314271b23ebb0ee98ff2a8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 692165255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
