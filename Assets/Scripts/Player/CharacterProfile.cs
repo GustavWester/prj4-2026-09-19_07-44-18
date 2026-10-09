@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Sættes på spiller-prefabben. Holder det, character sheet viser ud over
-/// Health og Mana: navn, portræt og abilities.
+/// HP og MP (ResourceController): navn, portræt og abilities.
 /// </summary>
 [DisallowMultipleComponent]
 public class CharacterProfile : MonoBehaviour

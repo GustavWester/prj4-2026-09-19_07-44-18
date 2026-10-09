@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1508152896652456296}
   - component: {fileID: 8853780581735056379}
   - component: {fileID: -5273704092781971351}
-  - component: {fileID: -8842289783144977548}
+  - component: {fileID: 7203519846620193842}
   - component: {fileID: 2956491452427915997}
   - component: {fileID: -3849271364828083428}
   - component: {fileID: 4625190375061827530}
@@ -230,7 +230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
   ShowTopMostFoldoutHeaderGroup: 1
-  speed: 5
   sprintEnabled: 0
   sprintMultiplier: 1.5
   dashEnabled: 0
@@ -263,7 +262,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58c0fd5266d9eaf448a3797e9e52f022, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceController
   ShowTopMostFoldoutHeaderGroup: 1
   stats: {fileID: 0}
   maxHealth: 5
@@ -399,7 +398,7 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!114 &-8842289783144977548
+--- !u!114 &7203519846620193842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -408,14 +407,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6285184095884308798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d35eba5178c4ec48b5bf0a9be85c680, type: 3}
+  m_Script: {fileID: 11500000, guid: d8e493ffe60d4e1a894a8fff16ddad1e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mana
-  maxMana: 100
-  regenPerSecond: 10
-  onManaChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  baseStats: {fileID: 11400000, guid: e581aab063f14bdb96efb5a94a376ac8, type: 2}
 --- !u!114 &2956491452427915997
 MonoBehaviour:
   m_ObjectHideFlags: 0

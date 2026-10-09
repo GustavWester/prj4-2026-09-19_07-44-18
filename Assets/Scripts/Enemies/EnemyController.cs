@@ -5,9 +5,10 @@ using Unity.Netcode;
 using Unity.Netcode.Components;
 
 /// <summary>
-/// Universal behaviour for small enemies: movement + attacking only.
-/// All tunable numbers (moveSpeed, ranges, cooldown, damage) come from
-/// the assigned EnemyStats asset — this script just reads them.
+/// Universal behaviour for all enemies: movement + attacking.
+/// All tunable numbers (health, moveSpeed, ranges, cooldown, damage) come from
+/// the assigned EnemyStatsSO asset — this script just reads them and pushes
+/// max health to the ResourceController.
 /// Movement is picked via a dropdown enum so you can reuse this one
 /// script across many enemy types just by swapping the EnemyStats
 /// asset and inspector values on prefab variants.
@@ -18,7 +19,7 @@ using Unity.Netcode.Components;
 ///   damage to the player when within stats.attackRange, on cooldown.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class SmallEnemyController : NetworkBehaviour
+public class EnemyController : NetworkBehaviour
 {
     public enum MovementPattern
     {
@@ -32,7 +33,7 @@ public class SmallEnemyController : NetworkBehaviour
     }
 
     [Header("Stats")]
-    public StatsSO stats;
+    public EnemyStatsSO stats;
 
     [Header("Targeting")]
     private Transform player; // nærmeste spiller, findes på ny hver FixedUpdate
@@ -76,8 +77,8 @@ public class SmallEnemyController : NetworkBehaviour
     private int patternIndex;
     private Animator animator;             // optional: only animated enemies (e.g. goblins) have one
     private SpriteRenderer spriteRenderer;
-    private Health health;
-    private bool IsDead => health != null && health.IsDead;
+    private ResourceController resources;
+    private bool IsDead => resources != null && resources.IsDead;
     private NetworkAnimator netAnimator;
     private readonly NetworkVariable<bool> netFlipX = new();
     // AI, angreb og skade kører kun på hosten (eller offline)
@@ -108,13 +109,14 @@ public class SmallEnemyController : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        health = GetComponent<Health>();
+        resources = GetComponent<ResourceController>();
         netAnimator = GetComponent<NetworkAnimator>();
-        if (health != null)
+        if (resources != null)
         {
+            if (stats != null) resources.SetMaxHealth(stats.Health);
             if (animator != null)
-                health.onDamaged.AddListener(() => { if (RunsAI && !health.IsDead) SetTrigger("Hurt"); });
-            health.onDeath.AddListener(() =>
+                resources.onDamaged.AddListener(() => { if (RunsAI && !resources.IsDead) SetTrigger("Hurt"); });
+            resources.onDeath.AddListener(() =>
             {
                 if (!RunsAI) return; // hosten afspiller døden og fjerner fjenden for alle
                 // fjenden fjernes når death-animationen er færdig, eller med det samme hvis den ikke har en (fx RedWizard)
@@ -146,7 +148,7 @@ public class SmallEnemyController : NetworkBehaviour
         room = RoomVisibility.RoomAt(transform.position);
         if (stats == null)
         {
-            Debug.LogWarning($"{name}: no EnemyStats assigned — falling back to default speeds/ranges.");
+            Debug.LogWarning($"{name}: no EnemyStatsSO assigned — falling back to default speeds/ranges.");
         }
 
         if (stats != null && stats.classSo == ClassSO.Ranged
@@ -458,7 +460,7 @@ public class SmallEnemyController : NetworkBehaviour
             {
                 // med Animator giver AttackHit() (Animation Event) skaden på slag-framet
                 if (animator != null) SetTrigger("Attack");
-                else player.GetComponent<Health>()?.TakeDamage(stats.attackDamage);
+                else player.GetComponent<ResourceController>()?.TakeDamage(stats.attackDamage);
             }
         }
     }
@@ -475,7 +477,7 @@ public class SmallEnemyController : NetworkBehaviour
         {
             // spilleren kan være gået ud af rækkevidde under wind-up
             if (Vector2.Distance(transform.position, player.position) <= AttackRange)
-                player.GetComponent<Health>()?.TakeDamage(stats.attackDamage);
+                player.GetComponent<ResourceController>()?.TakeDamage(stats.attackDamage);
         }
         else
         {

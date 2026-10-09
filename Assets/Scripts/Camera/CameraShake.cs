@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Simple camera shake. Put this on your Main Camera and call Shake()
-/// from anywhere — e.g. hook Health.onDamaged / onDeath to it via the
+/// from anywhere — e.g. hook ResourceController.onDamaged / onDeath to it via the
 /// Inspector (UnityEvent), or call it directly from code:
 ///     CameraShake.Instance.Shake(0.15f, 0.2f);
 /// </summary>

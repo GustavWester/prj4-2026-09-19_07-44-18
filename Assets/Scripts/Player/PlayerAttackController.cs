@@ -4,23 +4,23 @@ using Unity.Netcode;
 
 /// <summary>
 /// Skyder en fireball i den retning, spilleren vender, når man trykker Enter.
-/// Koster mana, hvis spilleren har en Mana-komponent.
+/// Koster mana (fra ResourceController via PlayerManager).
 /// Online: kun ejeren må skyde.
 /// </summary>
-[RequireComponent(typeof(PlayerMovementController))]
+[RequireComponent(typeof(PlayerMovementController), typeof(PlayerManager))]
 public class PlayerAttackController : NetworkBehaviour
 {
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private float cooldown = 0.4f;
 
     private float cooldownTimer;
-    private Mana mana;
+    private PlayerManager playerManager;
     private int fireballCost;
 
     private void Awake()
     {
-        mana = GetComponent<Mana>(); // valgfri: uden Mana kan man skyde frit
-        fireballCost = fireballPrefab.GetComponent<Fireball>().ManaCost; // prisen står på prefabben
+        playerManager = GetComponent<PlayerManager>();
+        fireballCost = fireballPrefab.GetComponent<PlayerBullet>().ManaCost; // prisen står på prefabben
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class PlayerAttackController : NetworkBehaviour
         if (kb == null || cooldownTimer > 0f) return; //hvis der ikke er tilsluttet et tastatur stopper vi
         if (!kb.enterKey.wasPressedThisFrame && !kb.numpadEnterKey.wasPressedThisFrame) return; // wasPressedThisFrame er kun true i den frame, hvor tasten trykkes ned.
 
-        if (mana != null && !mana.TrySpend(fireballCost)) return; // ikke nok mana -> intet skud
+        if (!playerManager.Resources.TrySpendMana(fireballCost)) return; // ikke nok mana -> intet skud
 
         Vector2 dir = GetComponent<PlayerMovementController>().FacingDirection;
         if (IsSpawned) ShootRpc(transform.position, dir);
@@ -46,7 +46,7 @@ public class PlayerAttackController : NetworkBehaviour
     private void Shoot(Vector2 pos, Vector2 dir)
     {
         GameObject fireball = Instantiate(fireballPrefab, pos, Quaternion.identity);
-        fireball.GetComponent<Fireball>().Launch(dir); //sender spillerens retning videre til fireBall scriptet
+        fireball.GetComponent<PlayerBullet>().Launch(dir, playerManager); //sender retning og skytte videre, så kuglen kan læse spell damage
         GetComponent<Animator>().SetTrigger("Attack"); //afspiller angribsanimationen
     }
 }

@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal; // Light2D
+using UnityEngine.Serialization;
 
-// Flyver ligeud i den retning, den bliver skudt afsted i, og skader det første den rammer.
+// Spillerens projektil (fx fireball). Flyver ligeud i den retning, den bliver skudt afsted i, og skader det første den rammer.
+// Skade = baseDamage + skytten's spell damage (læses gennem PlayerManager).
 // Animationen vælges efter retning (højre/foran/bagved) via blend tree i Animator.
-public class Fireball : MonoBehaviour
+public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] private float speed = 8f;
-    [SerializeField] private int damage = 1;
+    [Tooltip("Spellens egen skade. Spillerens spell damage fra PlayerManager lægges oveni.")]
+    [FormerlySerializedAs("damage")]
+    [SerializeField] private int baseDamage = 1;
     [SerializeField] private float lifetime = 3f;
-    [Tooltip("Mana det koster at skyde én fireball. Trækkes af PlayerAttackController.")]
+    [Tooltip("Mana det koster at skyde ét skud. Trækkes af PlayerAttackController.")]
     [SerializeField, Min(0)] private int manaCost = 5;
 
     public int ManaCost => manaCost;
@@ -28,10 +32,14 @@ public class Fireball : MonoBehaviour
     [SerializeField] private float hitStopDuration = 0.02f;
 
     private Vector2 direction = Vector2.right;
+    private PlayerManager owner;
 
-    public void Launch(Vector2 dir) //kaldes af den der skyder ildkuglen
+    private int Damage => baseDamage + (owner != null ? owner.SpellDamage : 0);
+
+    public void Launch(Vector2 dir, PlayerManager shooter) //kaldes af den der skyder
     {
         direction = dir.normalized;
+        owner = shooter;
 
         // Snap til nærmeste af de tre animationer: vandret -> Right, lodret -> Front/Behind.
         bool horizontal = Mathf.Abs(direction.x) >= Mathf.Abs(direction.y);
@@ -66,10 +74,10 @@ public class Fireball : MonoBehaviour
 
         if (other.CompareTag("Bullet")) return;
         
-        // Hver klient har sin egen fireball, så kun hosten må give skade (ellers tælles den dobbelt)
+        // Hver klient har sin egen kugle, så kun hosten må give skade (ellers tælles den dobbelt)
         var nm = Unity.Netcode.NetworkManager.Singleton;
         if (nm == null || !nm.IsListening || nm.IsServer)
-            other.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+            other.SendMessage("TakeDamage", Damage, SendMessageOptions.DontRequireReceiver);
 
         PlayImpactJuice();
         Destroy(gameObject);

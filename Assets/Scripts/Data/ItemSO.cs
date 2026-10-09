@@ -12,4 +12,7 @@ public class ItemSO : ScriptableObject
 
     [Tooltip("Hvor mange der kan ligge i ét slot. 1 = kan ikke stackes.")]
     [Min(1)] public int maxStack = 1;
+
+    [Tooltip("Stat-bonus når itemet er equipped (via PlayerManager.Equip). 0 = ingen effekt.")]
+    public StatModifier statModifier;
 }

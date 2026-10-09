@@ -5,17 +5,14 @@ using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Simpel movement controller til top-down 2D bullet hell.
-/// Håndterer kun bevægelse: base speed, optional sprint og optional dash.
+/// Håndterer kun bevægelse: base speed (fra PlayerManager), optional sprint og optional dash.
 /// Understøtter både WASD og piletaster.
 /// Online: kun ejeren læse input.
 /// retning og "går/står" synkes via NetworkVariables
 /// </summary>
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerManager))]
 public class PlayerMovementController : NetworkBehaviour
 {
-    [Header("Base Movement")]
-    [SerializeField] private float speed = 5f;
-
     [Header("Sprint (optional)")]
     [SerializeField] private bool sprintEnabled = false;
     [SerializeField] private float sprintMultiplier = 1.5f;
@@ -27,6 +24,7 @@ public class PlayerMovementController : NetworkBehaviour
     [SerializeField] private float dashCooldown = 0.5f;
 
     private Rigidbody2D rb;
+    private PlayerManager playerManager;
 
     SpriteRenderer spriteRenderer;
 
@@ -72,6 +70,7 @@ public class PlayerMovementController : NetworkBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerManager = GetComponent<PlayerManager>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
@@ -114,7 +113,7 @@ public class PlayerMovementController : NetworkBehaviour
         }
         else
         {
-            float currentSpeed = speed;
+            float currentSpeed = playerManager.MoveSpeed;
 
             if (sprintEnabled && Keyboard.current != null &&
                 (Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed))

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "EnemyStats", menuName = "Scriptable Objects/EnemyStats")]
-public class StatsSO : ScriptableObject
+public class EnemyStatsSO : ScriptableObject
 {
     [Header("Identity")]
     public string enemyName;
