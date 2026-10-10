@@ -9,6 +9,10 @@ using UnityEngine.Rendering.Universal;
 [RequireComponent(typeof(Light2D), typeof(Collider2D))]
 public class RoomVisibility : MonoBehaviour
 {
+    [Tooltip("Valgfrit ikon på minimappet, fx et kranie i boss-rummet eller en kiste.")]
+    [SerializeField] private Sprite minimapIcon;
+    public Sprite MinimapIcon => minimapIcon;
+
     private Light2D roomLight;
 
     private void Awake()
@@ -19,7 +23,9 @@ public class RoomVisibility : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (IsMe(other)) roomLight.enabled = true;
+        if (!IsMe(other)) return;
+        roomLight.enabled = true;
+        MinimapUI.Enter(this);
     }
 
     private void OnTriggerExit2D(Collider2D other)
