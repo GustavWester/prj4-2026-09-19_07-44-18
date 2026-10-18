@@ -42,12 +42,12 @@ public class PlayerBullet : MonoBehaviour
         owner = shooter;
 
         // Snap til nærmeste af de tre animationer: vandret -> Right, lodret -> Front/Behind.
-        bool horizontal = Mathf.Abs(direction.x) >= Mathf.Abs(direction.y);
+        var facing = SpriteFacing.From(direction.x, direction.y);
         var animator = GetComponent<Animator>();
-        animator.SetFloat("DirX", horizontal ? 1f : 0f);
-        animator.SetFloat("DirY", horizontal ? 0f : Mathf.Sign(direction.y));
+        animator.SetFloat("DirX", facing.DirX);
+        animator.SetFloat("DirY", facing.DirY);
 
-        GetComponent<SpriteRenderer>().flipX = horizontal && direction.x < 0f; // venstre spejles
+        GetComponent<SpriteRenderer>().flipX = facing.FlipX; // venstre spejles
     }
 
     private void Start()
