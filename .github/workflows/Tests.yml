@@ -33,7 +33,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name:   # -----------------------------------------------------------------
+          name: core-unit-test-results
+          path: results
+          if-no-files-found: warn
+
+  # -----------------------------------------------------------------
   # Unity: installér editoren ÉN gang og tjek at den virker. Først derefter
   # kører EditMode og PlayMode parallelt og henter den færdige installation fra cachen.
   # -----------------------------------------------------------------
