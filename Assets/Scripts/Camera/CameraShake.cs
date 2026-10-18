@@ -20,6 +20,12 @@ public class CameraShake : MonoBehaviour
         originalLocalPos = transform.localPosition;
     }
 
+    // ellers peger Instance på et destroyed objekt efter et sceneskift, og Instance?.Shake() fejler
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     /// <summary>Call with no args for a small default "hit" shake.</summary>
     public void Shake() => Shake(0.15f, 0.2f);
 

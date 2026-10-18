@@ -11,12 +11,15 @@ using UnityEngine.Events;
 public class Inventory : MonoBehaviour
 {
     [Serializable]
-    public class Slot
+    public class Slot : IStackSlot<ItemSO>
     {
         public ItemSO item;
         public int count;
 
         public bool IsEmpty => item == null || count <= 0;
+
+        ItemSO IStackSlot<ItemSO>.Item { get => item; set => item = value; }
+        int IStackSlot<ItemSO>.Count { get => count; set => count = value; }
     }
 
     [SerializeField, Min(1)] private int capacity = 24;
@@ -25,7 +28,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<Slot> startingItems = new();
 
     [Tooltip("Fires whenever the contents change.")]
-    public UnityEvent onChanged;
+    public UnityEvent onChanged = new();
 
     private Slot[] slots;
 
@@ -48,44 +51,20 @@ public class Inventory : MonoBehaviour
     {
         if (item == null || amount <= 0) return amount;
 
-        // Fyld først eksisterende stacks op, derefter tomme slots.
-        foreach (var slot in slots)
-        {
-            if (amount == 0) break;
-            if (slot.item != item || slot.count >= item.maxStack) continue;
-
-            int moved = Mathf.Min(amount, item.maxStack - slot.count);
-            slot.count += moved;
-            amount -= moved;
-        }
-
-        foreach (var slot in slots)
-        {
-            if (amount == 0) break;
-            if (!slot.IsEmpty) continue;
-
-            int moved = Mathf.Min(amount, item.maxStack);
-            slot.item = item;
-            slot.count = moved;
-            amount -= moved;
-        }
+        // Fyld først eksisterende stacks op, derefter tomme slots (reglerne ligger i InventoryStacking).
+        int leftover = InventoryStacking.Add(slots, item, amount, item.maxStack);
 
         onChanged?.Invoke();
-        return amount;
+        return leftover;
     }
+
+    /// <summary>Hvor mange af 'item' der ligger i alt på tværs af alle slots.</summary>
+    public int CountOf(ItemSO item) => InventoryStacking.CountOf(slots, item);
 
     /// <summary>Fjerner op til 'amount' fra et bestemt slot.</summary>
     public void RemoveAt(int index, int amount = 1)
     {
-        if (index < 0 || index >= slots.Length || slots[index].IsEmpty || amount <= 0) return;
-
-        var slot = slots[index];
-        slot.count -= amount;
-        if (slot.count <= 0)
-        {
-            slot.item = null;
-            slot.count = 0;
-        }
+        if (!InventoryStacking.RemoveAt(slots, index, amount)) return;
 
         onChanged?.Invoke();
     }

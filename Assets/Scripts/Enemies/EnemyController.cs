@@ -280,7 +280,8 @@ public class EnemyController : NetworkBehaviour
 
         Vector2 dir = (Vector2)player.position - rb.position;
         // melee stopper lidt inden for attackRange i stedet for at skubbe ind i spilleren
-        if (stats != null && stats.classSo == ClassSO.Melee && dir.magnitude <= AttackRange * 0.8f)
+        bool isMelee = stats != null && stats.classSo == ClassSO.Melee;
+        if (!EnemyAIMath.ShouldChase(dir.magnitude, DetectionRange, isMelee, AttackRange))
         {
             rb.linearVelocity = Vector2.zero;
             return;
@@ -297,16 +298,8 @@ public class EnemyController : NetworkBehaviour
         }
 
         Vector2 toPlayer = (Vector2)player.position - rb.position;
-        float distance = toPlayer.magnitude;
-        float preferred = AttackRange * 0.8f; // sit just inside attack range by default
-
-        if (Mathf.Abs(distance - preferred) <= distanceTolerance)
-        {
-            rb.linearVelocity = Vector2.zero;
-            return;
-        }
-
-        float direction = distance > preferred ? 1f : -1f;
+        // sit just inside attack range by default: 1 = approach, -1 = retreat, 0 = hold
+        int direction = EnemyAIMath.KeepDistanceStep(toPlayer.magnitude, AttackRange, distanceTolerance);
         rb.linearVelocity = toPlayer.normalized * MoveSpeed * direction;
     }
 
@@ -318,7 +311,7 @@ public class EnemyController : NetworkBehaviour
         while (true)
         {
             float jitter = Random.Range(-attackCooldownJitter, attackCooldownJitter);
-            yield return new WaitForSeconds(Mathf.Max(0.05f, AttackCooldown + jitter));
+            yield return new WaitForSeconds(EnemyAIMath.AttackInterval(AttackCooldown, jitter));
 
             if (!RunsAI || player == null || Vector2.Distance(transform.position, player.position) > AttackRange)
                 continue;
@@ -342,7 +335,7 @@ public class EnemyController : NetworkBehaviour
             return attackPatterns[Random.Range(0, attackPatterns.Count)];
 
         BulletPatternSO next = attackPatterns[patternIndex];
-        patternIndex = (patternIndex + 1) % attackPatterns.Count;
+        patternIndex = BulletPatternMath.NextIndex(patternIndex, attackPatterns.Count);
         return next;
     }
 
@@ -357,7 +350,7 @@ public class EnemyController : NetworkBehaviour
                     break;
 
                 case BulletPatternSO.PatternType.Spiral:
-                    FireRadialBurst(pattern, extraRotationOffset: volley * pattern.spiralRotationSpeedDeg);
+                    FireRadialBurst(pattern, extraRotationOffset: BulletPatternMath.SpiralOffset(volley, pattern.spiralRotationSpeedDeg));
                     break;
 
                 case BulletPatternSO.PatternType.AimedSpread:
@@ -375,13 +368,8 @@ public class EnemyController : NetworkBehaviour
 
     private void FireRadialBurst(BulletPatternSO pattern, float extraRotationOffset)
     {
-        float angleStep = pattern.spreadAngle / pattern.bulletCount;
-
-        for (int i = 0; i < pattern.bulletCount; i++)
-        {
-            float angle = extraRotationOffset + i * angleStep;
+        foreach (float angle in BulletPatternMath.RadialAngles(pattern.bulletCount, pattern.spreadAngle, extraRotationOffset))
             SpawnBullet(pattern, DirFromAngle(angle));
-        }
     }
 
     private void FireAimedSpread(BulletPatternSO pattern)
@@ -390,26 +378,17 @@ public class EnemyController : NetworkBehaviour
 
         Vector2 baseDir = ((Vector2)player.position - (Vector2)firePoint.position).normalized;
         float baseAngle = Mathf.Atan2(baseDir.y, baseDir.x) * Mathf.Rad2Deg;
-        float angleStep = pattern.bulletCount > 1 ? pattern.spreadAngle / (pattern.bulletCount - 1) : 0f;
-        float startAngle = baseAngle - pattern.spreadAngle / 2f;
 
-        for (int i = 0; i < pattern.bulletCount; i++)
-        {
-            float angle = startAngle + i * angleStep;
+        foreach (float angle in BulletPatternMath.AimedSpreadAngles(pattern.bulletCount, pattern.spreadAngle, baseAngle))
             SpawnBullet(pattern, DirFromAngle(angle));
-        }
     }
 
     private void FireCurtain(BulletPatternSO pattern)
     {
         int gapIndex = Random.Range(0, pattern.bulletCount);
-        float angleStep = pattern.spreadAngle / pattern.bulletCount;
 
-        for (int i = 0; i < pattern.bulletCount; i++)
-        {
-            if (i == gapIndex) continue;
-            SpawnBullet(pattern, DirFromAngle(i * angleStep));
-        }
+        foreach (float angle in BulletPatternMath.CurtainAngles(pattern.bulletCount, pattern.spreadAngle, gapIndex))
+            SpawnBullet(pattern, DirFromAngle(angle));
     }
 
     private Vector2 DirFromAngle(float angleDeg)
@@ -450,7 +429,7 @@ public class EnemyController : NetworkBehaviour
         while (true)
         {
             float jitter = Random.Range(-attackCooldownJitter, attackCooldownJitter);
-            yield return new WaitForSeconds(Mathf.Max(0.05f, AttackCooldown + jitter));
+            yield return new WaitForSeconds(EnemyAIMath.AttackInterval(AttackCooldown, jitter));
 
             if (IsDead) yield break;
             if (!RunsAI || player == null) continue;

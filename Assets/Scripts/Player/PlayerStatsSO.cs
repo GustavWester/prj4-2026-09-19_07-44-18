@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -33,16 +32,4 @@ public class PlayerStatsSO : ScriptableObject
     }
 }
 
-/// <summary>
-/// Bonus til spillerens stats, fx fra et item eller en upgrade (+2 speed, +10 health ...).
-/// Felter der står på 0 har ingen effekt.
-/// </summary>
-[Serializable]
-public struct StatModifier
-{
-    public int maxHealth;
-    public int maxMana;
-    public float manaRegenPerSecond;
-    public float moveSpeed;
-    public int spellDamage;
-}
+// StatModifier ligger i Core/StatModifier.cs, så den kan unit-testes uden Unity.

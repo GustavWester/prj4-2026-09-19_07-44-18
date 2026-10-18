@@ -25,28 +25,28 @@ public class ResourceController : NetworkBehaviour
 
     [Header("Events")]
     [Tooltip("Fires every time damage is taken (successfully). Hook up hit-flash/SFX here.")]
-    public UnityEvent onDamaged;
+    public UnityEvent onDamaged = new();
     [Tooltip("Fires with the new health percent (0-1) whenever health changes. A health bar can bind to this directly.")]
-    public UnityEvent<float> onHealthPercentChanged;
+    public UnityEvent<float> onHealthPercentChanged = new();
     [Tooltip("Fires once, when health reaches 0.")]
-    public UnityEvent onDeath;
+    public UnityEvent onDeath = new();
     [Tooltip("Fires with (current, max) whenever mana changes.")]
-    public UnityEvent<int, int> onManaChanged;
+    public UnityEvent<int, int> onManaChanged = new();
 
     // Serveren ejer livet. Klienter får værdien automatisk og kører de samme events.
     private readonly NetworkVariable<int> netHealth = new();
     public int CurrentHealth => netHealth.Value;
     public int MaxHealth => maxHealth;
-    public float HealthPercent => maxHealth > 0 ? (float)CurrentHealth / maxHealth : 0f;
+    public float HealthPercent => ResourceMath.Percent(CurrentHealth, maxHealth);
     public bool IsDead { get; private set; }
     public bool IsInvulnerable { get; set; }
 
     // Mana er lokal: kun ejeren bruger den (til at skyde), så den synkes ikke.
     public int CurrentMana { get; private set; }
     public int MaxMana => maxMana;
-    public float ManaPercent => maxMana > 0 ? (float)CurrentMana / maxMana : 0f;
+    public float ManaPercent => ResourceMath.Percent(CurrentMana, maxMana);
 
-    private float regenBuffer; // samler brøkdele op, så regen virker selvom manaRegenPerSecond * deltaTime < 1
+    private readonly RegenAccumulator regen = new(); // samler brøkdele op, så regen virker selvom manaRegenPerSecond * deltaTime < 1
     private bool initialized;
 
     private void Awake()
@@ -62,13 +62,8 @@ public class ResourceController : NetworkBehaviour
     {
         if (manaRegenPerSecond <= 0f || CurrentMana >= maxMana) return;
 
-        regenBuffer += manaRegenPerSecond * Time.deltaTime;
-        if (regenBuffer >= 1f)
-        {
-            int whole = Mathf.FloorToInt(regenBuffer);
-            regenBuffer -= whole;
-            RestoreMana(whole);
-        }
+        int whole = regen.Tick(manaRegenPerSecond, Time.deltaTime);
+        if (whole > 0) RestoreMana(whole);
     }
 
     // ---------------------------------------------------------------
@@ -79,7 +74,7 @@ public class ResourceController : NetworkBehaviour
         if (!HasHealthAuthority) return; // kun hosten giver skade - gælder fireball, pile og melee
         if (IsInvulnerable || IsDead || amount <= 0) return;
 
-        netHealth.Value = Mathf.Max(0, CurrentHealth - amount);
+        netHealth.Value = ResourceMath.ApplyDamage(CurrentHealth, amount);
     }
 
     public void Heal(int amount)
@@ -87,7 +82,7 @@ public class ResourceController : NetworkBehaviour
         if (!HasHealthAuthority) return;
         if (IsDead || amount <= 0) return;
 
-        netHealth.Value = Mathf.Min(maxHealth, CurrentHealth + amount);
+        netHealth.Value = ResourceMath.ApplyHeal(CurrentHealth, amount, maxHealth);
     }
 
     /// <summary>
@@ -96,12 +91,12 @@ public class ResourceController : NetworkBehaviour
     public void SetMaxHealth(int max)
     {
         max = Mathf.Max(1, max);
-        int delta = max - maxHealth;
+        int oldMax = maxHealth;
         maxHealth = max;
         if (!initialized) return; // Awake fylder livet op
 
         if (HasHealthAuthority && !IsDead)
-            netHealth.Value = Mathf.Clamp(CurrentHealth + delta, 1, maxHealth);
+            netHealth.Value = ResourceMath.ResizeCurrent(CurrentHealth, oldMax, maxHealth, 1);
         onHealthPercentChanged?.Invoke(HealthPercent);
     }
 
@@ -145,11 +140,11 @@ public class ResourceController : NetworkBehaviour
     public void SetMaxMana(int max)
     {
         max = Mathf.Max(0, max);
-        int delta = max - maxMana;
+        int oldMax = maxMana;
         maxMana = max;
         if (!initialized) return; // Awake fylder manaen op
 
-        CurrentMana = Mathf.Clamp(CurrentMana + delta, 0, maxMana);
+        CurrentMana = ResourceMath.ResizeCurrent(CurrentMana, oldMax, maxMana, 0);
         onManaChanged?.Invoke(CurrentMana, maxMana);
     }
 

@@ -15,25 +15,34 @@ public class HitStop : MonoBehaviour
     public static HitStop Instance { get; private set; }
 
     private Coroutine activeStop;
+    private float originalScale = 1f;
 
     private void Awake()
     {
         Instance = this;
     }
 
+    // ellers peger Instance på et destroyed objekt efter et sceneskift, og Instance?.Stop() fejler
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     public void Stop(float duration)
     {
+        // et nyt hit mens tiden står stille må ikke gemme 0 som "originalen", ellers fryser spillet for altid
         if (activeStop != null) StopCoroutine(activeStop);
+        else originalScale = Time.timeScale;
         activeStop = StartCoroutine(DoStop(duration));
     }
 
     private IEnumerator DoStop(float duration)
     {
-        float originalScale = Time.timeScale;
         Time.timeScale = 0f;
 
         yield return new WaitForSecondsRealtime(duration);
 
         Time.timeScale = originalScale;
+        activeStop = null;
     }
 }
