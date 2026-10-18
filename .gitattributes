@@ -169,3 +169,6 @@ Packages/packages-lock.json linguist-generated
 
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
+
+# bash-scripts til CI skal have LF, ellers fejler de på Windows-runneren
+*.sh text eol=lf

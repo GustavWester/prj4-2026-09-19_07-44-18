@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  actions: write # så en ødelagt Unity-installations-cache kan slettes automatisk
 
 jobs:
   core-unit-tests:
@@ -32,13 +33,69 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: core-unit-test-results
-          path: results
-          if-no-files-found: warn
+          name:   # -----------------------------------------------------------------
+  # Unity: installér editoren ÉN gang og tjek at den virker. Først derefter
+  # kører EditMode og PlayMode parallelt og henter den færdige installation fra cachen.
+  # -----------------------------------------------------------------
+  prepare-unity:
+    name: Prepare Unity
+    runs-on: windows-latest
+    timeout-minutes: 45
+    outputs:
+      healthy: ${{ steps.check.outputs.healthy }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Unity Hub and Editor
+        id: setup
+        continue-on-error: true # en timeout håndteres nedenfor i stedet for at stoppe hele kørslen
+        uses: RageAgainstThePixel/unity-setup@v2.6.0
+        with:
+          version-file: ProjectSettings/ProjectVersion.txt
+          modules: windows-mono
+          auto-update-hub: false
+          cache-installation: true
+
+      - name: Check that the editor starts
+        id: check
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SETUP_OUTCOME: ${{ steps.setup.outcome }}
+        run: ./.github/scripts/check-unity-editor.sh --delete-cache-if-broken
+
+  install-unity-fresh:
+    # Kører kun hvis cachen var ødelagt (og nu er slettet): installerer forfra på en ren maskine
+    # og gemmer en ny, sund cache, som test-jobbene derefter bruger.
+    name: Reinstall Unity (cache was broken)
+    needs: prepare-unity
+    if: ${{ needs.prepare-unity.outputs.healthy != 'true' }}
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Unity Hub and Editor
+        uses: RageAgainstThePixel/unity-setup@v2.6.0
+        with:
+          version-file: ProjectSettings/ProjectVersion.txt
+          modules: windows-mono
+          auto-update-hub: false
+          cache-installation: true
+
+      - name: Check that the editor starts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./.github/scripts/check-unity-editor.sh --delete-cache-if-broken --fail-if-broken
 
   unity-tests:
-    # EditMode (asset-/prefab-validering) og PlayMode (komponenter i en tom testscene).
+    # EditMode (asset-/prefab-validering) og PlayMode (komponenter i en tom testscene), parallelt.
     name: Unity ${{ matrix.platform }} tests
+    needs: [prepare-unity, install-unity-fresh]
+    if: ${{ !cancelled() && (needs.prepare-unity.outputs.healthy == 'true' || needs.install-unity-fresh.result == 'success') }}
     runs-on: windows-latest
     timeout-minutes: 45
     strategy:
@@ -54,16 +111,20 @@ jobs:
         uses: actions/cache@v4
         with:
           path: Library
-          key: Library-Tests-windows-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: Library-Tests-windows-
+          key: Library-Tests-${{ matrix.platform }}-windows-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-Tests-${{ matrix.platform }}-windows-
 
-      - name: Install Unity Hub and Editor
+      - name: Install Unity Hub and Editor (from cache)
         uses: RageAgainstThePixel/unity-setup@v2.6.0
         with:
           version-file: ProjectSettings/ProjectVersion.txt
-          modules: ''
+          modules: windows-mono
           auto-update-hub: false
           cache-installation: true
+
+      - name: Check that the editor starts
+        shell: bash
+        run: ./.github/scripts/check-unity-editor.sh --fail-if-broken
 
       - name: Activate Unity license
         uses: RageAgainstThePixel/activate-unity-license@v2
@@ -74,35 +135,7 @@ jobs:
 
       - name: Run ${{ matrix.platform }} tests
         shell: bash
-        run: |
-          set -uo pipefail
-          mkdir -p results
-          editor_path="$(cygpath -u "$UNITY_EDITOR_PATH")"
-          results_path="$(cygpath -w "$PWD/results/${{ matrix.platform }}-results.xml")"
-
-          set +e
-          "$editor_path" \
-            -batchmode \
-            -nographics \
-            -projectPath "$(cygpath -w "$PWD")" \
-            -runTests \
-            -testPlatform ${{ matrix.platform }} \
-            -testCategory "!Smoke;!ShouldFail" \
-            -testResults "$results_path" \
-            -logFile -
-          code=$?
-          set -e
-
-          echo "Unity exited with code $code"
-          if [ ! -f "results/${{ matrix.platform }}-results.xml" ]; then
-            echo "::error::Unity did not produce a results file"
-            exit 1
-          fi
-          if ! grep -Eq 'total="[1-9][0-9]*"' "results/${{ matrix.platform }}-results.xml"; then
-            echo "::error::No ${{ matrix.platform }} tests were executed"
-            exit 1
-          fi
-          exit "$code"
+        run: ./.github/scripts/run-unity-tests.sh ${{ matrix.platform }}
 
       - name: Upload results
         if: always()
