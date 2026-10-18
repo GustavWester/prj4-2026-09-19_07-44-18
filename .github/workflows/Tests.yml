@@ -81,8 +81,10 @@ jobs:
         with:
           # Unity-versionen læses automatisk fra ProjectSettings/ProjectVersion.txt
           testMode: ${{ matrix.testMode }}
-          # Smoke booter spillet, ShouldFail er pipeline-tjekket i build-workflowet
-          customParameters: -testCategory "!Smoke;!ShouldFail"
+          # Smoke booter spillet, ShouldFail er pipeline-tjekket i build-workflowet.
+          # INGEN anførselstegn: GameCI sender dem videre til Unity som en del af værdien,
+          # og så bliver filteret '"!Smoke' (en inklusion), hvilket giver 0 kørte tests.
+          customParameters: -testCategory !Smoke;!ShouldFail
           artifactsPath: results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: Unity ${{ matrix.testMode }} test results
