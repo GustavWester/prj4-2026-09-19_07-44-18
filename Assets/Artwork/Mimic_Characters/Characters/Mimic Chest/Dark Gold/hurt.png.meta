@@ -3,10 +3,10 @@ guid: a90adb22db147674db80ac05b6ba960b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3582916166963785052
+      213: -2794652928238874243
     second: hurt_0
   - first:
-      213: 1642290761556927327
+      213: 8292182003809151987
     second: hurt_1
   externalObjects: {}
   serializedVersion: 13
@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -106,44 +106,44 @@ TextureImporter:
       name: hurt_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 8
-        width: 14
-        height: 14
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a29e10babce64ec0800000000000000
-      internalID: -3582916166963785052
+      spriteID: 9d6a68d2d561f2c71d65b4d96e1a527c
+      internalID: -2794652928238874243
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
       name: hurt_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 8
-        width: 14
-        height: 14
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f53a1841fb69ac610800000000000000
-      internalID: 1642290761556927327
+      spriteID: 836fb3b1ed4a7daf0a286a4e0c082e21
+      internalID: 8292182003809151987
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
@@ -160,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      hurt_0: -3582916166963785052
-      hurt_1: 1642290761556927327
+      hurt_0: -2794652928238874243
+      hurt_1: 8292182003809151987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
