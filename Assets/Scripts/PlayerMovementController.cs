@@ -45,6 +45,21 @@ public class PlayerMovementController : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) return;
+        SetupScene();
+        // ny level (LevelExit): kamera, lys og PlayerSpawn findes forfra i den nye scene
+        NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (IsOwner && NetworkManager.SceneManager != null) NetworkManager.SceneManager.OnLoadEventCompleted -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(string scene, UnityEngine.SceneManagement.LoadSceneMode mode,
+        System.Collections.Generic.List<ulong> done, System.Collections.Generic.List<ulong> timedOut) => SetupScene();
+
+    private void SetupScene()
+    {
         // kameraet skal kun følge min egen wizard
         Camera.main.GetComponent<CameraController>().player = gameObject;
 
