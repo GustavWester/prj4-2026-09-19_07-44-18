@@ -5,10 +5,10 @@ using UnityEngine;
 
 /// <summary>
 /// Boss-spøgelset: kalder små spøgelser frem, mens der står en spiller i boss-rummet.
-/// Sidder sammen med Health på bossen. Kører kun på hosten (eller offline), ligesom fjendernes AI.
+/// Sidder sammen med ResourceController på bossen. Kører kun på hosten (eller offline), ligesom fjendernes AI.
 /// Når bossen dør, dør dens spøgelser også.
 /// </summary>
-[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(ResourceController))]
 public class GhostSpawner : NetworkBehaviour
 {
     [SerializeField] private GameObject minion; // Ghost.prefab, skal ligge i DefaultNetworkPrefabs
@@ -16,14 +16,14 @@ public class GhostSpawner : NetworkBehaviour
     [SerializeField] private int maxAlive = 4;
     [SerializeField] private float spawnRadius = 2f;
 
-    private readonly List<Health> alive = new();
-    private Health health;
+    private readonly List<ResourceController> alive = new();
+    private ResourceController health;
     private Collider2D room;
     private bool RunsAI => !IsSpawned || IsServer;
 
     private void Awake()
     {
-        health = GetComponent<Health>();
+        health = GetComponent<ResourceController>();
         health.onDeath.AddListener(KillMinions);
     }
 
@@ -45,7 +45,7 @@ public class GhostSpawner : NetworkBehaviour
             Vector2 pos = (Vector2)transform.position + Random.insideUnitCircle.normalized * spawnRadius;
             var ghost = Instantiate(minion, pos, Quaternion.identity);
             if (IsSpawned) ghost.GetComponent<NetworkObject>().Spawn(true); // true = forsvinder med scenen
-            alive.Add(ghost.GetComponent<Health>());
+            alive.Add(ghost.GetComponent<ResourceController>());
         }
     }
 

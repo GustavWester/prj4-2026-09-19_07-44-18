@@ -11,10 +11,10 @@ using UnityEngine.SceneManagement;
 public class LevelExit : NetworkBehaviour
 {
     [SerializeField] private string nextScene;
-    [SerializeField] private Health boss; // RedWizard i scenen; stigen virker først når den er død
+    [SerializeField] private ResourceController boss; // RedWizard i scenen; stigen virker først når den er død
     private bool playerNear;
 
-    // null = bossen er despawnet efter døden (SmallEnemyController.DespawnAfter).
+    // null = bossen er despawnet efter døden (EnemyController).
     // CurrentHealth i stedet for IsDead, så det også passer for klienter der joiner efter bossen døde
     private bool Unlocked => boss == null || boss.CurrentHealth <= 0;
 
