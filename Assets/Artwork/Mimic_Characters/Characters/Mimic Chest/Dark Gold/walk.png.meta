@@ -3,16 +3,16 @@ guid: 120bceaf172605d40abeb7359f8bddbc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8296385383580801948
+      213: 117589000689075926
     second: walk_0
   - first:
-      213: 3218353051568008401
+      213: 3117435555124224201
     second: walk_1
   - first:
-      213: 6971375644381031630
+      213: 1677740957097915452
     second: walk_2
   - first:
-      213: -3714987382563562326
+      213: 5003402818028446183
     second: walk_3
   externalObjects: {}
   serializedVersion: 13
@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -112,88 +112,88 @@ TextureImporter:
       name: walk_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 8
-        width: 14
-        height: 15
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4646ce323715ddc80800000000000000
-      internalID: -8296385383580801948
+      spriteID: 868a899f56d2b81cfcc02a6eda7c0b84
+      internalID: 117589000689075926
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
       name: walk_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 8
-        width: 14
-        height: 14
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1dc61808c03e9ac20800000000000000
-      internalID: 3218353051568008401
+      spriteID: 17681a7c990c2b43357e8924cd833802
+      internalID: 3117435555124224201
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
       name: walk_2
       rect:
         serializedVersion: 2
-        x: 73
-        y: 8
-        width: 14
-        height: 15
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ecc242f663d4fb060800000000000000
-      internalID: 6971375644381031630
+      spriteID: 2f51847499831918fcdbb2bfbb21fd20
+      internalID: 1677740957097915452
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
       name: walk_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 8
-        width: 14
-        height: 14
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aac9d3d88a6b17cc0800000000000000
-      internalID: -3714987382563562326
+      spriteID: 4cb5a957d65f777c5eaeb4053561427f
+      internalID: 5003402818028446183
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
@@ -210,10 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      walk_0: -8296385383580801948
-      walk_1: 3218353051568008401
-      walk_2: 6971375644381031630
-      walk_3: -3714987382563562326
+      walk_0: 117589000689075926
+      walk_1: 3117435555124224201
+      walk_2: 1677740957097915452
+      walk_3: 5003402818028446183
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

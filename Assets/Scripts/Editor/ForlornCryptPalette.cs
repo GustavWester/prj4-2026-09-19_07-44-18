@@ -52,7 +52,7 @@ public static class ForlornCryptPalette
         Debug.Log($"Tile Palette oprettet: {palettePath}");
     }
 
-    // Pixel art-indstillinger + 16x16-slicing. Ark med håndlavet slicing (fx forskellige størrelser) røres ikke.
+    // Pixel art-indstillinger + 16x16-slicing. Ark med små håndlavede sprites (fx animationsframes) røres ikke.
     // Eksisterende 16x16-sprites beholder deres ID, så tiles der allerede er malet, stadig virker efter man har tegnet videre i Aseprite.
     static Vector2Int Import(string png)
     {
@@ -73,7 +73,8 @@ public static class ForlornCryptPalette
         dp.InitSpriteEditorDataProvider();
         var existing = dp.GetSpriteRects();
         bool gridSliced = existing.All(r => r.rect.width == Cell && r.rect.height == Cell && r.rect.x % Cell == 0 && r.rect.y % Cell == 0);
-        if (existing.Length <= 1 || gridSliced) // ikke skåret op endnu, eller skåret i 16x16
+        bool tooBig = existing.Any(r => r.rect.width > Cell || r.rect.height > Cell); // fx søjler på 16x48 skal kunne vælges felt for felt
+        if (existing.Length <= 1 || gridSliced || tooBig) // ikke skåret op endnu, skåret i 16x16, eller sprites over flere felter
         {
             string name = Path.GetFileNameWithoutExtension(png);
             var rects = new List<SpriteRect>();
