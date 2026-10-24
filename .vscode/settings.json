@@ -67,6 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "prj4-2026-09-19_07-44-18.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
