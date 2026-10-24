@@ -15,4 +15,7 @@ public class ItemSO : ScriptableObject
 
     [Tooltip("Stat-bonus når itemet er equipped (via PlayerManager.Equip). 0 = ingen effekt.")]
     public StatModifier statModifier;
+
+     [Tooltip("Virker straks og for altid når det samles op.")]
+      public bool isPowerup;
 }
