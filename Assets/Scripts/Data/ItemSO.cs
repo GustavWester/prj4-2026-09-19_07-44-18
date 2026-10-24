@@ -18,4 +18,8 @@ public class ItemSO : ScriptableObject
 
      [Tooltip("Virker straks og for altid når det samles op.")]
       public bool isPowerup;
+
+    [Header("Potion (drikkes med PotionHotkey)")]
+    public int healAmount;
+    public int manaAmount;
 }
