@@ -25,6 +25,12 @@ public class ItemPickup : NetworkBehaviour
         GetComponent<SpriteRenderer>().sprite = item.icon;
     }
 
+    // viser itemets ikon i editoren, så man kan se forskel på pickups i scenen
+    private void OnValidate()
+    {
+        if (item != null) GetComponent<SpriteRenderer>().sprite = item.icon;
+    }
+
     public override void OnNetworkSpawn()
     {
         if (IsServer) itemName.Value = item.name;
