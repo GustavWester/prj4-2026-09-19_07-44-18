@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviour
     public float ManaRegenPerSecond => stats.manaRegenPerSecond;
     public float MoveSpeed => stats.moveSpeed;
     public int SpellDamage => stats.spellDamage;
+    public int ProjectileCount => Mathf.Max(1, stats.projectileCount);
 
     private void Awake()
     {

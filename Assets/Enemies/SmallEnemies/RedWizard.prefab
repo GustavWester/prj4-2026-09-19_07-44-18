@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7878268105137351951}
   - component: {fileID: 315773566631582011}
   - component: {fileID: 4029039001501379797}
+  - component: {fileID: 6367818548928809869}
   m_Layer: 0
   m_Name: RedWizard
   m_TagString: Untagged
@@ -321,3 +322,24 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &6367818548928809869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829554569575052017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4e69ed07b1499da9b9a097f1c8eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::LootDrop
+  pickupPrefab: {fileID: 2822671252504475119, guid: cf054f520c9e94e4ebe0d5a5c4afaedd, type: 3}
+  items:
+  - {fileID: 11400000, guid: 8367f1ca882a47d094d23c2dbea33008, type: 2}
+  - {fileID: 11400000, guid: da4b37ac40c947929c323115079aab94, type: 2}
+  - {fileID: 11400000, guid: 1393e946076e4fc8aff04e194d840bd0, type: 2}
+  chance: 1
+  count: 1
+  onePerPlayer: 1
+  spread: 0.5

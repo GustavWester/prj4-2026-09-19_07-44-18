@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 5512051279324440487}
   - component: {fileID: 3530998498882859659}
   - component: {fileID: 2164335787645813886}
+  - component: {fileID: 4304192366812557370}
   m_Layer: 0
   m_Name: Mimic
   m_TagString: Untagged
@@ -652,3 +653,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.16, y: 0.12}
   m_EdgeRadius: 0
+--- !u!114 &4304192366812557370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187583892366987139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4e69ed07b1499da9b9a097f1c8eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::LootDrop
+  pickupPrefab: {fileID: 2822671252504475119, guid: cf054f520c9e94e4ebe0d5a5c4afaedd, type: 3}
+  items:
+  - {fileID: 11400000, guid: 24edd60dc11d4195b91054f7f36cb466, type: 2}
+  - {fileID: 11400000, guid: a9dd2570a0954a3b9c890faddbdee9b4, type: 2}
+  - {fileID: 11400000, guid: c42324cc77bf4c62ab9edff0a6c87ead, type: 2}
+  - {fileID: 11400000, guid: 0b34ad81c2604843b41fb22f866fdaee, type: 2}
+  chance: 1
+  count: 1
+  onePerPlayer: 0
+  spread: 0.5

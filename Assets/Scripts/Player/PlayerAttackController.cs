@@ -12,6 +12,7 @@ public class PlayerAttackController : NetworkBehaviour
 {
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private float cooldown = 0.4f;
+    [SerializeField] private float spreadDeg = 12f; // vinkel mellem fireballs når man har flere
 
     private float cooldownTimer;
     private PlayerManager playerManager;
@@ -45,8 +46,14 @@ public class PlayerAttackController : NetworkBehaviour
 
     private void Shoot(Vector2 pos, Vector2 dir)
     {
-        GameObject fireball = Instantiate(fireballPrefab, pos, Quaternion.identity);
-        fireball.GetComponent<PlayerBullet>().Launch(dir, playerManager); //sender retning og skytte videre, så kuglen kan læse spell damage
+        int count = playerManager.ProjectileCount;
+        for (int i = 0; i < count; i++)
+        {
+            float angle = (i - (count - 1) / 2f) * spreadDeg; // fx -12, 0, 12 ved 3 fireballs
+            Vector2 d = Quaternion.Euler(0, 0, angle) * dir;
+            GameObject fireball = Instantiate(fireballPrefab, pos, Quaternion.identity);
+            fireball.GetComponent<PlayerBullet>().Launch(d, playerManager); //sender retning og skytte videre, så kuglen kan læse spell damage
+        }
         GetComponent<Animator>().SetTrigger("Attack"); //afspiller angribsanimationen
     }
 }

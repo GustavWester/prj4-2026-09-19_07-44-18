@@ -12,6 +12,7 @@ public struct StatModifier
     public float manaRegenPerSecond;
     public float moveSpeed;
     public int spellDamage;
+    public int projectileCount; // ekstra fireballs pr. skud
 
     public static StatModifier operator +(StatModifier a, StatModifier b) => new StatModifier
     {
@@ -20,5 +21,6 @@ public struct StatModifier
         manaRegenPerSecond = a.manaRegenPerSecond + b.manaRegenPerSecond,
         moveSpeed = a.moveSpeed + b.moveSpeed,
         spellDamage = a.spellDamage + b.spellDamage,
+        projectileCount = a.projectileCount + b.projectileCount,
     };
 }
