@@ -11,7 +11,7 @@ using UnityEngine.UI;
 ///   CharacterWindow ind i 'window'. Så kan vinduet slås til/fra uden at
 ///   scriptet selv bliver deaktiveret.
 /// - HP/MP-bar: et Image med Image Type = Filled (Horizontal).
-/// - Spilleren skal have CharacterProfile, Health og (valgfrit) Mana.
+/// - Spilleren skal have CharacterProfile og ResourceController.
 /// </summary>
 public class CharacterSheetUI : MonoBehaviour
 {
@@ -42,8 +42,7 @@ public class CharacterSheetUI : MonoBehaviour
     [SerializeField] private AbilityEntryUI abilityEntryPrefab;
 
     private CharacterProfile profile;
-    private Health health;
-    private Mana mana;
+    private ResourceController resources;
 
     public bool IsOpen => window != null && window.activeSelf;
 
@@ -82,11 +81,13 @@ public class CharacterSheetUI : MonoBehaviour
 
         target = newTarget;
         profile = target != null ? target.GetComponent<CharacterProfile>() : null;
-        health = target != null ? target.GetComponent<Health>() : null;
-        mana = target != null ? target.GetComponent<Mana>() : null;
+        resources = target != null ? target.GetComponent<ResourceController>() : null;
 
-        if (health != null) health.onHealthPercentChanged.AddListener(OnHealthChanged);
-        if (mana != null) mana.onManaChanged.AddListener(OnManaChanged);
+        if (resources != null)
+        {
+            resources.onHealthPercentChanged.AddListener(OnHealthChanged);
+            resources.onManaChanged.AddListener(OnManaChanged);
+        }
 
         RefreshAll();
     }
@@ -105,8 +106,9 @@ public class CharacterSheetUI : MonoBehaviour
 
     private void Unsubscribe()
     {
-        if (health != null) health.onHealthPercentChanged.RemoveListener(OnHealthChanged);
-        if (mana != null) mana.onManaChanged.RemoveListener(OnManaChanged);
+        if (resources == null) return;
+        resources.onHealthPercentChanged.RemoveListener(OnHealthChanged);
+        resources.onManaChanged.RemoveListener(OnManaChanged);
     }
 
     private void RefreshAll()
@@ -134,15 +136,15 @@ public class CharacterSheetUI : MonoBehaviour
 
     private void RefreshHealth()
     {
-        int current = health != null ? health.CurrentHealth : 0;
-        int max = health != null ? health.maxHealth : 0;
+        int current = resources != null ? resources.CurrentHealth : 0;
+        int max = resources != null ? resources.MaxHealth : 0;
         SetBar(healthFill, healthText, current, max);
     }
 
     private void RefreshMana()
     {
-        int current = mana != null ? mana.CurrentMana : 0;
-        int max = mana != null ? mana.maxMana : 0;
+        int current = resources != null ? resources.CurrentMana : 0;
+        int max = resources != null ? resources.MaxMana : 0;
         SetBar(manaFill, manaText, current, max);
     }
 

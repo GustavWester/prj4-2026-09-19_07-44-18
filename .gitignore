@@ -115,3 +115,10 @@ InitTestScene*.unity*
 
 # macOS
 .DS_Store
+
+# dotnet test-projektet for Game.Core
+/CoreTests/[Bb]in/
+/CoreTests/[Oo]bj/
+/CoreTests/TestResults/
+# Unity genererer sine egne .csproj (ignoreres ovenfor), men dette projekt er håndskrevet
+!/CoreTests/Game.Core.Tests.csproj

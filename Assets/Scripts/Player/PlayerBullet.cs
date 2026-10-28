@@ -1,0 +1,94 @@
+using UnityEngine;
+using UnityEngine.Rendering.Universal; // Light2D
+using UnityEngine.Serialization;
+
+// Spillerens projektil (fx fireball). Flyver ligeud i den retning, den bliver skudt afsted i, og skader det første den rammer.
+// Skade = baseDamage + skytten's spell damage (læses gennem PlayerManager).
+// Animationen vælges efter retning (højre/foran/bagved) via blend tree i Animator.
+public class PlayerBullet : MonoBehaviour
+{
+    [SerializeField] private float speed = 8f;
+    [Tooltip("Spellens egen skade. Spillerens spell damage fra PlayerManager lægges oveni.")]
+    [FormerlySerializedAs("damage")]
+    [SerializeField] private int baseDamage = 1;
+    [SerializeField] private float lifetime = 3f;
+    [Tooltip("Mana det koster at skyde ét skud. Trækkes af PlayerAttackController.")]
+    [SerializeField, Min(0)] private int manaCost = 5;
+
+    public int ManaCost => manaCost;
+
+    [Header("Juice - light")]
+    [Tooltip("Optional: a Light2D on this fireball (or a child of it) for the glow/bloom effect while it flies.")]
+    [SerializeField] private Light2D glowLight;
+    [SerializeField] private float baseLightIntensity = 1.2f;
+    [SerializeField] private float lightPulseSpeed = 10f;
+    [SerializeField] private float lightPulseAmount = 0.3f;
+
+    [Header("Juice - impact")]
+    [Tooltip("Particle system prefab spawned on hit. Set its 'Stop Action' to Destroy so it cleans itself up.")]
+    [SerializeField] private ParticleSystem impactEffectPrefab;
+    [SerializeField] private float cameraShakeDuration = 0.08f;
+    [SerializeField] private float cameraShakeMagnitude = 0.12f;
+    [SerializeField] private float hitStopDuration = 0.02f;
+
+    private Vector2 direction = Vector2.right;
+    private PlayerManager owner;
+
+    private int Damage => baseDamage + (owner != null ? owner.SpellDamage : 0);
+
+    public void Launch(Vector2 dir, PlayerManager shooter) //kaldes af den der skyder
+    {
+        direction = dir.normalized;
+        owner = shooter;
+
+        // Snap til nærmeste af de tre animationer: vandret -> Right, lodret -> Front/Behind.
+        var facing = SpriteFacing.From(direction.x, direction.y);
+        var animator = GetComponent<Animator>();
+        animator.SetFloat("DirX", facing.DirX);
+        animator.SetFloat("DirY", facing.DirY);
+
+        GetComponent<SpriteRenderer>().flipX = facing.FlipX; // venstre spejles
+    }
+
+    private void Start()
+    {
+        Destroy(gameObject, lifetime); //sletter kuglen igen efter 3 sekunder, hvis den ikke har ramt noget
+
+        if (glowLight != null)
+            glowLight.intensity = baseLightIntensity;
+    }
+
+    private void Update()
+    {
+        transform.position += (Vector3)(direction * (speed * Time.deltaTime)); //farten er uafhængigt af vores framerate
+
+        // Let pulsering af lyset, så den ikke bare gløder statisk - giver et "levende" flamme-look.
+        if (glowLight != null)
+            glowLight.intensity = baseLightIntensity + Mathf.Sin(Time.time * lightPulseSpeed) * lightPulseAmount;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.isTrigger) return; // zoner (rum, dørens E-område) er ikke noget man kan ramme
+        if (other.CompareTag("Player")) return; // ignorer spilleren
+
+        if (other.CompareTag("Bullet")) return;
+        
+        // Hver klient har sin egen kugle, så kun hosten må give skade (ellers tælles den dobbelt)
+        var nm = Unity.Netcode.NetworkManager.Singleton;
+        if (nm == null || !nm.IsListening || nm.IsServer)
+            other.SendMessage("TakeDamage", Damage, SendMessageOptions.DontRequireReceiver);
+
+        PlayImpactJuice();
+        Destroy(gameObject);
+    }
+
+    private void PlayImpactJuice()
+    {
+        if (impactEffectPrefab != null)
+            Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
+
+        CameraShake.Instance?.Shake(cameraShakeDuration, cameraShakeMagnitude);
+        HitStop.Instance?.Stop(hitStopDuration);
+    }
+}

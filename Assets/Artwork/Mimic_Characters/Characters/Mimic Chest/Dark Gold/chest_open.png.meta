@@ -3,10 +3,10 @@ guid: eae9c7b2cf7a1f447a4d3ee4c3faddd0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7420185212081706498
+      213: -5019099466738050213
     second: chest_open_0
   - first:
-      213: -5503087013248736640
+      213: -6119314500686670925
     second: chest_open_1
   externalObjects: {}
   serializedVersion: 13
@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -106,44 +106,44 @@ TextureImporter:
       name: chest_open_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 8
-        width: 14
-        height: 13
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef9634a0dd4360990800000000000000
-      internalID: -7420185212081706498
+      spriteID: ba315e9a7a60d95a27dcb38933a41c23
+      internalID: -5019099466738050213
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
       name: chest_open_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 8
-        width: 14
-        height: 14
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
+      customData:
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0826e3f948b11a3b0800000000000000
-      internalID: -5503087013248736640
+      spriteID: 32cc04af2f217a3d010e4c356d258655
+      internalID: -6119314500686670925
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
@@ -160,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      chest_open_0: -7420185212081706498
-      chest_open_1: -5503087013248736640
+      chest_open_0: -5019099466738050213
+      chest_open_1: -6119314500686670925
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
