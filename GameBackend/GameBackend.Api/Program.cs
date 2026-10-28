@@ -1,8 +1,18 @@
 using System.Text;
+using GameBackend.Api.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Database
+var connectionString = builder.Configuration.GetConnectionString("GameDb");
+if (string.IsNullOrWhiteSpace(connectionString))
+    throw new InvalidOperationException("ConnectionStrings:GameDb mangler i User Secrets.");
+
+builder.Services.AddDbContext<GameDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // JWT game-token fra Website Backend
 var jwt = builder.Configuration.GetSection("Jwt");
