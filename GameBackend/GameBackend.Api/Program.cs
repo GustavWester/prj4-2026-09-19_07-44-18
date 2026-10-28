@@ -1,5 +1,6 @@
 using System.Text;
 using GameBackend.Api.Data;
+using GameBackend.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,10 @@ if (string.IsNullOrWhiteSpace(connectionString))
 
 builder.Services.AddDbContext<GameDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+// Services
+builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddScoped<IPlayerService, PlayerService>();    
 
 // JWT game-token fra Website Backend
 var jwt = builder.Configuration.GetSection("Jwt");
