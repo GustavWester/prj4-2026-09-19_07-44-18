@@ -345,6 +345,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   fireballPrefab: {fileID: 8155128158161312045, guid: aec48452c2988437f8f83f46deb344c0, type: 3}
   cooldown: 0.1
+  spreadDeg: 12
 --- !u!114 &1508152896652456296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,8 +359,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceController
   ShowTopMostFoldoutHeaderGroup: 1
-  stats: {fileID: 0}
-  maxHealth: 5
+  maxHealth: 10
+  maxMana: 0
+  manaRegenPerSecond: 0
   onDamaged:
     m_PersistentCalls:
       m_Calls:
@@ -429,6 +431,9 @@ MonoBehaviour:
           m_StringArgument: Die
           m_BoolArgument: 0
         m_CallState: 2
+  onManaChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8853780581735056379
 MonoBehaviour:
   m_ObjectHideFlags: 0
