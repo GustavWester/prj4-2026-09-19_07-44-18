@@ -4,33 +4,45 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// JWT game-token fra Website Backend
 var jwt = builder.Configuration.GetSection("Jwt");
-var signingKey = jwt["Key"]
-    ?? throw new InvalidOperationException("Jwt:Key mangler i konfigurationen (User Secrets).");
+var signingKey = jwt["Key"];
+if (string.IsNullOrWhiteSpace(signingKey))
+    throw new InvalidOperationException("Jwt:Key mangler. Kør: dotnet user-secrets set \"Jwt:Key\" \"<samme nøgle som Website Backend>\"");
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        // Behold claim-navnene "sub", "name" og "role" som Website BackEnd skriver dem
+        // Behold claim-navnene "sub", "name", "game_id" osv. som Website Backend skriver dem
         options.MapInboundClaims = false;
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
-            ValidIssuer = jwt["Issuer"],
-            ValidateAudience = true,
-            ValidAudience = jwt["Audience"],
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+            ValidateIssuer = true,
+            ValidIssuer = jwt["Issuer"],          // "DungeonCrawlerApi"
+            ValidateAudience = true,
+            ValidAudience = jwt["Audience"],      // "dungeon-crawler-game-api"
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.FromSeconds(30),
+            ClockSkew = TimeSpan.Zero,            // samme som Website Backend
             NameClaimType = "name",
             RoleClaimType = "role"
         };
     });
 
-builder.Services.AddAuthorization();
+// Authorization
+builder.Services.AddAuthorization(options =>
+{
+    // Kun game-tokens med scope "game:play" og et game_id
+    options.AddPolicy("GamePlay", policy => policy
+        .RequireAuthenticatedUser()
+        .RequireClaim("scope", "game:play")
+        .RequireClaim("game_id"));
+});
+
+// Controllers/Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -44,10 +56,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();   // Hvem er du? (læser og validerer tokenet)
-app.UseAuthorization();    // Må du det her? ([Authorize])
+app.UseAuthentication();   // Hvem er det? (validerer tokenet)
+app.UseAuthorization();    // Må du det her? ([Authorize(Policy = "GamePlay")])
 app.MapControllers();
 
 app.Run();
 
+// Gør Program synlig for testprojektet (WebApplicationFactory)
 public partial class Program { }
