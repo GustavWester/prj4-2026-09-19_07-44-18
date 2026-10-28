@@ -671,6 +671,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9dd2570a0954a3b9c890faddbdee9b4, type: 2}
   - {fileID: 11400000, guid: c42324cc77bf4c62ab9edff0a6c87ead, type: 2}
   - {fileID: 11400000, guid: 0b34ad81c2604843b41fb22f866fdaee, type: 2}
+  - {fileID: 11400000, guid: 8367f1ca882a47d094d23c2dbea33008, type: 2}
+  - {fileID: 11400000, guid: da4b37ac40c947929c323115079aab94, type: 2}
+  - {fileID: 11400000, guid: 1393e946076e4fc8aff04e194d840bd0, type: 2}
+  - {fileID: 11400000, guid: 7504622b36d1c49daa9a0a0a23f9ea96, type: 2}
+  - {fileID: 11400000, guid: 45196a5b429b4d0f87d257ce0b8626ce, type: 2}
+  - {fileID: 11400000, guid: be29f098798d4bba97e90dd9190b4a4e, type: 2}
+  - {fileID: 11400000, guid: 922c2aa5034f434cb422429da9b08a75, type: 2}
+  - {fileID: 11400000, guid: fbf6a4b8a1044f39855835f4018f9b1a, type: 2}
   chance: 1
   count: 1
   onePerPlayer: 0
