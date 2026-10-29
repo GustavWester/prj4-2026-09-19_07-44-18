@@ -79,6 +79,9 @@ public class ItemPickup : NetworkBehaviour
         if (item.isPowerup)
             for (int i = 0; i < amount; i++)
                 player.GetComponent<PlayerManager>().Equip(item);
+
+        if (item.spell != null)
+            player.GetComponent<PlayerAttackController>().SetSpell(item.spell);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

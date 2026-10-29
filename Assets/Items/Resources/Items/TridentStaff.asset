@@ -24,5 +24,6 @@ MonoBehaviour:
     spellDamage: 0
     projectileCount: 2
   isPowerup: 1
+  unique: 1
   healAmount: 0
   manaAmount: 0
