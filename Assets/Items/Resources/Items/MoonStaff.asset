@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::ItemSO
   itemName: Månestav
   icon: {fileID: 21300000, guid: ca1a2ffd20c34d12adee64477e41584e, type: 3}
-  description: +4 fireballs, -2 skade.
+  description: +4 fireballs, -40 max mana.
   maxStack: 1
   statModifier:
     maxHealth: 0
-    maxMana: 0
+    maxMana: -40
     manaRegenPerSecond: 0
     moveSpeed: 0
-    spellDamage: -2
+    spellDamage: 0
     projectileCount: 4
   isPowerup: 1
   healAmount: 0

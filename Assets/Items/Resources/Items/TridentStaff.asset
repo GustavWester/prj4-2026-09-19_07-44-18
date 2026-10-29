@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Trefork-stav
   icon: {fileID: 21300000, guid: 67b48a8a4eaa42c9b035395cb4b7c9e9, type: 3}
-  description: Skyder 3 fireballs, men -1 skade.
+  description: Skyder 3 fireballs, men -25 max mana.
   maxStack: 1
   statModifier:
     maxHealth: 0
-    maxMana: 0
+    maxMana: -25
     manaRegenPerSecond: 0
     moveSpeed: 0
-    spellDamage: -1
+    spellDamage: 0
     projectileCount: 2
   isPowerup: 1
   healAmount: 0
