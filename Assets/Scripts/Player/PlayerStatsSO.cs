@@ -20,6 +20,8 @@ public class PlayerStatsSO : ScriptableObject
     [Header("Combat")]
     [Tooltip("Lægges oveni hver spells egen base damage.")]
     public int spellDamage = 0;
+    [Tooltip("Antal fireballs pr. skud.")]
+    [Min(1)] public int projectileCount = 1;
 
     /// <summary>Lægger en modifier oveni disse stats.</summary>
     public void Add(StatModifier mod)
@@ -29,6 +31,7 @@ public class PlayerStatsSO : ScriptableObject
         manaRegenPerSecond += mod.manaRegenPerSecond;
         moveSpeed += mod.moveSpeed;
         spellDamage += mod.spellDamage;
+        projectileCount += mod.projectileCount;
     }
 }
 
