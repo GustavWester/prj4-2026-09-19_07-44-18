@@ -25,6 +25,6 @@ MonoBehaviour:
     projectileCount: 0
   isPowerup: 1
   unique: 1
-  spell: {fileID: 0}
+  spell: {fileID: 8873612049520168455, guid: d611e327d3f54267abb5bf9c4b161210, type: 3}
   healAmount: 0
   manaAmount: 0
