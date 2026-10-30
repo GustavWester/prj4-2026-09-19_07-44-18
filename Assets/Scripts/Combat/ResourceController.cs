@@ -34,16 +34,22 @@ public class ResourceController : NetworkBehaviour
     public UnityEvent<int, int> onManaChanged = new();
 
     // Serveren ejer livet. Klienter får værdien automatisk og kører de samme events.
-    // ikke readonly: Awake laver den med startværdien, fordi en skrivning før spawn giver en Netcode-advarsel
-    private NetworkVariable<int> netHealth = new();
+    private readonly NetworkVariable<int> netHealth = new();
     public int CurrentHealth => netHealth.Value;
     public int MaxHealth => maxHealth;
     public float HealthPercent => ResourceMath.Percent(CurrentHealth, maxHealth);
     public bool IsDead { get; private set; }
     public bool IsInvulnerable { get; set; }
 
-    // Mana er lokal: kun ejeren bruger den (til at skyde), så den synkes ikke.
-    public int CurrentMana { get; private set; }
+    // Mana ejes af spilleren selv (owner skriver), men læses af alle, så andre kan se manabaren.
+    // Før spawn / offline bruges localMana.
+    private readonly NetworkVariable<int> netMana = new(
+        0,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner);
+    private int localMana;
+
+    public int CurrentMana => IsSpawned ? netMana.Value : localMana;
     public int MaxMana => maxMana;
     public float ManaPercent => ResourceMath.Percent(CurrentMana, maxMana);
 
@@ -52,15 +58,23 @@ public class ResourceController : NetworkBehaviour
 
     private void Awake()
     {
-        netHealth = new NetworkVariable<int>(maxHealth); // Netcode samler variablerne først ved spawn, efter Awake
-        CurrentMana = maxMana;
+        netHealth.Value = maxHealth;
+        localMana = maxMana;
         initialized = true;
         // kører både på serveren (når den skriver) og på klienter (når de modtager)
         netHealth.OnValueChanged += OnHealthChanged;
+        netMana.OnValueChanged += OnManaNetChanged;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        // Ejeren sætter startværdien; alle andre får den synkroniseret.
+        if (IsOwner) netMana.Value = Mathf.Clamp(localMana, 0, maxMana);
     }
 
     private void Update()
     {
+        if (!HasManaAuthority) return; // kun ejeren regenererer (ellers ville ikke-ejere forsøge at skrive)
         if (manaRegenPerSecond <= 0f || CurrentMana >= maxMana) return;
 
         int whole = regen.Tick(manaRegenPerSecond, Time.deltaTime);
@@ -119,22 +133,42 @@ public class ResourceController : NetworkBehaviour
     // ---------------------------------------------------------------
     // Mana
     // ---------------------------------------------------------------
-    /// <summary>Trækker mana hvis der er nok. Returnerer false (og trækker intet) hvis ikke.</summary>
+    private bool HasManaAuthority => !IsSpawned || IsOwner;
+
+    /// <summary>Skriver mana. Online går det via NetworkVariable (som fyrer eventet), offline fyrer vi det selv.</summary>
+    private void SetMana(int value)
+    {
+        value = Mathf.Clamp(value, 0, maxMana);
+
+        if (IsSpawned)
+        {
+            if (netMana.Value != value) netMana.Value = value;
+        }
+        else
+        {
+            localMana = value;
+            onManaChanged?.Invoke(localMana, maxMana);
+        }
+    }
+
+    private void OnManaNetChanged(int previous, int current) => onManaChanged?.Invoke(current, maxMana);
+
+    /// <summary>Trækker mana hvis der er nok. Returnerer false (og trækker intet) hvis ikke. Kun ejeren kan bruge mana.</summary>
     public bool TrySpendMana(int amount)
     {
+        if (!HasManaAuthority) return false;
         if (amount < 0 || CurrentMana < amount) return false;
 
-        CurrentMana -= amount;
-        onManaChanged?.Invoke(CurrentMana, maxMana);
+        SetMana(CurrentMana - amount);
         return true;
     }
 
     public void RestoreMana(int amount)
     {
+        if (!HasManaAuthority) return;
         if (amount <= 0) return;
 
-        CurrentMana = Mathf.Min(maxMana, CurrentMana + amount);
-        onManaChanged?.Invoke(CurrentMana, maxMana);
+        SetMana(CurrentMana + amount);
     }
 
     /// <summary>Sætter ny max-mana. Nuværende mana flyttes lige så meget.</summary>
@@ -145,8 +179,9 @@ public class ResourceController : NetworkBehaviour
         maxMana = max;
         if (!initialized) return; // Awake fylder manaen op
 
-        CurrentMana = ResourceMath.ResizeCurrent(CurrentMana, oldMax, maxMana, 0);
-        onManaChanged?.Invoke(CurrentMana, maxMana);
+        if (HasManaAuthority)
+            SetMana(ResourceMath.ResizeCurrent(CurrentMana, oldMax, maxMana, 0));
+        onManaChanged?.Invoke(CurrentMana, maxMana); // max kan have ændret sig selvom mana ikke gjorde
     }
 
     public void SetManaRegen(float perSecond) => manaRegenPerSecond = Mathf.Max(0f, perSecond);
