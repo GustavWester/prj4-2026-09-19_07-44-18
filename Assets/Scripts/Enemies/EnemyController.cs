@@ -136,11 +136,19 @@ public class EnemyController : NetworkBehaviour
         orbitAngleDeg = Random.Range(0f, 360f); // stagger multiple orbiters
     }
 
-    // Destroy() på hosten fjerner ikke scene-placerede fjender hos klienterne, Despawn() gør
+    // Destroy() på hosten fjerner ikke scene-placerede fjender hos klienterne, Despawn() gør.
+    // Scene-placerede må ikke slettes (Netcode-advarsel), så de despawnes og skjules i OnNetworkDespawn.
     private IEnumerator DespawnAfter(float delay)
     {
         yield return new WaitForSeconds(delay);
-        NetworkObject.Despawn();
+        NetworkObject.Despawn(!NetworkObject.InScenePlaced);
+    }
+
+    // kører på alle maskiner; kun døde fjender skjules, så de ikke forsvinder når hosten lukker
+    public override void OnNetworkDespawn()
+    {
+        if (IsDead && NetworkObject.InScenePlaced) gameObject.SetActive(false);
+        base.OnNetworkDespawn();
     }
 
     private void Start()

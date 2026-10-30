@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 8199647407479662868}
   - component: {fileID: 4802597394890784065}
   - component: {fileID: 5869928244147432235}
+  - component: {fileID: 2542759605122755461}
   m_Layer: 0
   m_Name: MageGoblin
   m_TagString: Untagged
@@ -526,3 +527,24 @@ MonoBehaviour:
       Synchronize: 1
       ParameterType: 9
   AnimatorParametersExpanded: 0
+--- !u!114 &2542759605122755461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510852485184068842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4e69ed07b1499da9b9a097f1c8eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::LootDrop
+  pickupPrefab: {fileID: 2822671252504475119, guid: cf054f520c9e94e4ebe0d5a5c4afaedd, type: 3}
+  items:
+  - {fileID: 11400000, guid: b5518fd0a799423cb11b6eea93630f2c, type: 2}
+  - {fileID: 11400000, guid: b5518fd0a799423cb11b6eea93630f2c, type: 2}
+  - {fileID: 11400000, guid: 5c028c8a0972f2e4c8b20c01b59a4bc9, type: 2}
+  chance: 0.25
+  count: 1
+  onePerPlayer: 0
+  spread: 0.5

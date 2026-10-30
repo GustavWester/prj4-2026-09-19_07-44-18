@@ -32,6 +32,7 @@ public class RoomReward : MonoBehaviour
     {
         if (!enemies.All(e => e == null || e.IsDead)) return;
         GetComponent<Animator>().SetTrigger("Open");
+        if (TryGetComponent(out LootDrop loot)) loot.Drop();
         enabled = false; // kun én gang
     }
 }
