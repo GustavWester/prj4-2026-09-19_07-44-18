@@ -34,7 +34,8 @@ public class ResourceController : NetworkBehaviour
     public UnityEvent<int, int> onManaChanged = new();
 
     // Serveren ejer livet. Klienter får værdien automatisk og kører de samme events.
-    private readonly NetworkVariable<int> netHealth = new();
+    // ikke readonly: Awake laver den med startværdien, fordi en skrivning før spawn giver en Netcode-advarsel
+    private NetworkVariable<int> netHealth = new();
     public int CurrentHealth => netHealth.Value;
     public int MaxHealth => maxHealth;
     public float HealthPercent => ResourceMath.Percent(CurrentHealth, maxHealth);
@@ -58,7 +59,7 @@ public class ResourceController : NetworkBehaviour
 
     private void Awake()
     {
-        netHealth.Value = maxHealth;
+        netHealth = new NetworkVariable<int>(maxHealth); // Netcode samler variablerne først ved spawn, efter Awake
         localMana = maxMana;
         initialized = true;
         // kører både på serveren (når den skriver) og på klienter (når de modtager)
