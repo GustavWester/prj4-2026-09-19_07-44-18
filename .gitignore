@@ -122,3 +122,5 @@ InitTestScene*.unity*
 /CoreTests/TestResults/
 # Unity genererer sine egne .csproj (ignoreres ovenfor), men dette projekt er håndskrevet
 !/CoreTests/Game.Core.Tests.csproj
+
+.fake

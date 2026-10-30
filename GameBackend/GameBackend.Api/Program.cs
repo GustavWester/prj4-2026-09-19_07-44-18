@@ -16,7 +16,6 @@ builder.Services.AddDbContext<GameDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 // Services
-builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddScoped<IPlayerService, PlayerService>();    
 
 // JWT game-token fra Website Backend
@@ -41,7 +40,6 @@ builder.Services
             ValidateAudience = true,
             ValidAudience = jwt["Audience"],      // "dungeon-crawler-game-api"
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero,            // samme som Website Backend
             NameClaimType = "name",
             RoleClaimType = "role"
         };

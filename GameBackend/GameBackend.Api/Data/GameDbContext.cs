@@ -19,8 +19,6 @@ public class GameDbContext(DbContextOptions<GameDbContext> options) : DbContext(
             entity.Property(p => p.UserId).HasColumnName("user_id");
             entity.Property(p => p.GameId).HasColumnName("game_id");
             entity.Property(p => p.Username).HasColumnName("username").HasMaxLength(100).IsRequired();
-            entity.Property(p => p.CreatedAt).HasColumnName("created_at");
-            entity.Property(p => p.LastSeenAt).HasColumnName("last_seen_at");
 
             // Én spiller pr. bruger pr. spil
             entity.HasIndex(p => new { p.UserId, p.GameId }).IsUnique();

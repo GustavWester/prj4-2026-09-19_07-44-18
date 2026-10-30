@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameBackend.Api.Services;
 
-public sealed class PlayerService(GameDbContext db, TimeProvider clock) : IPlayerService
+public sealed class PlayerService(GameDbContext db) : IPlayerService
 {
     public async Task<Player> VerifyAsync(
         int userId,
@@ -12,22 +12,19 @@ public sealed class PlayerService(GameDbContext db, TimeProvider clock) : IPlaye
         int gameId,
         CancellationToken cancellationToken)
     {
-        var now = clock.GetUtcNow().UtcDateTime;
-
         var player = await FindAsync(userId, gameId, cancellationToken);
         if (player is not null)
         {
-            Update(player, username, now);
+            player.Username = username; // følger altid brugernavnet på hjemmesiden
             await db.SaveChangesAsync(cancellationToken);
             return player;
         }
+
         player = new Player
         {
             UserId = userId,
             GameId = gameId,
             Username = username,
-            CreatedAt = now,
-            LastSeenAt = now
         };
         db.Players.Add(player);
 
@@ -44,17 +41,11 @@ public sealed class PlayerService(GameDbContext db, TimeProvider clock) : IPlaye
             var existing = await FindAsync(userId, gameId, cancellationToken)
                 ?? throw new InvalidOperationException("Spilleren kunne hverken oprettes eller findes.");
             
-            Update(existing, username, now);
+            existing.Username = username;
             await db.SaveChangesAsync(cancellationToken);
             return existing;
         }
     }
     private Task<Player?> FindAsync(int userId, int gameId, CancellationToken cancellationToken) =>
         db.Players.SingleOrDefaultAsync(p => p.UserId == userId && p.GameId == gameId, cancellationToken);
-
-    private static void Update(Player player, string username, DateTime now)
-    {
-        player.Username = username;  // følger altid brugernavn på hjemmesiden
-        player.LastSeenAt = now;
-    }    
 }
