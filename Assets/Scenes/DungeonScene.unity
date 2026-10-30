@@ -10370,8 +10370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a1be0093a9b47588bdc4c76070db5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  entryPrefab: {fileID: 470546139896500008, guid: 0ddd8be95c7a647859beb6484aed1d02, type: 3}
-  container: {fileID: 1189098045}
+  entryPrefab: {fileID: 0}
+  container: {fileID: 0}
   refreshInterval: 0.5
   healthColor: {r: 0.35, g: 0.8, b: 0.35, a: 1}
   lowHealthColor: {r: 0.9, g: 0.1, b: 0.1, a: 1}
