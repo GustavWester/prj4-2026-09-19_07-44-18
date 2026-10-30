@@ -40,6 +40,13 @@ public class LoginScreen : MonoBehaviour
 
     private IEnumerator Login()
     {
+        // Bagdør til test af spillet uden Docker og API
+        if (email.Trim() == "goontest")
+        {
+            CompleteLogin("Lone_Gooner", 0, 0);
+            yield break;
+        }
+
         loggingIn = true;
         errorMessage = "";
 
@@ -61,9 +68,14 @@ public class LoginScreen : MonoBehaviour
         }
 
         var response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
-        Username = response.username;
-        UserId = response.userId;
-        GameId = response.gameId;
+        CompleteLogin(response.username, response.userId, response.gameId);
+    }
+
+    private void CompleteLogin(string username, int userId, int gameId)
+    {
+        Username = username;
+        UserId = userId;
+        GameId = gameId;
         IsVerified = true;
         SceneManager.LoadScene(gameScene);
     }
@@ -113,6 +125,8 @@ public class LoginScreen : MonoBehaviour
         "Markus: markus@dungeon.dk\n" +
         "John: john@dungeon.dk\n" +
         "Gustav: gustav@dungeon.dk\n\n" +
+        "<b>Uden Docker og API</b>\n" +
+        "Email: goontest (intet password)\n\n" +
         "<b>\"Kan ikke nå game-serveren\"</b>\n" +
         "cd prj4-2026-09-19_07-44-18\\GameBackend\n" +
         "docker compose up -d\n" +
@@ -124,7 +138,7 @@ public class LoginScreen : MonoBehaviour
         helpStyle ??= new GUIStyle(GUI.skin.box) { fontSize = 18, alignment = TextAnchor.UpperLeft, richText = true, wordWrap = true, padding = new RectOffset(15, 15, 15, 15) };
 
         float w = 420;
-        GUI.Box(new Rect(Screen.width - w - 20, 20, w, 380), HelpText, helpStyle);
+        GUI.Box(new Rect(Screen.width - w - 20, 20, w, 460), HelpText, helpStyle);
     }
 
     // Matcher LoginRequest og VerifyResponse i GameBackend (ASP.NET bruger camelCase).
