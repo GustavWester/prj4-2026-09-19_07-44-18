@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2095186a65d54b389ac747e6d2dde674, type: 3}
   m_Name: WizardStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsSO
-  maxHealth: 5
+  maxHealth: 6
   maxMana: 100
   manaRegenPerSecond: 10
   moveSpeed: 5

@@ -68,4 +68,12 @@ public class Inventory : MonoBehaviour
 
         onChanged?.Invoke();
     }
+
+    /// <summary>Fjerner én af 'item' fra det første slot der har den. False hvis der ingen er.</summary>
+    public bool TryRemove(ItemSO item)
+    {
+        for (int i = 0; i < slots.Length; i++)
+            if (!slots[i].IsEmpty && slots[i].item == item) { RemoveAt(i); return true; }
+        return false;
+    }
 }

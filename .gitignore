@@ -13,6 +13,7 @@
 # Recommended: add any editor/OS/tool-specific ignore rules from the Global/ templates as needed.
 # See: https://github.com/github/gitignore/tree/main/Global
 #
+# Unity generated folders
 .utmp/
 /[Ll]ibrary/
 /[Tt]emp/
@@ -22,7 +23,7 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 *.log
-
+#Find this - Contributor status acquired!
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1
 *.blend1.meta

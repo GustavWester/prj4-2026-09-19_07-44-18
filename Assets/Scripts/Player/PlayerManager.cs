@@ -16,12 +16,15 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private PlayerStatsSO baseStats;
+    [Tooltip("Max mana kan aldrig komme under dette, så man altid kan skyde (selv med mange minus-mana items).")]
+    [SerializeField, Min(0)] private int minMaxMana = 30;
 
     /// <summary>Fires når stats er genberegnet (item equip/unequip, upgrade).</summary>
     public event Action StatsChanged;
 
     private PlayerStatsSO stats; // runtime-kopi = baseStats + modifiers
     private readonly List<StatModifier> modifiers = new();
+    private readonly HashSet<ItemSO> equippedUnique = new(); // unique items der allerede giver stats
 
     public ResourceController Resources { get; private set; }
 
@@ -30,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     public float ManaRegenPerSecond => stats.manaRegenPerSecond;
     public float MoveSpeed => stats.moveSpeed;
     public int SpellDamage => stats.spellDamage;
+    public int ProjectileCount => Mathf.Max(1, stats.projectileCount);
 
     private void Awake()
     {
@@ -62,12 +66,16 @@ public class PlayerManager : MonoBehaviour
 
     public void Equip(ItemSO item)
     {
-        if (item != null) AddModifier(item.statModifier);
+        if (item == null) return;
+        if (item.unique && !equippedUnique.Add(item)) return; // har den allerede -> ingen ekstra stats
+        AddModifier(item.statModifier);
     }
 
     public void Unequip(ItemSO item)
     {
-        if (item != null) RemoveModifier(item.statModifier);
+        if (item == null) return;
+        if (item.unique && !equippedUnique.Remove(item)) return;
+        RemoveModifier(item.statModifier);
     }
 
     // Bygger stats forfra fra baseStats, så equipment kan tages af igen uden at tallene driver.
@@ -77,6 +85,7 @@ public class PlayerManager : MonoBehaviour
         stats = Instantiate(baseStats);
         foreach (var mod in modifiers)
             stats.Add(mod);
+        stats.maxMana = Mathf.Max(minMaxMana, stats.maxMana);
 
         Resources.SetMaxHealth(stats.maxHealth);
         Resources.SetMaxMana(stats.maxMana);

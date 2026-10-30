@@ -14,6 +14,7 @@ using UnityEngine.SceneManagement;
 public class LobbyRelayManager : MonoBehaviour
 {
     private Lobby lobby;
+    private bool busy; // et ekstra klik på Host/Join, mens vi venter, ignoreres (ellers laves der to lobbies)
     private bool isHost;
     private float heartbeatTimer;
     
@@ -34,29 +35,36 @@ public class LobbyRelayManager : MonoBehaviour
 
     public async void CreateGame()
     {
-        lobby = await LobbyService.Instance.CreateLobbyAsync("Lobby", 4);
-        isHost = true;
-        Debug.Log($"Room code: {lobby.LobbyCode}");
-
-        var allocation = await RelayService.Instance.CreateAllocationAsync(3);
-        string relayCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
-        await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, new UpdateLobbyOptions
+        if (busy || NetworkManager.Singleton.IsListening) return;
+        busy = true;
+        try
         {
-            Data = new Dictionary<string, DataObject>
-            {
-                { "RelayCode", new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
-            }
-        });
+            lobby = await LobbyService.Instance.CreateLobbyAsync("Lobby", 4);
+            isHost = true;
+            Debug.Log($"Room code: {lobby.LobbyCode}");
 
-        NetworkManager.Singleton.GetComponent<UnityTransport>()
-            .SetRelayServerData(new RelayServerData(allocation, "dtls"));
-        NetworkManager.Singleton.StartHost();
+            var allocation = await RelayService.Instance.CreateAllocationAsync(3);
+            string relayCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, new UpdateLobbyOptions
+            {
+                Data = new Dictionary<string, DataObject>
+                {
+                    { "RelayCode", new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
+                }
+            });
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>()
+                .SetRelayServerData(new RelayServerData(allocation, "dtls"));
+            NetworkManager.Singleton.StartHost();
+        }
+        finally { busy = false; }
     }
 
     public async void JoinGame(string code)
     {
-
+        if (busy || NetworkManager.Singleton.IsListening) return;
+        busy = true;
         try
         {
             lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code);
@@ -71,6 +79,7 @@ public class LobbyRelayManager : MonoBehaviour
             Debug.LogWarning($"Kunne ikke joine: {e.Message}");
             statusMessage = "Forkert lobby-id";
         }
+        finally { busy = false; }
     }
 
     private async void Update()
