@@ -10,12 +10,12 @@ using UnityEngine.SceneManagement;
 ///
 /// Setup: læg scriptet på et GameObject i LoginScene (første scene i Build Settings).
 /// </summary>
-public class PlayerSession : MonoBehaviour
+public class LoginScreen : MonoBehaviour
 {
     [SerializeField] private string baseUrl = "https://localhost:7188";
     [SerializeField] private string gameScene = "DungeonScene";
 
-    public static PlayerSession Instance { get; private set; }
+    public static LoginScreen Instance { get; private set; }
 
     public bool IsVerified { get; private set; }
     public string Username { get; private set; }
@@ -40,6 +40,13 @@ public class PlayerSession : MonoBehaviour
 
     private IEnumerator Login()
     {
+        // Bagdør til test af spillet uden Docker og API
+        if (email.Trim() == "goontest")
+        {
+            CompleteLogin("Lone_Gooner", 0, 0);
+            yield break;
+        }
+
         loggingIn = true;
         errorMessage = "";
 
@@ -50,7 +57,7 @@ public class PlayerSession : MonoBehaviour
 
         if (request.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogWarning($"PlayerSession: login fejlede for '{email.Trim()}' ({request.responseCode}): {request.error} {request.downloadHandler.text}", this);
+            Debug.LogWarning($"LoginScreen: login fejlede for '{email.Trim()}' ({request.responseCode}): {request.error} {request.downloadHandler.text}", this);
             errorMessage = request.responseCode switch
             {
                 401 => "Forkert email eller password.",
@@ -61,9 +68,14 @@ public class PlayerSession : MonoBehaviour
         }
 
         var response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
-        Username = response.username;
-        UserId = response.userId;
-        GameId = response.gameId;
+        CompleteLogin(response.username, response.userId, response.gameId);
+    }
+
+    private void CompleteLogin(string username, int userId, int gameId)
+    {
+        Username = username;
+        UserId = userId;
+        GameId = gameId;
         IsVerified = true;
         SceneManager.LoadScene(gameScene);
     }
@@ -102,6 +114,31 @@ public class PlayerSession : MonoBehaviour
 
         if (errorMessage != "") GUILayout.Label(errorMessage, labelStyle);
         GUILayout.EndArea();
+
+        DrawHelpPanel();
+    }
+
+    private GUIStyle helpStyle;
+
+    private const string HelpText =
+        "<b>Testkonti</b> (password: Test1234)\n" +
+        "Markus: markus@dungeon.dk\n" +
+        "John: john@dungeon.dk\n" +
+        "Gustav: gustav@dungeon.dk\n\n" +
+        "<b>Uden Docker og API</b>\n" +
+        "Email: goontest (intet password)\n\n" +
+        "<b>\"Kan ikke nå game-serveren\"</b>\n" +
+        "cd prj4-2026-09-19_07-44-18\\GameBackend\n" +
+        "docker compose up -d\n" +
+        "cd GameBackend.Api\n" +
+        "dotnet run --launch-profile https";
+
+    private void DrawHelpPanel()
+    {
+        helpStyle ??= new GUIStyle(GUI.skin.box) { fontSize = 18, alignment = TextAnchor.UpperLeft, richText = true, wordWrap = true, padding = new RectOffset(15, 15, 15, 15) };
+
+        float w = 420;
+        GUI.Box(new Rect(Screen.width - w - 20, 20, w, 460), HelpText, helpStyle);
     }
 
     // Matcher LoginRequest og VerifyResponse i GameBackend (ASP.NET bruger camelCase).

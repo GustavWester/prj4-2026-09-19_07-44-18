@@ -12,9 +12,9 @@ public static class Seed
 
         var players = new[]
         {
-            new Player { UserId = 1, GameId = 001, Username = "PlayerOne_Markus", Email = "markus@dungeon.dk" },
-            new Player { UserId = 2, GameId = 002, Username = "PlayerTwo_John", Email = "john@dungeon.dk" },
-            new Player { UserId = 3, GameId = 003, Username = "PlayerThree_Gustav", Email = "gustav@dungeon.dk" },
+            new Player { UserId = 1, GameId = 001, Username = "Goonarkus", Email = "markus@dungeon.dk" },
+            new Player { UserId = 2, GameId = 002, Username = "Gohn", Email = "john@dungeon.dk" },
+            new Player { UserId = 3, GameId = 003, Username = "Goonustav", Email = "gustav@dungeon.dk" },
             new Player { UserId = 4, GameId = null, Username = "NoGame_Tester", Email = "nogame@dungeon.dk" } // har ikke købt spillet
         };
 
