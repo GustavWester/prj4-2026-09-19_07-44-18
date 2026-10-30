@@ -22,7 +22,7 @@ public class LobbyRelayManager : MonoBehaviour
     private async void Start()
     {
         // Ingen adgang til spillet uden login
-        if (PlayerSession.Instance == null || !PlayerSession.Instance.IsVerified)
+        if (LoginScreen.Instance == null || !LoginScreen.Instance.IsVerified)
         {
             SceneManager.LoadScene("LoginScene");
             return;

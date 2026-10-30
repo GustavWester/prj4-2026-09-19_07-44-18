@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 /// <summary>
-/// Viser spillerens username fra PlayerSession i et navneskilt over hovedet.
+/// Viser spillerens username fra LoginScreen i et navneskilt over hovedet.
 ///
 /// Online: ejeren skriver navnet i en NetworkVariable, så alle maskiner ser det.
 /// Uden login (fx Play direkte i DungeonScene) bruges CharacterProfile.characterName.
@@ -53,7 +53,7 @@ public class PlayerIdentity : NetworkBehaviour
         netName.OnValueChanged -= OnNetNameChanged;
     }
 
-    private string SessionName() => PlayerSession.Instance?.Username ?? profile.characterName;
+    private string SessionName() => LoginScreen.Instance?.Username ?? profile.characterName;
 
     private void OnNetNameChanged(FixedString64Bytes _, FixedString64Bytes newValue) => ApplyName(newValue.ToString());
 
