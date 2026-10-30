@@ -12,10 +12,8 @@ using UnityEngine.UI;
 ///   ├ Image            (baggrund)
 ///   ├ portrait_0
 ///   ├ Text (TMP)       (navn)
-///   ├ HealthBar        (Image, baggrund)
-///   │   └ Fill         (Image, Type = Filled, Horizontal)
-///   └ ManaBar          (Image, baggrund)
-///       └ Fill         (Image, Type = Filled, Horizontal)
+///   ├ HealthBar        (Image, Type = Filled, Horizontal)
+///   └ ManaBar          (Image, Type = Filled, Horizontal)
 /// </summary>
 public class OtherPlayerStatus : MonoBehaviour
 {
@@ -99,12 +97,12 @@ public class OtherPlayerStatus : MonoBehaviour
             var ui = Instantiate(entryPrefab, parent);
 
             var nameText = ui.GetComponentInChildren<TMP_Text>();
-            var healthFill = FindImage(ui.transform, "HealthBar/Fill");
-            var manaFill = FindImage(ui.transform, "ManaBar/Fill");
+            var healthFill = FindImage(ui.transform, "HealthBar");
+            var manaFill = FindImage(ui.transform, "ManaBar");
 
             if (nameText == null || healthFill == null || manaFill == null)
             {
-                Debug.LogError("OtherPlayerStatus: prefab mangler TMP-tekst, HealthBar/Fill eller ManaBar/Fill.", this);
+                Debug.LogError("OtherPlayerStatus: prefab mangler TMP-tekst, HealthBar (Image) eller ManaBar (Image).", this);
                 Destroy(ui);
                 continue;
             }
