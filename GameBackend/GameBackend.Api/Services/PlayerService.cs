@@ -1,5 +1,6 @@
 using GameBackend.Api.Data;
 using GameBackend.Api.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameBackend.Api.Services;
@@ -46,6 +47,16 @@ public sealed class PlayerService(GameDbContext db) : IPlayerService
             return existing;
         }
     }
+
+    public async Task<Player?> LoginAsync(string email, string password, CancellationToken cancellationToken)
+    {
+        var player = await db.Players.SingleOrDefaultAsync(p => p.Email == email, cancellationToken);
+        if (player?.PasswordHash is null) return null;
+
+        var result = new PasswordHasher<Player>().VerifyHashedPassword(player, player.PasswordHash, password);
+        return result == PasswordVerificationResult.Failed ? null : player;
+    }
+
     private Task<Player?> FindAsync(int userId, int gameId, CancellationToken cancellationToken) =>
         db.Players.SingleOrDefaultAsync(p => p.UserId == userId && p.GameId == gameId, cancellationToken);
 }

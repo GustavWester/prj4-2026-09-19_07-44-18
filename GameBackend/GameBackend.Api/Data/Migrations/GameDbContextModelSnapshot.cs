@@ -16,7 +16,7 @@ namespace GameBackend.Api.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.13")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -30,9 +30,18 @@ namespace GameBackend.Api.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlayerId"));
 
-                    b.Property<int>("GameId")
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("email");
+
+                    b.Property<int?>("GameId")
                         .HasColumnType("int")
                         .HasColumnName("game_id");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("password_hash");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int")
@@ -46,8 +55,13 @@ namespace GameBackend.Api.Data.Migrations
 
                     b.HasKey("PlayerId");
 
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[email] IS NOT NULL");
+
                     b.HasIndex("UserId", "GameId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[game_id] IS NOT NULL");
 
                     b.ToTable("Players", (string)null);
                 });

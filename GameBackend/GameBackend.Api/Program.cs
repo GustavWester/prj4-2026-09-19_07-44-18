@@ -1,5 +1,6 @@
 using System.Text;
 using GameBackend.Api.Data;
+using GameBackend.Api.Data.Seeds;
 using GameBackend.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -66,6 +67,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Simulerede konti fra hjemmesiden
+    using var scope = app.Services.CreateScope();
+    Seed.SeedPlayers(scope.ServiceProvider.GetRequiredService<GameDbContext>());
 }
 
 app.UseHttpsRedirection();

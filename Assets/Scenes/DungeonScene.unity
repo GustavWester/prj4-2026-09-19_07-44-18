@@ -1096,6 +1096,8 @@ MonoBehaviour:
   borderColor: {r: 0, g: 0, b: 0, a: 1}
   borderSize: 6
   iconSize: 16
+  playerDotSize: 6
+  otherPlayerColor: {r: 0.3, g: 0.6, b: 1, a: 1}
   neighbourGap: 1.5
   toggleKey: 27
   bigMargin: 60
