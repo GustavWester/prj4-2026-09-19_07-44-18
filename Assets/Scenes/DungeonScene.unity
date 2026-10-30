@@ -2702,7 +2702,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.625
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -9968,7 +9968,7 @@ GameObject:
   - component: {fileID: 986986965}
   - component: {fileID: 986986966}
   m_Layer: 5
-  m_Name: GameUI
+  m_Name: ResourceUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9992,7 +9992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -270, y: 130}
+  m_AnchoredPosition: {x: -269.2, y: -143.09}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986986965
@@ -10295,6 +10295,89 @@ MonoBehaviour:
   unitsPerIcon: 2
   iconSize: {x: 64, y: 64}
   spacing: 4
+--- !u!1 &1189098044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1189098045}
+  - component: {fileID: 1189098047}
+  - component: {fileID: 1189098046}
+  m_Layer: 5
+  m_Name: OtherPlayerStatus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1189098045
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189098044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 739465655}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 250, y: 159.3}
+  m_SizeDelta: {x: 200, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1189098046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189098044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &1189098047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189098044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a1be0093a9b47588bdc4c76070db5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  entryPrefab: {fileID: 0}
+  container: {fileID: 0}
+  refreshInterval: 0.5
+  healthColor: {r: 0.35, g: 0.8, b: 0.35, a: 1}
+  lowHealthColor: {r: 0.9, g: 0.1, b: 0.1, a: 1}
+  manaColor: {r: 0.3, g: 0.6, b: 1, a: 1}
+  lowHealthThreshold: 0.3
+  pulseSpeed: 2.5
 --- !u!1001 &1209219829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26346,6 +26429,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5420534632317802507, guid: f00fbe4879b2f0c46b336acf826ec11c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 986986964}
+    - targetCorrespondingSourceObject: {fileID: 5420534632317802507, guid: f00fbe4879b2f0c46b336acf826ec11c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1189098045}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f00fbe4879b2f0c46b336acf826ec11c, type: 3}
 --- !u!1001 &1918779889
