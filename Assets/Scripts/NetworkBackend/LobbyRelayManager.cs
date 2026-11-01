@@ -9,6 +9,7 @@ using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyRelayManager : MonoBehaviour
 {
@@ -21,6 +22,13 @@ public class LobbyRelayManager : MonoBehaviour
 
     private async void Start()
     {
+        // Ingen adgang til spillet uden login
+        if (LoginScreen.Instance == null || !LoginScreen.Instance.IsVerified)
+        {
+            SceneManager.LoadScene("LoginScene");
+            return;
+        }
+
         await UnityServices.InitializeAsync();
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
