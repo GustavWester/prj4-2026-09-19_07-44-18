@@ -25,14 +25,19 @@ public class GameManager : NetworkBehaviour
     // Index i itemPool for de items der allerede er uddelt. Kun hosten bruger den.
     private readonly HashSet<int> usedItems = new();
 
-    private bool HasAuthority => !IsSpawned || IsServer;
+    private bool RunsLogic => !IsSpawned || IsServer;
 
     private void Awake() => Instance = this;
-    private void OnDestroy() { if (Instance == this) Instance = null; }
+    // override (ikke en ny metode), så NetworkBehaviour stadig får ryddet op
+    public override void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+        base.OnDestroy();
+    }
 
     private void Update()
     {
-        if (!HasAuthority || State.Value != GameState.Playing) return;
+        if (!RunsLogic || State.Value != GameState.Playing) return;
         if (AllPlayersDead()) State.Value = GameState.GameOver;
     }
 
@@ -51,12 +56,12 @@ public class GameManager : NetworkBehaviour
     // ---------------------------------------------------------------
     public void NextLevel()
     {
-        if (HasAuthority) Level.Value++;
+        if (RunsLogic) Level.Value++;
     }
 
     public void NewRun()
     {
-        if (!HasAuthority) return;
+        if (!RunsLogic) return;
         usedItems.Clear();
         Level.Value = 1;
         State.Value = GameState.Playing;
@@ -72,7 +77,7 @@ public class GameManager : NetworkBehaviour
     public bool TryDrawItem(out int index)
     {
         index = -1;
-        if (!HasAuthority) return false;
+        if (!RunsLogic) return false;
 
         var free = new List<int>();
         for (int i = 0; i < itemPool.Count; i++)
