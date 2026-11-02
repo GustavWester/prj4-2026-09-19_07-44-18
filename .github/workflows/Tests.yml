@@ -54,7 +54,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        testMode: [EditMode, PlayMode]
+        # testables i manifest.json gør Netcodes egne tests synlige. assemblies sørger for at kun vores køres.
+        include:
+          - testMode: EditMode
+            assemblies: Tests.EditMode
+          - testMode: PlayMode
+            assemblies: Tests.PlayMode;Tests.Netcode
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -84,7 +89,7 @@ jobs:
           # Smoke booter spillet, ShouldFail er pipeline-tjekket i build-workflowet.
           # INGEN anførselstegn: GameCI sender dem videre til Unity som en del af værdien,
           # og så bliver filteret '"!Smoke' (en inklusion), hvilket giver 0 kørte tests.
-          customParameters: -testCategory !Smoke;!ShouldFail
+          customParameters: -testCategory !Smoke;!ShouldFail -assemblyNames ${{ matrix.assemblies }}
           artifactsPath: results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: Unity ${{ matrix.testMode }} test results

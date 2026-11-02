@@ -55,7 +55,7 @@ public class ItemPickup : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void TakeRpc(NetworkObjectReference player)
     {
-        if (taken || !player.TryGet(out NetworkObject p)) return;
+        if (taken || !player.TryGet(out NetworkObject p, NetworkManager)) return;
         taken = true;
         Give(p.gameObject);
         GiveRpc(player);
@@ -65,7 +65,8 @@ public class ItemPickup : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     private void GiveRpc(NetworkObjectReference player)
     {
-        if (player.TryGet(out NetworkObject p)) Give(p.gameObject);
+        // slå op i denne maskines NetworkManager (uden den bruges Singleton, som ikke altid er vores)
+        if (player.TryGet(out NetworkObject p, NetworkManager)) Give(p.gameObject);
     }
 
     // spillere der joiner sent får ikke de andres powerups; syncmodifier-listen hvis det bliver et problem

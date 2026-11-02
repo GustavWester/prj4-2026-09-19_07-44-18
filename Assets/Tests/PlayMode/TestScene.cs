@@ -49,16 +49,35 @@ namespace Tests.PlayMode
         }
 
         /// <summary>Sætter et privat [SerializeField] felt, ligesom inspectoren ville gøre.</summary>
-        public static void SetField(object target, string field, object value)
+        public static void SetField(object target, string field, object value) => Find(target, field).SetValue(target, value);
+
+        /// <summary>Læser et privat felt, fx en NetworkVariable.</summary>
+        public static T GetField<T>(object target, string field) => (T)Find(target, field).GetValue(target);
+
+        /// <summary>Kalder en privat metode, fx en [Rpc]. Netcode sender den, præcis som ved et normalt kald.</summary>
+        public static object Call(object target, string method, params object[] args)
         {
-            var info = target.GetType().GetField(field, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            if (info == null) throw new MissingFieldException(target.GetType().Name, field);
-            info.SetValue(target, value);
+            var info = target.GetType().GetMethod(method, Flags);
+            if (info == null) throw new MissingFieldException(target.GetType().Name, method);
+            return info.Invoke(target, args);
+        }
+
+        private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+
+        // private felter i en base-klasse (fx PlayerSpell) ses kun fra base-typen selv
+        private static FieldInfo Find(object target, string field)
+        {
+            for (var type = target.GetType(); type != null; type = type.BaseType)
+            {
+                var info = type.GetField(field, Flags);
+                if (info != null) return info;
+            }
+            throw new MissingFieldException(target.GetType().Name, field);
         }
 
         private class MissingFieldException : System.Exception
         {
-            public MissingFieldException(string type, string field) : base($"{type} har intet felt '{field}'") { }
+            public MissingFieldException(string type, string field) : base($"{type} har intet felt eller metode '{field}'") { }
         }
     }
 }
