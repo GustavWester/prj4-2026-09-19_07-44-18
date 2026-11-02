@@ -23,10 +23,14 @@ public sealed class WebsiteAuthClient(HttpClient http) : IWebsiteAuthClient
         using var response = await SendAsync(
             () => http.PostAsJsonAsync("api/auth/game-login", new WebsiteGameLoginRequest(email, password), cancellationToken));
 
-        // 401 = forkert email/password ELLER kontoen ejer ingen spil (hjemmesiden skelner ikke)
+        // 401 = forkert email/password
         // 400 = valideringsfejl (fx tomt felt eller ugyldig email), behandles som forkert login
         if (response.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.BadRequest)
             return new GameTokenResult(GameTokenStatus.InvalidCredentials, null);
+
+        // 403 = login OK, men kontoen ejer slet ingen spil
+        if (response.StatusCode is HttpStatusCode.Forbidden)
+            return new GameTokenResult(GameTokenStatus.NoGameAccess, null);
 
         if (!response.IsSuccessStatusCode)
             throw new WebsiteUnavailableException($"Hjemmesiden svarede {(int)response.StatusCode} på game-login.");
