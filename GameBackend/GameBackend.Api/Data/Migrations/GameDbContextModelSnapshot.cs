@@ -39,10 +39,6 @@ namespace GameBackend.Api.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("game_id");
 
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("password_hash");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int")
                         .HasColumnName("user_id");

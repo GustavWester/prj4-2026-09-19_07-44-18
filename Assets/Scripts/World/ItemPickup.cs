@@ -18,7 +18,12 @@ public class ItemPickup : NetworkBehaviour
     private readonly NetworkVariable<FixedString64Bytes> itemName = new();
     private GameObject nearPlayer; // min egen wizard, når den står ved itemet
     private bool taken;
-    public SpriteRenderer spriteRenderer;   
+    private SpriteRenderer spriteRenderer;
+    
+    private void Awake()
+    {
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
 
     public void SetItem(ItemSO newItem)
     {
@@ -38,6 +43,8 @@ public class ItemPickup : NetworkBehaviour
         else item = Resources.Load<ItemSO>("Items/" + itemName.Value.ToString());
         SetItem(item);
     }
+    
+    
 
     private void Start()
     {

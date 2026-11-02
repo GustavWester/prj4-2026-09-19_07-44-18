@@ -1,6 +1,5 @@
 using GameBackend.Api.Data;
 using GameBackend.Api.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameBackend.Api.Services;
@@ -11,12 +10,13 @@ public sealed class PlayerService(GameDbContext db) : IPlayerService
         int userId,
         string username,
         int gameId,
+        string? email,
         CancellationToken cancellationToken)
     {
         var player = await FindAsync(userId, gameId, cancellationToken);
         if (player is not null)
         {
-            player.Username = username; // følger altid brugernavnet på hjemmesiden
+            Update(player, username, email);
             await db.SaveChangesAsync(cancellationToken);
             return player;
         }
@@ -26,6 +26,7 @@ public sealed class PlayerService(GameDbContext db) : IPlayerService
             UserId = userId,
             GameId = gameId,
             Username = username,
+            Email = email,
         };
         db.Players.Add(player);
 
@@ -41,20 +42,18 @@ public sealed class PlayerService(GameDbContext db) : IPlayerService
             db.ChangeTracker.Clear();
             var existing = await FindAsync(userId, gameId, cancellationToken)
                 ?? throw new InvalidOperationException("Spilleren kunne hverken oprettes eller findes.");
-            
-            existing.Username = username;
+
+            Update(existing, username, email);
             await db.SaveChangesAsync(cancellationToken);
             return existing;
         }
     }
 
-    public async Task<Player?> LoginAsync(string email, string password, CancellationToken cancellationToken)
+    // Følger altid brugernavn og email på hjemmesiden
+    private static void Update(Player player, string username, string? email)
     {
-        var player = await db.Players.SingleOrDefaultAsync(p => p.Email == email, cancellationToken);
-        if (player?.PasswordHash is null) return null;
-
-        var result = new PasswordHasher<Player>().VerifyHashedPassword(player, player.PasswordHash, password);
-        return result == PasswordVerificationResult.Failed ? null : player;
+        player.Username = username;
+        if (email is not null) player.Email = email;
     }
 
     private Task<Player?> FindAsync(int userId, int gameId, CancellationToken cancellationToken) =>
