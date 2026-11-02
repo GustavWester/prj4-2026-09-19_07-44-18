@@ -12,7 +12,7 @@ public class HealthBar : MonoBehaviour
 {
     [Tooltip("Tom = ResourceController på forælderen (fjende-prefab). Boss-bar: træk bossen fra scenen ind.")]
     [SerializeField] private ResourceController target;
-    [Tooltip("Image med Image Type = Filled, Fill Method = Horizontal.")]
+    [Tooltip("Image uden sprite, anchors stretch. Baren krymper via anchorMax.x.")]
     [SerializeField] private Image fill;
     [Tooltip("Det der skjules. Må ikke være dette objekt, ellers stopper Update.")]
     [SerializeField] private GameObject visuals;
@@ -40,7 +40,7 @@ public class HealthBar : MonoBehaviour
         bool alive = target != null && target.CurrentHealth > 0;
         bool show = alive && (!onlyInBossRoom || MeInRoom());
         if (visuals != null && visuals.activeSelf != show) visuals.SetActive(show);
-        if (show) fill.fillAmount = target.HealthPercent;
+        if (show) fill.rectTransform.anchorMax = new Vector2(target.HealthPercent, 1);
     }
 
     private bool MeInRoom()
