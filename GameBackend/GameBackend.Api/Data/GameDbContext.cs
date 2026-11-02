@@ -20,7 +20,6 @@ public class GameDbContext(DbContextOptions<GameDbContext> options) : DbContext(
             entity.Property(p => p.GameId).HasColumnName("game_id");
             entity.Property(p => p.Username).HasColumnName("username").HasMaxLength(100).IsRequired();
             entity.Property(p => p.Email).HasColumnName("email").HasMaxLength(256);
-            entity.Property(p => p.PasswordHash).HasColumnName("password_hash");
 
             // Én spiller pr. bruger pr. spil
             entity.HasIndex(p => new { p.UserId, p.GameId }).IsUnique();
