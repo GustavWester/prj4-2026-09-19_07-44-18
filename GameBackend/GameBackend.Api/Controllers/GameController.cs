@@ -28,22 +28,4 @@ public class GameController(IPlayerService players) : ControllerBase
         var player = await players.VerifyAsync(userId, username, gameId, cancellationToken);
         return Ok(new VerifyResponse(player.UserId, player.Username, gameId));
     }
-
-    [HttpPost("login")]
-    [AllowAnonymous]
-    [ProducesResponseType<VerifyResponse>(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> Login(LoginRequest request, CancellationToken cancellationToken)
-    {
-        var player = await players.LoginAsync(request.Email, request.Password, cancellationToken);
-        if (player is null)
-            return Unauthorized(new { error = "Forkert email eller password." });
-
-        // Kontoen får først et game_id, når spillet er købt på hjemmesiden
-        if (player.GameId is not int gameId)
-            return StatusCode(StatusCodes.Status403Forbidden, new { error = "Kontoen har ikke adgang til spillet." });
-
-        return Ok(new VerifyResponse(player.UserId, player.Username, gameId));
-    }
 }
