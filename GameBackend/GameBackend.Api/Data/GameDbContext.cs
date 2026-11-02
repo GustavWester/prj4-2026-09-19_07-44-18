@@ -23,9 +23,6 @@ public class GameDbContext(DbContextOptions<GameDbContext> options) : DbContext(
 
             // Én spiller pr. bruger pr. spil
             entity.HasIndex(p => new { p.UserId, p.GameId }).IsUnique();
-
-            // Én konto pr. email
-            entity.HasIndex(p => p.Email).IsUnique();
         });
     }
 }
