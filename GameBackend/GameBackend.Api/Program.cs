@@ -1,10 +1,8 @@
-using System.Text;
+using GameBackend.Api.Auth;
 using GameBackend.Api.Data;
-using GameBackend.Api.Data.Seeds;
 using GameBackend.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +14,25 @@ if (string.IsNullOrWhiteSpace(connectionString))
 builder.Services.AddDbContext<GameDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Services
-builder.Services.AddScoped<IPlayerService, PlayerService>();    
+// JWT game-token fra Website Backend (samme regler til Authorization-header og login-flowet)
+var tokenValidationParameters = GameTokenValidation.Create(builder.Configuration);
+builder.Services.AddSingleton(tokenValidationParameters);
+builder.Services.AddSingleton<IGameTokenValidator, GameTokenValidator>();
 
-// JWT game-token fra Website Backend
-var jwt = builder.Configuration.GetSection("Jwt");
-var signingKey = jwt["Key"];
-if (string.IsNullOrWhiteSpace(signingKey))
-    throw new InvalidOperationException("Jwt:Key mangler. Kør: dotnet user-secrets set \"Jwt:Key\" \"<samme nøgle som Website Backend>\"");
+// Website Backend (DungeonCrawler.Api) tjekker email + password og udsteder game-token
+var websiteBaseUrl = builder.Configuration["Website:BaseUrl"];
+if (string.IsNullOrWhiteSpace(websiteBaseUrl))
+    throw new InvalidOperationException("Website:BaseUrl mangler i appsettings.json.");
+
+builder.Services.AddHttpClient<IWebsiteAuthClient, WebsiteAuthClient>(client =>
+{
+    client.BaseAddress = new Uri(websiteBaseUrl.TrimEnd('/') + "/");
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
+// Services
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IGameLoginService, GameLoginService>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -31,19 +40,7 @@ builder.Services
     {
         // Behold claim-navnene "sub", "name", "game_id" osv. som Website Backend skriver dem
         options.MapInboundClaims = false;
-
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
-            ValidateIssuer = true,
-            ValidIssuer = jwt["Issuer"],          // "DungeonCrawlerApi"
-            ValidateAudience = true,
-            ValidAudience = jwt["Audience"],      // "dungeon-crawler-game-api"
-            ValidateLifetime = true,
-            NameClaimType = "name",
-            RoleClaimType = "role"
-        };
+        options.TokenValidationParameters = tokenValidationParameters;
     });
 
 // Authorization
@@ -52,8 +49,8 @@ builder.Services.AddAuthorization(options =>
     // Kun game-tokens med scope "game:play" og et game_id
     options.AddPolicy("GamePlay", policy => policy
         .RequireAuthenticatedUser()
-        .RequireClaim("scope", "game:play")
-        .RequireClaim("game_id"));
+        .RequireClaim(GameTokenValidation.ScopeClaim, GameTokenValidation.GamePlayScope)
+        .RequireClaim(GameTokenValidation.GameIdClaim));
 });
 
 // Controllers/Swagger
@@ -67,10 +64,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-    // Simulerede konti fra hjemmesiden
-    using var scope = app.Services.CreateScope();
-    Seed.SeedPlayers(scope.ServiceProvider.GetRequiredService<GameDbContext>());
 }
 
 app.UseHttpsRedirection();
