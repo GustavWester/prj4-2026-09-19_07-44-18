@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RedWizard
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyName: RedWizard
+  bossTitle: Malakar, the Crimson Magus
   enemyClass: 1
   Health: 100
   attackDamage: 1

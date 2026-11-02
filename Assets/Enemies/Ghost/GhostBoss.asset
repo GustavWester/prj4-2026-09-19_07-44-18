@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GhostBoss
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyName: Ghost Boss
+  bossTitle: The Wailing Warden
   classSo: 0
   Health: 200
   attackDamage: 2

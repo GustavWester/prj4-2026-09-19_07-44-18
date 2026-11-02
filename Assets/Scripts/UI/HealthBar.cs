@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class HealthBar : MonoBehaviour
 {
-    [Tooltip("Tom = ResourceController på forælderen (fjende-prefab). Boss-bar: træk bossen fra scenen ind.")]
+    [Tooltip("Tom = ResourceController på forælderen (fjende-prefab), ellers scenens boss (fjende med bossTitle udfyldt).")]
     [SerializeField] private ResourceController target;
     [Tooltip("Image uden sprite, anchors stretch. Baren krymper via anchorMax.x.")]
     [SerializeField] private Image fill;
@@ -20,6 +20,8 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private bool onlyInBossRoom;
     [Tooltip("Valgfri. Får enemyName fra target'ens EnemyStatsSO, så hver boss viser sit eget navn.")]
     [SerializeField] private TMP_Text nameText;
+    [Tooltip("Valgfri. Får target'ens sprite, fx bossens ansigt til venstre for boss-baren.")]
+    [SerializeField] private Image icon;
 
     private Collider2D room;
     private Transform me;
@@ -27,12 +29,24 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         if (target == null) target = GetComponentInParent<ResourceController>();
-        if (target == null) return;
+        if (target == null) target = FindBoss();
+        if (target == null) return; // ingen boss i scenen: baren forbliver skjult
         room = RoomVisibility.RoomAt(target.transform.position);
 
         var enemy = target.GetComponent<EnemyController>();
         if (nameText != null && enemy != null && enemy.stats != null)
             nameText.text = string.IsNullOrEmpty(enemy.stats.bossTitle) ? enemy.stats.enemyName : enemy.stats.bossTitle;
+
+        var sr = target.GetComponent<SpriteRenderer>();
+        if (icon != null && sr != null) icon.sprite = sr.sprite;
+    }
+
+    // en fjende med bossTitle udfyldt i sin EnemyStatsSO er en boss
+    private static ResourceController FindBoss()
+    {
+        foreach (var e in FindObjectsByType<EnemyController>())
+            if (e.stats != null && !string.IsNullOrEmpty(e.stats.bossTitle)) return e.GetComponent<ResourceController>();
+        return null;
     }
 
     private void Update()
