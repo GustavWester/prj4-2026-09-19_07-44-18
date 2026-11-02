@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private GameObject visuals;
     [Tooltip("Boss-bar: vis kun når min spiller står i bossens rum.")]
     [SerializeField] private bool onlyInBossRoom;
+    [Tooltip("Valgfri. Får enemyName fra target'ens EnemyStatsSO, så hver boss viser sit eget navn.")]
+    [SerializeField] private TMP_Text nameText;
 
     private Collider2D room;
     private Transform me;
@@ -24,7 +27,12 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         if (target == null) target = GetComponentInParent<ResourceController>();
-        if (target != null) room = RoomVisibility.RoomAt(target.transform.position);
+        if (target == null) return;
+        room = RoomVisibility.RoomAt(target.transform.position);
+
+        var enemy = target.GetComponent<EnemyController>();
+        if (nameText != null && enemy != null && enemy.stats != null)
+            nameText.text = string.IsNullOrEmpty(enemy.stats.bossTitle) ? enemy.stats.enemyName : enemy.stats.bossTitle;
     }
 
     private void Update()

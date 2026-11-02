@@ -6,6 +6,8 @@ public class EnemyStatsSO : ScriptableObject
 {
     [Header("Identity")]
     public string enemyName;
+    [Tooltip("Navn på boss-baren. Tom = enemyName.")]
+    public string bossTitle;
     [FormerlySerializedAs("enemyClass")] public ClassSO classSo;
 
     [Header ("Core Stats")]
