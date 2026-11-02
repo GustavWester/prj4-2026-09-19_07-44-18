@@ -28,7 +28,7 @@ public class ItemPickup : NetworkBehaviour
     public void SetItem(ItemSO newItem)
     {
         item = newItem;
-        GetComponent<SpriteRenderer>().sprite = item.icon;
+        spriteRenderer.sprite = item.icon;
     }
 
     // viser itemets ikon i editoren, så man kan se forskel på pickups i scenen
