@@ -7,5 +7,4 @@ public class Player
     public int? GameId { get; set; }                // "game_id" fra game token, null = har ikke købt spillet
     public string Username { get; set; } = null!;   // "name" fra game token
     public string? Email { get; set; }              // login fra Unity
-    public string? PasswordHash { get; set; }       // hashet med PasswordHasher<Player>
 }
