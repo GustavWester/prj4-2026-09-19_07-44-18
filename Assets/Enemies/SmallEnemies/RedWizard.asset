@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RedWizard
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyName: RedWizard
-  bossTitle: Malakar, the Crimson Magus
-  enemyClass: 1
+  bossTitle: Markus The Ancient
+  bossIcon: {fileID: 21300000, guid: 9509703c1bcd40aa9765cdd1b3d9c04b, type: 3}
+  classSo: 1
   Health: 100
   attackDamage: 1
   moveSpeed: 1

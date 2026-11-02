@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 4207598142
+  GlobalObjectIdHash: 4053497999
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
@@ -228,8 +228,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   ShowTopMostFoldoutHeaderGroup: 1
-  stats: {fileID: 11400000, guid: 66e0217ac931981b6f78c539e5372985, type: 2}
   maxHealth: 100
+  maxMana: 0
+  manaRegenPerSecond: 0
   onDamaged:
     m_PersistentCalls:
       m_Calls: []
@@ -237,6 +238,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onManaChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2025229159568634788
@@ -560,6 +564,10 @@ PrefabInstance:
     - target: {fileID: 3132120675806433556, guid: dd2dd8f795e42455baacd338e16c4892, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132120675806433556, guid: dd2dd8f795e42455baacd338e16c4892, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.13
       objectReference: {fileID: 0}
     - target: {fileID: 3132120675806433556, guid: dd2dd8f795e42455baacd338e16c4892, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

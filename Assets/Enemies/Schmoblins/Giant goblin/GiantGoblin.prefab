@@ -229,8 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   ShowTopMostFoldoutHeaderGroup: 1
-  stats: {fileID: 11400000, guid: 7396b703e21e4199b5947496000cc400, type: 2}
   maxHealth: 100
+  maxMana: 0
+  manaRegenPerSecond: 0
   onDamaged:
     m_PersistentCalls:
       m_Calls: []
@@ -238,6 +239,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onManaChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2935953134142639430
@@ -396,6 +400,27 @@ MonoBehaviour:
       Synchronize: 1
       ParameterType: 9
   AnimatorParametersExpanded: 0
+--- !u!114 &6548832511159011019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669814098827966077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b4e69ed07b1499da9b9a097f1c8eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::LootDrop
+  pickupPrefab: {fileID: 2822671252504475119, guid: cf054f520c9e94e4ebe0d5a5c4afaedd, type: 3}
+  items:
+  - {fileID: 11400000, guid: 5c028c8a0972f2e4c8b20c01b59a4bc9, type: 2}
+  - {fileID: 11400000, guid: 5c028c8a0972f2e4c8b20c01b59a4bc9, type: 2}
+  - {fileID: 11400000, guid: b5518fd0a799423cb11b6eea93630f2c, type: 2}
+  chance: 0.5
+  count: 1
+  onePerPlayer: 0
+  spread: 0.5
 --- !u!1 &7885301936785895241
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,27 +512,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &6548832511159011019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669814098827966077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6b4e69ed07b1499da9b9a097f1c8eac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::LootDrop
-  pickupPrefab: {fileID: 2822671252504475119, guid: cf054f520c9e94e4ebe0d5a5c4afaedd, type: 3}
-  items:
-  - {fileID: 11400000, guid: 5c028c8a0972f2e4c8b20c01b59a4bc9, type: 2}
-  - {fileID: 11400000, guid: 5c028c8a0972f2e4c8b20c01b59a4bc9, type: 2}
-  - {fileID: 11400000, guid: b5518fd0a799423cb11b6eea93630f2c, type: 2}
-  chance: 0.5
-  count: 1
-  onePerPlayer: 0
-  spread: 0.5
 --- !u!1001 &3911969927456633766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,6 +579,10 @@ PrefabInstance:
     - target: {fileID: 3132120675806433556, guid: dd2dd8f795e42455baacd338e16c4892, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132120675806433556, guid: dd2dd8f795e42455baacd338e16c4892, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.28
       objectReference: {fileID: 0}
     - target: {fileID: 3132120675806433556, guid: dd2dd8f795e42455baacd338e16c4892, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

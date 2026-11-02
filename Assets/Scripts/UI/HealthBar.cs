@@ -38,7 +38,8 @@ public class HealthBar : MonoBehaviour
             nameText.text = string.IsNullOrEmpty(enemy.stats.bossTitle) ? enemy.stats.enemyName : enemy.stats.bossTitle;
 
         var sr = target.GetComponent<SpriteRenderer>();
-        if (icon != null && sr != null) icon.sprite = sr.sprite;
+        if (icon != null && enemy != null && enemy.stats != null && enemy.stats.bossIcon != null) icon.sprite = enemy.stats.bossIcon;
+        else if (icon != null && sr != null) icon.sprite = sr.sprite;
     }
 
     // en fjende med bossTitle udfyldt i sin EnemyStatsSO er en boss
