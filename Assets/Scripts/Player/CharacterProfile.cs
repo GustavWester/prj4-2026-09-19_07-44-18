@@ -8,7 +8,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class CharacterProfile : MonoBehaviour
 {
-    public string characterName = "Wizard";
+    public string characterName = "Navn";
     public Sprite portrait;
     public List<AbilitySO> abilities = new();
 }
