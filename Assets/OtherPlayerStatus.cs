@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NUnit.Framework.Internal.Builders;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -106,7 +107,8 @@ public class OtherPlayerStatus : MonoBehaviour
                 Destroy(ui);
                 continue;
             }
-
+            
+            nameText.text = p.GetComponent<CharacterProfile>().characterName;
             manaFill.color = manaColor;
 
             rows.Add(new Row
