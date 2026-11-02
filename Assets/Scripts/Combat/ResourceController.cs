@@ -11,6 +11,10 @@ using Unity.Netcode;
 /// Max-værdierne kommer udefra: PlayerManager (fra PlayerStatsSO) eller
 /// EnemyController (fra EnemyStatsSO) kalder SetMaxHealth/SetMaxMana.
 /// Uden det bruges værdierne sat i inspectoren.
+///
+/// Online: hosten ejer livet, ejeren ejer manaen, og alle kopier ser de samme tal.
+/// Der skrives aldrig til en NetworkVariable før spawn (giver advarsel) - før spawn
+/// og offline bruges de lokale værdier.
 /// </summary>
 [DisallowMultipleComponent]
 public class ResourceController : NetworkBehaviour
@@ -43,12 +47,11 @@ public class ResourceController : NetworkBehaviour
     public bool IsInvulnerable { get; set; }
 
     // Mana ejes af spilleren selv (owner skriver), men læses af alle, så andre kan se manabaren.
-    // Før spawn / offline bruges localMana.
     private readonly NetworkVariable<int> netMana = new(
         0,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner);
-    private int localMana;
+    private int localMana; // før spawn / offline
 
     public int CurrentMana => IsSpawned ? netMana.Value : localMana;
     public int MaxMana => maxMana;
@@ -69,7 +72,9 @@ public class ResourceController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        // Ejeren sætter startværdien; alle andre får den synkroniseret.
+        // Første skrivning sker først nu, hvor NetworkVariable'erne kender deres NetworkBehaviour.
+        // Klienterne får værdierne synkroniseret.
+        if (IsServer) netHealth.Value = Mathf.Clamp(localHealth, 0, maxHealth);
         if (IsOwner) netMana.Value = Mathf.Clamp(localMana, 0, maxMana);
     }
 
@@ -85,12 +90,29 @@ public class ResourceController : NetworkBehaviour
     // ---------------------------------------------------------------
     // Health
     // ---------------------------------------------------------------
+    private bool HasHealthAuthority => !IsSpawned || IsServer;
+
+    /// <summary>Skriver liv. Online går det via NetworkVariable (som fyrer eventet), offline fyrer vi det selv.</summary>
+    private void SetHealth(int value)
+    {
+        if (IsSpawned)
+        {
+            netHealth.Value = value;
+        }
+        else
+        {
+            int previous = localHealth;
+            localHealth = value;
+            OnHealthChanged(previous, value);
+        }
+    }
+
     public void TakeDamage(int amount)
     {
         if (!HasHealthAuthority) return; // kun hosten giver skade - gælder fireball, pile og melee
         if (IsInvulnerable || IsDead || amount <= 0) return;
 
-        netHealth.Value = ResourceMath.ApplyDamage(CurrentHealth, amount);
+        SetHealth(ResourceMath.ApplyDamage(CurrentHealth, amount));
     }
 
     public void Heal(int amount)
@@ -98,7 +120,7 @@ public class ResourceController : NetworkBehaviour
         if (!HasHealthAuthority) return;
         if (IsDead || amount <= 0) return;
 
-        netHealth.Value = ResourceMath.ApplyHeal(CurrentHealth, amount, maxHealth);
+        SetHealth(ResourceMath.ApplyHeal(CurrentHealth, amount, maxHealth));
     }
 
     /// <summary>
@@ -112,11 +134,9 @@ public class ResourceController : NetworkBehaviour
         if (!initialized) return; // Awake fylder livet op
 
         if (HasHealthAuthority && !IsDead)
-            netHealth.Value = ResourceMath.ResizeCurrent(CurrentHealth, oldMax, maxHealth, 1);
+            SetHealth(ResourceMath.ResizeCurrent(CurrentHealth, oldMax, maxHealth, 1));
         onHealthPercentChanged?.Invoke(HealthPercent);
     }
-
-    private bool HasHealthAuthority => !IsSpawned || IsServer;
 
     private void OnHealthChanged(int previous, int current)
     {
