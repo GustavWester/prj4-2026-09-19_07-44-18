@@ -18,11 +18,12 @@ public class ItemPickup : NetworkBehaviour
     private readonly NetworkVariable<FixedString64Bytes> itemName = new();
     private GameObject nearPlayer; // min egen wizard, når den står ved itemet
     private bool taken;
+    public SpriteRenderer spriteRenderer;   
 
     public void SetItem(ItemSO newItem)
     {
         item = newItem;
-        GetComponent<SpriteRenderer>().sprite = item.icon;
+        spriteRenderer.sprite = item.icon;
     }
 
     // viser itemets ikon i editoren, så man kan se forskel på pickups i scenen
