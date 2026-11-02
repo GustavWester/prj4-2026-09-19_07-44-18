@@ -34,6 +34,8 @@ public class OtherPlayerStatus : MonoBehaviour
     [Tooltip("Pulser pr. sekund i radianer. 2.5 = en puls ca. hvert 2,5 sekund.")]
     [SerializeField] private float pulseSpeed = 2.5f;
 
+    private string playerName;
+
     private class Row
     {
         public GameObject player;
@@ -56,8 +58,14 @@ public class OtherPlayerStatus : MonoBehaviour
             if (row.resources == null) continue;
 
             // Navnet opdateres løbende, så det også virker hvis det først bliver sat efter spawn
-            string playerName = GetPlayerName(row.player);
-            if (row.nameText.text != playerName) row.nameText.text = playerName;
+            if (playerName == null)
+            {
+                playerName = GetPlayerName(row.player);
+                Debug.Log("PlayerName: " + playerName);
+                if (row.nameText.text != playerName) row.nameText.text = playerName;
+                
+            }
+            
 
             float hp = row.resources.HealthPercent;
             row.healthFill.fillAmount = hp;
@@ -108,7 +116,6 @@ public class OtherPlayerStatus : MonoBehaviour
                 continue;
             }
             
-            nameText.text = p.GetComponent<CharacterProfile>().characterName;
             manaFill.color = manaColor;
 
             rows.Add(new Row
@@ -143,6 +150,6 @@ public class OtherPlayerStatus : MonoBehaviour
     /// </summary>
     private static string GetPlayerName(GameObject player)
     {
-        return player.name.Replace("(Clone)", "").Trim();
+        return player.GetComponent<CharacterProfile>().characterName.Replace("(Clone)", "").Trim();
     }
 }
