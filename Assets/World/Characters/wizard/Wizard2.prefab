@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1016670560
+  GlobalObjectIdHash: 3539823711
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
@@ -346,8 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   ShowTopMostFoldoutHeaderGroup: 1
   fireballPrefab: {fileID: 8155128158161312045, guid: aec48452c2988437f8f83f46deb344c0, type: 3}
-  cooldown: 0.1
-  spreadDeg: 12
 --- !u!114 &1508152896652456296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,6 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   baseStats: {fileID: 11400000, guid: e581aab063f14bdb96efb5a94a376ac8, type: 2}
+  minMaxMana: 30
 --- !u!114 &2956491452427915997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a192a22a2e1a1884c92b96b87144eeaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProfile
-  characterName: Wizard
+  characterName: Navn
   portrait: {fileID: 21300000, guid: 5abaf20c1daa4af4fadcfad964bae00f, type: 3}
   abilities: []
 --- !u!114 &-3849271364828083428
