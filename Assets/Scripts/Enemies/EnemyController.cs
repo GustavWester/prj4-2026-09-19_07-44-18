@@ -18,6 +18,8 @@ using Unity.Netcode.Components;
 /// - EnemyClass.Melee ignores attackPatterns and instead deals contact
 ///   damage to the player when within stats.attackRange, on cooldown.
 /// </summary>
+// kører før ResourceController.Awake (ligesom PlayerManager), så SetMaxHealth ikke skriver til NetworkVariable før spawn
+[DefaultExecutionOrder(-100)]
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : NetworkBehaviour
 {
