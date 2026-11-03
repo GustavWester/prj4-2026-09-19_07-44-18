@@ -18,24 +18,32 @@ public class ItemPickup : NetworkBehaviour
     private readonly NetworkVariable<FixedString64Bytes> itemName = new();
     private GameObject nearPlayer; // min egen wizard, når den står ved itemet
     private bool taken;
-    private SpriteRenderer spriteRenderer;
-    
-    private void Awake()
-    {
-        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
-
-    public void SetItem(ItemSO newItem)
-    {
-        item = newItem;
-        spriteRenderer.sprite = item.icon;
-    }
-
-    // viser itemets ikon i editoren, så man kan se forskel på pickups i scenen
-    private void OnValidate()
-    {
-        if (item != null) GetComponent<SpriteRenderer>().sprite = item.icon;
-    }
+    [SerializeField] private SpriteRenderer spriteRenderer;
+  
+  private void Awake()
+  {
+      if (spriteRenderer == null)
+      {
+          Transform visual = transform.Find("ItemVisual");
+  
+          if (visual != null)
+              spriteRenderer = visual.GetComponent<SpriteRenderer>();
+      }
+  }
+  
+  public void SetItem(ItemSO newItem)
+  {
+      item = newItem;
+  
+      if (spriteRenderer != null && item != null)
+          spriteRenderer.sprite = item.icon;
+  }
+  
+  private void OnValidate()
+  {
+      if (spriteRenderer != null && item != null)
+          spriteRenderer.sprite = item.icon;
+  }
 
     public override void OnNetworkSpawn()
     {
