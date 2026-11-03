@@ -18,18 +18,32 @@ public class ItemPickup : NetworkBehaviour
     private readonly NetworkVariable<FixedString64Bytes> itemName = new();
     private GameObject nearPlayer; // min egen wizard, når den står ved itemet
     private bool taken;
-
-    public void SetItem(ItemSO newItem)
-    {
-        item = newItem;
-        GetComponent<SpriteRenderer>().sprite = item.icon;
-    }
-
-    // viser itemets ikon i editoren, så man kan se forskel på pickups i scenen
-    private void OnValidate()
-    {
-        if (item != null) GetComponent<SpriteRenderer>().sprite = item.icon;
-    }
+    [SerializeField] private SpriteRenderer spriteRenderer;
+  
+  private void Awake()
+  {
+      if (spriteRenderer == null)
+      {
+          Transform visual = transform.Find("ItemVisual");
+  
+          if (visual != null)
+              spriteRenderer = visual.GetComponent<SpriteRenderer>();
+      }
+  }
+  
+  public void SetItem(ItemSO newItem)
+  {
+      item = newItem;
+  
+      if (spriteRenderer != null && item != null)
+          spriteRenderer.sprite = item.icon;
+  }
+  
+  private void OnValidate()
+  {
+      if (spriteRenderer != null && item != null)
+          spriteRenderer.sprite = item.icon;
+  }
 
     public override void OnNetworkSpawn()
     {
@@ -37,6 +51,8 @@ public class ItemPickup : NetworkBehaviour
         else item = Resources.Load<ItemSO>("Items/" + itemName.Value.ToString());
         SetItem(item);
     }
+    
+    
 
     private void Start()
     {
@@ -55,7 +71,7 @@ public class ItemPickup : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void TakeRpc(NetworkObjectReference player)
     {
-        if (taken || !player.TryGet(out NetworkObject p)) return;
+        if (taken || !player.TryGet(out NetworkObject p, NetworkManager)) return;
         taken = true;
         Give(p.gameObject);
         GiveRpc(player);
@@ -65,7 +81,8 @@ public class ItemPickup : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     private void GiveRpc(NetworkObjectReference player)
     {
-        if (player.TryGet(out NetworkObject p)) Give(p.gameObject);
+        // slå op i denne maskines NetworkManager (uden den bruges Singleton, som ikke altid er vores)
+        if (player.TryGet(out NetworkObject p, NetworkManager)) Give(p.gameObject);
     }
 
     // spillere der joiner sent får ikke de andres powerups; syncmodifier-listen hvis det bliver et problem
