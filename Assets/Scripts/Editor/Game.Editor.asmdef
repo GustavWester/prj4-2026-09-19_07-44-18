@@ -4,7 +4,6 @@
     "references": [
         "Game",
         "Game.Core",
-        "Unity.Netcode.Runtime",
         "Unity.RenderPipelines.Core.Runtime",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Universal.2D.Runtime",
