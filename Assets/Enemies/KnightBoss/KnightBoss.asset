@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KnightBoss
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsSO
   enemyName: Knight Boss
-  bossTitle: Sir Aldric, the Fallen Oath
+  bossTitle: Sir John, the Fallen
   bossIcon: {fileID: 6120914730915384989, guid: cd0b4804e59d5a4418ff8863e391aa3b, type: 3}
   classSo: 0
   Health: 600

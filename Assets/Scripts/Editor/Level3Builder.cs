@@ -119,8 +119,143 @@ public static class Level3Builder
         AddLadderToLevel2();
 
         EditorSceneManager.OpenScene(Target);
-        Debug.Log($"DungeonScene3 bygget: {Areas.Length} rum, {walk.Count} gulv-felter. Placér fjender, kister og fakler, og gem scenen.");
+        Decorate();
+        Debug.Log($"DungeonScene3 bygget: {Areas.Length} rum, {walk.Count} gulv-felter. Placér fjender og kister, og gem scenen.");
     }
+
+    // ---------------------------------------------------------------
+    // Pynt: fakler, bannere, tønder, krukker, rustninger, skeletter, fyrfade
+    // ---------------------------------------------------------------
+    const string TorchPrefab = "Assets/World/Torch/Torch.prefab";
+    const string BrazierPrefab = "Assets/World/Brazier/Brazier.prefab";
+    const string DecorRoot = "Decor";
+
+    // kun rigtige rum får pynt, ikke gangene
+    static readonly string[] DecoratedRooms =
+    {
+        "Start", "SouthEast", "Funnel", "Junction", "EastRoom", "MidRoom", "CenterRoom", "WestRoom", "SouthWestRoom",
+        "FarWestRoom", "NookRoom", "AnteRoom", "TrapRoom", "TrapNookRoom", "NorthEastRoom", "Boss",
+    };
+    static readonly string[][] Banners = { new[] { "0_3", "0_2" }, new[] { "3_3", "3_2" }, new[] { "1_3", "1_2" }, new[] { "4_3", "4_2" } };
+    static readonly string[] Clutter = { "0_6", "1_6", "2_6", "3_6", "8", "1_0", "2_0", "14", "4_0", "5_0" }; // tønder og krukker
+
+    // fast "tilfældighed", så pynten bliver den samme hver gang
+    static int H(int x, int y) => unchecked((x * 73856093) ^ (y * 19349663)) & 0x7fffffff;
+
+    /// <summary>
+    /// Pynter DungeonScene3. Kan køres igen: rydder Decorations-tilemappet og Decor-objektet først,
+    /// så alt man selv har lagt der, forsvinder.
+    /// </summary>
+    [MenuItem("Tools/Level 3/Decorate DungeonScene3")]
+    static void Decorate()
+    {
+        var scene = EditorSceneManager.GetActiveScene();
+        if (scene.path != Target)
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            scene = EditorSceneManager.OpenScene(Target);
+        }
+
+        var tilemaps = Object.FindObjectsByType<Tilemap>().ToDictionary(t => t.name);
+        Tilemap floor = tilemaps["Floor"], deco = tilemaps["Decorations"];
+        deco.ClearAllTiles();
+        var old = GameObject.Find(DecorRoot);
+        if (old != null) Object.DestroyImmediate(old);
+        var root = new GameObject(DecorRoot).transform;
+
+        var walk = Walkable();
+        var tiles = new Dictionary<Vector2Int, string>();
+        var torches = new List<Vector2Int>();
+        var braziers = new List<Vector2Int>();
+        bool Put(Vector2Int c, string id) => tiles.TryAdd(c, "static_objects_dungeon_" + id);
+
+        for (int i = 0; i < DecoratedRooms.Length; i++)
+        {
+            string name = DecoratedRooms[i];
+            var r = Areas.First(a => a.name == name).rect;
+            int x0 = r.xMin, y0 = r.yMin, w = r.width, h = r.height;
+
+            // hold 2 felter fri omkring åbningerne, så ingen gang bliver spærret
+            var openings = walk.Where(c => !r.Contains(c) && Neighbours8(c).Any(r.Contains));
+            var near = new HashSet<Vector2Int>(openings.SelectMany(c =>
+                from dx in Enumerable.Range(-2, 5) from dy in Enumerable.Range(-2, 5) select c + new Vector2Int(dx, dy)));
+            bool Free(Vector2Int c) => walk.Contains(c) && !near.Contains(c) && !Areas.Any(a => a.name != name && a.rect.Contains(c));
+
+            // 1) fakler og bannere på murfronten over rummet
+            var style = name == "Boss" ? new[] { "2_1", "5_1" } : name == "TrapRoom" ? new[] { "2_3", "5_3" } : Banners[i % Banners.Length];
+            int k = 0;
+            for (int x = x0; x < x0 + w; x++)
+            {
+                var c = new Vector2Int(x, y0 + h);
+                if (walk.Contains(c) || !walk.Contains(c + Vector2Int.down)) continue;
+                if (k % 6 == 1) torches.Add(c);
+                else if (k % 6 == 4) Put(c, style[(k / 6) % 2]);
+                k++;
+            }
+
+            // 2) ting langs væggene
+            var wallside = (from x in Enumerable.Range(x0, w) from y in Enumerable.Range(y0, h)
+                            let c = new Vector2Int(x, y)
+                            where Free(c) && Neighbours4(c).Any(n => !walk.Contains(n))
+                            select c).ToList();
+
+            if (name == "Boss")
+            {
+                // rustninger (2 felter høje) langs siderne og fyrfade i hjørnerne
+                foreach (int y in new[] { y0 + 6, y0 + 10, y0 + 14 })
+                    foreach (int x in new[] { x0, x0 + w - 1 })
+                    {
+                        var c = new Vector2Int(x, y);
+                        if (Free(c) && Free(c + Vector2Int.up) && Put(c, "4_5")) Put(c + Vector2Int.up, "4_6");
+                    }
+                braziers.AddRange(new Vector2Int[] { new(x0 + 2, y0 + 2), new(x0 + w - 3, y0 + 2), new(x0 + 2, y0 + h - 4), new(x0 + w - 3, y0 + h - 4) });
+                continue;
+            }
+            if (name == "TrapRoom")
+            {
+                foreach (var c in wallside)
+                    if (H(c.x, c.y) % 100 < 18) Put(c, "2_5"); // skeletter fra dem der ikke klarede den
+                continue;
+            }
+
+            foreach (var (cx, cy) in new[] { (x0, y0), (x0 + w - 1, y0), (x0, y0 + h - 1), (x0 + w - 1, y0 + h - 1) })
+            {
+                int sx = cx == x0 ? 1 : -1, sy = cy == y0 ? 1 : -1;
+                foreach (var c in new Vector2Int[] { new(cx, cy), new(cx + sx, cy), new(cx, cy + sy) })
+                    if (wallside.Contains(c) && H(c.x, c.y) % 100 < 75) Put(c, Clutter[H(c.x, c.y) % Clutter.Length]);
+            }
+            foreach (var c in wallside)
+                if (H(c.y, c.x) % 100 < 7) Put(c, Clutter[H(c.x, c.y) % Clutter.Length]);
+
+            if (w >= 10 && h >= 9)
+            {
+                int mx = x0 + w / 2, my = y0 + h / 2;
+                braziers.Add(new Vector2Int(mx - 3, my));
+                braziers.Add(new Vector2Int(mx + 2, my));
+            }
+        }
+
+        var cache = new Dictionary<string, TileBase>();
+        foreach (var (c, id) in tiles)
+        {
+            if (!cache.TryGetValue(id, out var tile)) cache[id] = tile = LoadTile(id);
+            deco.SetTile((Vector3Int)c, tile);
+        }
+        foreach (var c in torches)
+            PlacePrefab(TorchPrefab, floor, c, root).transform.position = floor.CellToWorld((Vector3Int)c) + new Vector3(0.49f, 0.59f); // som i DungeonScene2
+        foreach (var c in braziers)
+            PlacePrefab(BrazierPrefab, floor, c, root);
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        Debug.Log($"DungeonScene3 pyntet: {tiles.Count} ting, {torches.Count} fakler, {braziers.Count} fyrfade.");
+    }
+
+    static IEnumerable<Vector2Int> Neighbours4(Vector2Int c) =>
+        new[] { c + Vector2Int.right, c + Vector2Int.left, c + Vector2Int.up, c + Vector2Int.down };
+
+    static IEnumerable<Vector2Int> Neighbours8(Vector2Int c) =>
+        from dx in Enumerable.Range(-1, 3) from dy in Enumerable.Range(-1, 3) select c + new Vector2Int(dx, dy);
 
     // ---------------------------------------------------------------
     // Ryd kopien
@@ -253,11 +388,11 @@ public static class Level3Builder
         else Debug.LogError($"Fandt ikke {rootName} i scenen.");
     }
 
-    static GameObject PlacePrefab(string path, Tilemap floor, Vector2Int cell)
+    static GameObject PlacePrefab(string path, Tilemap floor, Vector2Int cell, Transform parent = null)
     {
         var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
         if (prefab == null) { Debug.LogError("Mangler prefab: " + path); return null; }
-        var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab); // beholder prefab-linket
+        var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent); // beholder prefab-linket
         go.transform.position = CellCenter(floor, cell);
         return go;
     }
