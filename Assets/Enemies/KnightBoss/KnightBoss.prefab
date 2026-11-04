@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1880669551661792684
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 187583892366987139, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_Name
+      value: KnightBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538651324194408374, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 728641640
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025229159568634788, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: d76cd52adc88437ca7927414e4dc82bd, type: 2}
+    - target: {fileID: 2025229159568634788, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: flinchOnHit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025229159568634788, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: randomizePatternOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025229159568634788, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: attackPatterns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025229159568634788, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: attackPatterns.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9622034232cc4385ae2e22574b4f550a, type: 2}
+    - target: {fileID: 2025229159568634788, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: attackPatterns.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 594cd9f5a13149d6a390d4eee7fad2d0, type: 2}
+    - target: {fileID: 2025229159568634788, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: attackPatterns.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c2de3eaf6b548c2a3a0febca5636dcd, type: 2}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593441762073415252, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 4490605573961738750, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 187583892366987139, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1220187016253945006}
+  m_SourcePrefab: {fileID: 100100000, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+--- !u!1 &1766277951481917999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 187583892366987139, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+  m_PrefabInstance: {fileID: 1880669551661792684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1220187016253945006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766277951481917999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621f0d9d45744c2d9715c7dc3c40c79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnightBossPhases
+  ShowTopMostFoldoutHeaderGroup: 1
+  phase2At: 0.66
+  phase3At: 0.33
+  lungeInterval: 4
+  lungeIntervalEnraged: 2.5
+  lungeWindup: 0.4
+  lungeDuration: 0.35
+  lungeSpeed: 9
+  lungeDamage: 2
+  lungeHitRadius: 1.2
+  slash: {fileID: 11400000, guid: 9622034232cc4385ae2e22574b4f550a, type: 2}
+  ring: {fileID: 11400000, guid: 594cd9f5a13149d6a390d4eee7fad2d0, type: 2}
+  spiral: {fileID: 11400000, guid: 5c2de3eaf6b548c2a3a0febca5636dcd, type: 2}
+  slashInterval: 3
+  enragedPatternInterval: 2.5
+  transitionTime: 1.5
+  minion: {fileID: 187583892366987139, guid: bd5de6d8b9907703118f0e834711f38d, type: 3}
+  minionsPerTransition: 2
+  spawnRadius: 3
+  enragedSpeed: 1.4
+  enragedCooldown: 0.6
+  phase2Tint: {r: 1, g: 0.75, b: 0.45, a: 1}
+  phase3Tint: {r: 1, g: 0.4, b: 0.4, a: 1}
