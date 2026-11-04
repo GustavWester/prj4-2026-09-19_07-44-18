@@ -10370,7 +10370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a1be0093a9b47588bdc4c76070db5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  entryPrefab: {fileID: 1189098044}
+  entryPrefab: {fileID: 470546139896500008, guid: 0ddd8be95c7a647859beb6484aed1d02, type: 3}
   container: {fileID: 1189098045}
   refreshInterval: 0.5
   healthColor: {r: 0.35, g: 0.8, b: 0.35, a: 1}
@@ -26432,7 +26432,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5420534632317802507, guid: f00fbe4879b2f0c46b336acf826ec11c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1189098045}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7325837710301449631, guid: f00fbe4879b2f0c46b336acf826ec11c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1913931446}
   m_SourcePrefab: {fileID: 100100000, guid: f00fbe4879b2f0c46b336acf826ec11c, type: 3}
 --- !u!1 &1913931445 stripped
 GameObject:
