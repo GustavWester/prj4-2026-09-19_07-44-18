@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 3518046602187420161}
   - component: {fileID: 3518046602187420162}
   - component: {fileID: 2905798339199688653}
+  - component: {fileID: 7311452908762213401}
   m_Layer: 0
   m_Name: Wizard2
   m_TagString: Player
@@ -783,3 +784,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3516968896113114719}
   m_maskType: 0
+--- !u!114 &7311452908762213401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285184095884308798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14999bae6b2146318dda22640c1bddac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WizardSkin
+  ShowTopMostFoldoutHeaderGroup: 1
+  skins:
+  - Grey Wizard
+  - Red Wizard
+  - Purple Wizard
+  - Green Wizard
+  - Brown Wizard
+  - White Wizard
