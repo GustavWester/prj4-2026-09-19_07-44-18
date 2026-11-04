@@ -128,7 +128,7 @@ public class PlayerBullet : PlayerSpell
             Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
 
         // Kuglen findes hos alle spillere. Kun skytten må ryste og fryse, ellers hakker de andres skærm ved hvert hit
-        if (owner == null || !owner.GetComponent<PlayerMovementController>().HasControl) return;
+        if (owner != null && owner.TryGetComponent(out PlayerMovementController shooter) && !shooter.HasControl) return;
         CameraShake.Instance?.Shake(cameraShakeDuration, cameraShakeMagnitude);
         HitStop.Instance?.Stop(hitStopDuration);
     }
