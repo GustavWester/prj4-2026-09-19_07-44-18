@@ -3,6 +3,18 @@ guid: 1b6102b3791398d48a72dcb2fba58c4c
 TextureImporter:
   internalIDToNameTable:
   - first:
+      213: -2029538761392810534
+    second: spike_frame_0
+  - first:
+      213: -50012146547132338
+    second: spike_frame_1
+  - first:
+      213: -3266121069658272560
+    second: spike_frame_2
+  - first:
+      213: -1548558124917903165
+    second: spike_frame_3
+  - first:
       213: -5652210592559950731
     second: animated_spike_trap_0
   - first:
@@ -144,6 +156,94 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites:
+    - serializedVersion: 2
+      name: spike_frame_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dee2c021f30b48a79943e13b74c33733
+      internalID: -2029538761392810534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_frame_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da50da5241294e93aa401e22d6384fcc
+      internalID: -50012146547132338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_frame_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68536865822547d6b77b9de811c28dc5
+      internalID: -3266121069658272560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_frame_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecfda3ff582b4da5a910fb3ecd3e5d6e
+      internalID: -1548558124917903165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: animated_spike_trap_0
       rect:
@@ -510,6 +610,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      spike_frame_0: -2029538761392810534
+      spike_frame_1: -50012146547132338
+      spike_frame_2: -3266121069658272560
+      spike_frame_3: -1548558124917903165
       animated_spike_trap_0: -5652210592559950731
       animated_spike_trap_1: -2833201765419605980
       animated_spike_trap_10: -4034489023036746980
