@@ -10,10 +10,12 @@ public class EnemyBullet : MonoBehaviour
     public float lifetime = 6f;
     private Vector2 direction;
     private float speed;
+    private int damage = 1;
     private Rigidbody2D rb;
 
-    public void Init(Vector2 dir, float bulletSpeed)
+    public void Init(Vector2 dir, float bulletSpeed, int bulletDamage = 1)
     {
+        damage = bulletDamage;
         direction = dir.normalized;
         speed = bulletSpeed;
         transform.right = direction; // pil peger i flyveretningen
@@ -34,7 +36,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (other.CompareTag("Player")) 
         {
-            other.GetComponent<ResourceController>()?.TakeDamage(1);
+            other.GetComponent<ResourceController>()?.TakeDamage(damage);
             Destroy(gameObject);
         }
         // alt solidt stopper kuglen (vægge, døre, kister ...), undtagen fjenderne selv, så den ikke dør i skytten.

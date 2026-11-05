@@ -19,6 +19,8 @@ public class BulletPatternSO : ScriptableObject
     [Tooltip("Total angle the pattern covers. 360 = full circle.")]
     public float spreadAngle = 360f;
     public float bulletSpeed = 5f;
+    [Tooltip("Skade pr. kugle der rammer en spiller.")]
+    public int damage = 1;
 
     [Header("Timing")]
     [Tooltip("How many times the pattern 'fires' before it's considered done.")]

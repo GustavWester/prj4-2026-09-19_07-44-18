@@ -78,6 +78,15 @@ public class ResourceController : NetworkBehaviour
         if (IsOwner) netMana.Value = Mathf.Clamp(localMana, 0, maxMana);
     }
 
+    public override void OnNetworkDespawn()
+    {
+        // Efter despawn læser CurrentHealth/CurrentMana de lokale værdier, så de skal passe.
+        // Ellers ser en død scene-placeret boss (kun despawnet, ikke slettet) fuld ud, og stigen åbner aldrig.
+        localHealth = netHealth.Value;
+        localMana = netMana.Value;
+        base.OnNetworkDespawn();
+    }
+
     private void Update()
     {
         if (!HasManaAuthority) return; // kun ejeren regenererer (ellers ville ikke-ejere forsøge at skrive)

@@ -75,6 +75,15 @@ public class EnemyController : NetworkBehaviour
     [Tooltip("Small random +/- added to stats.attackCooldown each time, so enemies of the same type don't all fire in sync.")]
     public float attackCooldownJitter = 0.3f;
 
+    [Header("Boss")]
+    [Tooltip("Slå fra på bosser, så de ikke bliver stun-locket af Hurt-animationen ved hvert hit.")]
+    [SerializeField] private bool flinchOnHit = true;
+    // sættes af fx KnightBossPhases, så en fase kan gøre fjenden hurtigere uden at ændre det delte EnemyStatsSO
+    [HideInInspector] public float speedMultiplier = 1f;
+    [HideInInspector] public float cooldownMultiplier = 1f;
+    /// <summary>Den spiller fjenden jager lige nu (kun sat på hosten).</summary>
+    public Transform Target => player;
+
     private Rigidbody2D rb;
     private int patternIndex;
     private Animator animator;             // optional: only animated enemies (e.g. goblins) have one
@@ -116,7 +125,7 @@ public class EnemyController : NetworkBehaviour
         if (resources != null)
         {
             if (stats != null) resources.SetMaxHealth(stats.Health);
-            if (animator != null)
+            if (animator != null && flinchOnHit)
                 resources.onDamaged.AddListener(() => { if (RunsAI && !resources.IsDead) SetTrigger("Hurt"); });
             resources.onDeath.AddListener(() =>
             {
@@ -172,10 +181,10 @@ public class EnemyController : NetworkBehaviour
         }
     }
 
-    private float MoveSpeed => stats != null ? stats.moveSpeed : 3f;
+    private float MoveSpeed => (stats != null ? stats.moveSpeed : 3f) * speedMultiplier;
     private float DetectionRange => stats != null ? stats.detectionRange : 6f;
     private float AttackRange => stats != null ? stats.attackRange : 1.5f;
-    private float AttackCooldown => stats != null ? stats.attackCooldown : 1f;
+    private float AttackCooldown => (stats != null ? stats.attackCooldown : 1f) * cooldownMultiplier;
 
     private void FixedUpdate()
     {
@@ -349,6 +358,15 @@ public class EnemyController : NetworkBehaviour
         return next;
     }
 
+    /// <summary>Skyder et mønster fra attackPatterns (kun hosten). Bruges af bosser, der vælger angreb selv.</summary>
+    public void FirePattern(BulletPatternSO pattern)
+    {
+        if (RunsAI && pattern != null && attackPatterns != null && attackPatterns.Contains(pattern)) StartCoroutine(RunPattern(pattern));
+    }
+
+    // uden firePoint skydes der fra midten af fjenden
+    private Vector2 FireOrigin => firePoint != null ? (Vector2)firePoint.position : (Vector2)transform.position;
+
     private IEnumerator RunPattern(BulletPatternSO pattern)
     {
         for (int volley = 0; volley < pattern.volleys; volley++)
@@ -386,7 +404,7 @@ public class EnemyController : NetworkBehaviour
     {
         if (player == null) return;
 
-        Vector2 baseDir = ((Vector2)player.position - (Vector2)firePoint.position).normalized;
+        Vector2 baseDir = ((Vector2)player.position - FireOrigin).normalized;
         float baseAngle = Mathf.Atan2(baseDir.y, baseDir.x) * Mathf.Rad2Deg;
 
         foreach (float angle in BulletPatternMath.AimedSpreadAngles(pattern.bulletCount, pattern.spreadAngle, baseAngle))
@@ -409,11 +427,11 @@ public class EnemyController : NetworkBehaviour
 
     private void SpawnBullet(BulletPatternSO pattern, Vector2 dir)
     {
-        if (pattern.bulletPrefab == null || firePoint == null) return;
+        if (pattern.bulletPrefab == null) return;
         // prefabs kan ikke sendes over netværket, så vi sender pattern'ets nummer i listen
         int index = attackPatterns.IndexOf(pattern);
-        if (IsSpawned) SpawnBulletRpc(index, firePoint.position, dir);
-        else SpawnBulletLocal(index, firePoint.position, dir);
+        if (IsSpawned) SpawnBulletRpc(index, FireOrigin, dir);
+        else SpawnBulletLocal(index, FireOrigin, dir);
     }
 
     // en RPC pr. kugle, fint til små mønstre - send hele volley'en i én RPC hvis det lagger
@@ -425,9 +443,7 @@ public class EnemyController : NetworkBehaviour
         BulletPatternSO pattern = attackPatterns[index];
         GameObject go = Instantiate(pattern.bulletPrefab, pos, Quaternion.identity);
         EnemyBullet b = go.GetComponent<EnemyBullet>();
-        if (b != null) b.Init(dir, pattern.bulletSpeed);
-        // Hook up stats.attackDamage on the bullet here if/when Bullet.Init
-        // takes a damage parameter, e.g. b.Init(dir, pattern.bulletSpeed, stats.attackDamage);
+        if (b != null) b.Init(dir, pattern.bulletSpeed, pattern.damage);
     }
 
     // ---------------------------------------------------------------
