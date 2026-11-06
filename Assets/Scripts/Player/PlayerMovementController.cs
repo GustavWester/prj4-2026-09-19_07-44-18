@@ -77,6 +77,7 @@ public class PlayerMovementController : NetworkBehaviour
             transform.position = pos;
             rb.position = pos;
         }
+        RoomVisibility.LightAt(transform.position);
     }
     private bool isDashing = false;
     private float dashTimer = 0f;
