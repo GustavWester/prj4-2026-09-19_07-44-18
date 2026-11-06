@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Unity.Netcode;
+using Unity.Collections;
 
 /// <summary>
 /// Holder styr på de ressourcer der ændrer sig under spillet: nuværende liv og mana,
@@ -45,6 +46,11 @@ public class ResourceController : NetworkBehaviour
     public float HealthPercent => ResourceMath.Percent(CurrentHealth, maxHealth);
     public bool IsDead { get; private set; }
     public bool IsInvulnerable { get; set; }
+
+    // Hvad der gav det dræbende slag (fx "Goblin"), vises på game over-sedlen. Serveren skriver, alle læser.
+    private readonly NetworkVariable<FixedString64Bytes> netKilledBy = new();
+    private string localKilledBy = ""; // offline
+    public string KilledBy => IsSpawned ? netKilledBy.Value.ToString() : localKilledBy;
 
     // Mana ejes af spilleren selv (owner skriver), men læses af alle, så andre kan se manabaren.
     private readonly NetworkVariable<int> netMana = new(
@@ -116,12 +122,21 @@ public class ResourceController : NetworkBehaviour
         }
     }
 
-    public void TakeDamage(int amount)
+    /// <param name="source">Navnet på det der giver skaden. Vises på game over-sedlen, hvis det dræber.</param>
+    public void TakeDamage(int amount, string source = "")
     {
         if (!HasHealthAuthority) return; // kun hosten giver skade - gælder fireball, pile og melee
         if (IsInvulnerable || IsDead || amount <= 0) return;
 
-        SetHealth(ResourceMath.ApplyDamage(CurrentHealth, amount));
+        int health = ResourceMath.ApplyDamage(CurrentHealth, amount);
+        if (health <= 0) // skrives før livet, så klienterne har navnet når de ser døden
+        {
+            source ??= "";
+            if (source.Length > 30) source = source[..30]; // FixedString64Bytes kaster ved over 61 bytes (æøå fylder 2)
+            if (IsSpawned) netKilledBy.Value = new FixedString64Bytes(source);
+            else localKilledBy = source;
+        }
+        SetHealth(health);
     }
 
     public void Heal(int amount)

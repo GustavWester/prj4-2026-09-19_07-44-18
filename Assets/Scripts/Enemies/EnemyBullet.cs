@@ -11,11 +11,13 @@ public class EnemyBullet : MonoBehaviour
     private Vector2 direction;
     private float speed;
     private int damage = 1;
+    private string source = ""; // hvem der skød, til "Killed by"
     private Rigidbody2D rb;
 
-    public void Init(Vector2 dir, float bulletSpeed, int bulletDamage = 1)
+    public void Init(Vector2 dir, float bulletSpeed, int bulletDamage = 1, string shooter = "")
     {
         damage = bulletDamage;
+        source = shooter;
         direction = dir.normalized;
         speed = bulletSpeed;
         transform.right = direction; // pil peger i flyveretningen
@@ -36,7 +38,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (other.CompareTag("Player")) 
         {
-            other.GetComponent<ResourceController>()?.TakeDamage(damage);
+            other.GetComponent<ResourceController>()?.TakeDamage(damage, source);
             Destroy(gameObject);
         }
         // alt solidt stopper kuglen (vægge, døre, kister ...), undtagen fjenderne selv, så den ikke dør i skytten.
