@@ -46,6 +46,23 @@ public class Inventory : MonoBehaviour
                 Add(start.item, start.count);
     }
 
+    // indhold som da levelen startede (DeathScreen / Try again)
+    private Slot[] saved;
+
+    public void SaveCheckpoint() =>
+        saved = Array.ConvertAll(slots, s => new Slot { item = s.item, count = s.count });
+
+    public void LoadCheckpoint()
+    {
+        if (saved == null) return;
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].item = saved[i].item;
+            slots[i].count = saved[i].count;
+        }
+        onChanged?.Invoke();
+    }
+
     /// <summary>Lægger items i inventory. Returnerer hvor mange der IKKE var plads til.</summary>
     public int Add(ItemSO item, int amount = 1)
     {

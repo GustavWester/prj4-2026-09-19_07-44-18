@@ -64,6 +64,25 @@ public class PlayerManager : MonoBehaviour
         if (modifiers.Remove(mod)) Recalculate();
     }
 
+    // powerups som da levelen startede (DeathScreen / Try again). StatModifier er en struct, så listen er en rigtig kopi
+    private List<StatModifier> savedModifiers = new();
+    private HashSet<ItemSO> savedUnique = new();
+
+    public void SaveCheckpoint()
+    {
+        savedModifiers = new List<StatModifier>(modifiers);
+        savedUnique = new HashSet<ItemSO>(equippedUnique);
+    }
+
+    public void LoadCheckpoint()
+    {
+        modifiers.Clear();
+        modifiers.AddRange(savedModifiers);
+        equippedUnique.Clear();
+        equippedUnique.UnionWith(savedUnique);
+        Recalculate();
+    }
+
     public void Equip(ItemSO item)
     {
         if (item == null) return;
