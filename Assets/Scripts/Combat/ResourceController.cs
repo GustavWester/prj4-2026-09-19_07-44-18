@@ -132,6 +132,13 @@ public class ResourceController : NetworkBehaviour
         SetHealth(ResourceMath.ApplyHeal(CurrentHealth, amount, maxHealth));
     }
 
+    /// <summary>Fuldt liv igen, også hvis man er død. Bruges af Try again (DeathScreen). Kun hosten.</summary>
+    public void ResetHealth()
+    {
+        if (!HasHealthAuthority) return;
+        SetHealth(maxHealth);
+    }
+
     /// <summary>
     /// Sætter nyt max-liv. Nuværende liv flyttes lige så meget, så +10 max også giver +10 liv.
     /// </summary>
@@ -151,7 +158,8 @@ public class ResourceController : NetworkBehaviour
     {
         if (current < previous) onDamaged?.Invoke();
         onHealthPercentChanged?.Invoke(HealthPercent);
-        if (current <= 0 && !IsDead) Die();
+        if (current > 0) IsDead = false; // ResetHealth - kører også hos klienterne
+        else if (!IsDead) Die();
     }
 
     private void Die()

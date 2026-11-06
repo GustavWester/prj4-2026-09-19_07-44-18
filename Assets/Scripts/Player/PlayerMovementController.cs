@@ -143,7 +143,7 @@ public class PlayerMovementController : NetworkBehaviour
 
     private void ReadInput()
     {
-        if (Keyboard.current == null)
+        if (Keyboard.current == null || playerManager.Resources.IsDead) // død = står stille
         {
             moveInput = Vector2.zero;
             return;

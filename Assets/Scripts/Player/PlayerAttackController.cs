@@ -30,6 +30,7 @@ public class PlayerAttackController : NetworkBehaviour
     private void Update()
     {
         if (IsSpawned && !IsOwner) return; // kun min egen wizard reagerer på mit tastatur
+        if (playerManager.Resources.IsDead) return; // døde skyder ikke
         cooldownTimer -= Time.deltaTime; //tæller ned hver frame
 
         var kb = Keyboard.current;

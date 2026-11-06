@@ -110,6 +110,7 @@ public class EnemyController : NetworkBehaviour
         foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (room != null && !room.OverlapPoint(p.transform.position)) continue; // ikke i mit rum endnu
+            if (p.GetComponent<ResourceController>().IsDead) continue; // døde spillere jagtes ikke
             float d = ((Vector2)p.transform.position - rb.position).sqrMagnitude;
             if (d < best) { best = d; player = p.transform; }
         }
