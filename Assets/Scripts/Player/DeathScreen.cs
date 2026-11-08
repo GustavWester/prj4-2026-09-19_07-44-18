@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Game over-skærm for min egen wizard.
 /// Lever en anden spiller endnu, venter man (revive kommer senere). Er alle døde (eller solo), kan man trykke
-/// Try again: hosten genstarter den nuværende level for alle, med inventory, powerups og spell som da levelen startede.
+/// Try again: hosten sender alle tilbage til første level (DungeonScene) uden items, powerups eller nyt spell.
 /// Sættes på wizard-prefabben.
 /// </summary>
 [RequireComponent(typeof(ResourceController), typeof(Inventory), typeof(PlayerAttackController))]
@@ -21,21 +21,20 @@ public class DeathScreen : NetworkBehaviour
     private void Awake()
     {
         health = GetComponent<ResourceController>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
         if (uiPrefab == null) Debug.LogError($"{name}: DeathScreen mangler uiPrefab. Kør Tools > Create Death Screen UI.", this);
     }
 
     public override void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
         if (ui != null) Destroy(ui.gameObject); // fx når spilleren forlader spillet
         base.OnDestroy();
     }
 
-    // checkpoint = tilstanden da levelen startede. Gemmes på alle maskiner for alle wizards,
+    private const string FirstScene = "DungeonScene";
+
+    // checkpoint = tilstanden da wizarden spawnede (ingen items). Gemmes på alle maskiner for alle wizards,
     // fordi powerups og spell findes på alle maskiner (inventory kun hos ejeren)
-    private void Start() => SaveCheckpoint(); // første level
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => SaveCheckpoint(); // hver ny level, også hos klienter
+    private void Start() => SaveCheckpoint();
 
     private void SaveCheckpoint()
     {
@@ -63,7 +62,7 @@ public class DeathScreen : NetworkBehaviour
     private void TryAgain()
     {
         if (IsSpawned) TryAgainRpc();
-        else SceneManager.LoadScene(SceneManager.GetActiveScene().name); // offline
+        else SceneManager.LoadScene(FirstScene); // offline
     }
 
     // kun serveren må skifte scene (som LevelExit). Serveren tjekker igen, så et dobbelt-klik ikke genstarter to gange
@@ -73,11 +72,10 @@ public class DeathScreen : NetworkBehaviour
         if (AnyoneAlive()) return;
         foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
         {
-            // checkpoint før scene-skiftet, ellers gemmer den nye scene den gamle tilstand oven i
             p.GetComponent<DeathScreen>().LoadCheckpointRpc();
             p.GetComponent<ResourceController>().ResetHealth(); // wizards overlever scene-skift, så de skal have livet igen
         }
-        NetworkManager.SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        NetworkManager.SceneManager.LoadScene(FirstScene, LoadSceneMode.Single);
     }
 
     //---------GAME OVER-SKÆRM---------
