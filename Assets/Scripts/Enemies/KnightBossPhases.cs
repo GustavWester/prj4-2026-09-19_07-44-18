@@ -138,7 +138,7 @@ public class KnightBossPhases : NetworkBehaviour
             rb.linearVelocity = dir * lungeSpeed;
             foreach (var c in Physics2D.OverlapCircleAll(rb.position, lungeHitRadius))
                 if (c.CompareTag("Player") && c.TryGetComponent(out ResourceController p) && hit.Add(p))
-                    p.TakeDamage(lungeDamage);
+                    p.TakeDamage(lungeDamage, enemy.DisplayName);
             yield return new WaitForFixedUpdate();
         }
 

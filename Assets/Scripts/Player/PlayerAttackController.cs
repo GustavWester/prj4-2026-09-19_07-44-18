@@ -27,9 +27,15 @@ public class PlayerAttackController : NetworkBehaviour
     // kaldes på alle maskiner (fra ItemPickup), så alle laver den samme spell når der skydes
     public void SetSpell(PlayerSpell newSpell) => spell = newSpell;
 
+    // spell som da levelen startede (DeathScreen / Try again)
+    private PlayerSpell savedSpell;
+    public void SaveCheckpoint() => savedSpell = spell;
+    public void LoadCheckpoint() { if (savedSpell != null) spell = savedSpell; }
+
     private void Update()
     {
         if (IsSpawned && !IsOwner) return; // kun min egen wizard reagerer på mit tastatur
+        if (playerManager.Resources.IsDead) return; // døde skyder ikke
         cooldownTimer -= Time.deltaTime; //tæller ned hver frame
 
         var kb = Keyboard.current;
