@@ -32,9 +32,9 @@ public class MinimapUI : MonoBehaviour
     [SerializeField] private float bigMargin = 60f; // afstand til skærmkanten når kortet er stort
 
     private static MinimapUI instance;
-    private readonly Dictionary<RoomVisibility, Image> rooms = new();
+    private readonly Dictionary<RoomVisibility, Image[]> rooms = new(); // ét billede pr. firkant i rummet
     private readonly Dictionary<GameObject, Image> otherPlayers = new();
-    private Image currentRoom;
+    private Image[] currentRoom;
     private Transform borders; // første barn af Content, så alle kanter ligger under alle rum og smelter sammen til én ramme
     private Sprite chestIcon;
     private RectTransform rect;
@@ -92,27 +92,59 @@ public class MinimapUI : MonoBehaviour
     private void EnterRoom(RoomVisibility room)
     {
         // rummet selv og naboerne tegnes første gang de ses (rummet rammer altid sig selv)
-        Bounds near = room.GetComponent<Collider2D>().bounds;
-        near.Expand(neighbourGap * 2);
+        var near = Rects(room.GetComponent<Collider2D>())
+            .Select(r => new Rect(r.x - neighbourGap, r.y - neighbourGap, r.width + neighbourGap * 2, r.height + neighbourGap * 2)).ToList();
         foreach (var other in FindObjectsByType<RoomVisibility>())
-            if (!rooms.ContainsKey(other) && near.Intersects(other.GetComponent<Collider2D>().bounds))
+            if (!rooms.ContainsKey(other) && Rects(other.GetComponent<Collider2D>()).Any(r => near.Any(n => n.Overlaps(r))))
                 rooms[other] = Draw(other);
 
-        if (currentRoom != null) currentRoom.color = roomColor; // det forrige rum er altid besøgt
+        if (currentRoom != null) foreach (var fill in currentRoom) fill.color = roomColor; // det forrige rum er altid besøgt
         currentRoom = rooms[room];
-        currentRoom.color = currentRoomColor;
+        foreach (var fill in currentRoom) fill.color = currentRoomColor;
     }
 
-    private Image Draw(RoomVisibility room)
+    private Image[] Draw(RoomVisibility room)
     {
         var area = room.GetComponent<Collider2D>();
-        Vector2 pos = area.bounds.center * pixelsPerUnit, size = area.bounds.size * pixelsPerUnit;
-        NewImage(borders, pos, size + Vector2.one * borderSize * 2, borderColor, roomSprite);
-        var fill = NewImage(content, pos, size, unexploredRoomColor, roomSprite);
+        var rects = Rects(area);
+        // et rum i flere striber får skarpe hjørner, ellers ses de runde hjørner som hak hvor striberne mødes
+        var fills = rects.Select(r =>
+        {
+            NewImage(borders, r.center * pixelsPerUnit, r.size * pixelsPerUnit + Vector2.one * borderSize * 2, borderColor, roomSprite);
+            return NewImage(content, r.center * pixelsPerUnit, r.size * pixelsPerUnit, unexploredRoomColor, rects.Count > 1 ? null : roomSprite);
+        }).ToArray();
         var icon = room.MinimapIcon != null ? room.MinimapIcon
             : FindObjectsByType<RoomReward>().Any(c => area.OverlapPoint(c.transform.position)) ? chestIcon : null;
-        if (icon != null) NewImage(fill.transform, Vector2.zero, Vector2.one * iconSize, Color.white, icon);
-        return fill;
+        var biggest = fills[rects.IndexOf(rects.OrderByDescending(r => r.width * r.height).First())];
+        if (icon != null) NewImage(biggest.transform, Vector2.zero, Vector2.one * iconSize, Color.white, icon);
+        return fills;
+    }
+
+    /// <summary>
+    /// Rummets gulv som firkanter (world). Et samlet rum (Polygon Collider 2D) skæres i vandrette striber,
+    /// så det ikke bliver tegnet som én stor firkant hen over naborummene.
+    /// </summary>
+    private static List<Rect> Rects(Collider2D area)
+    {
+        if (area is not PolygonCollider2D poly) return new() { new Rect(area.bounds.min, area.bounds.size) };
+        var pts = poly.GetPath(0).Select(p => (Vector2)poly.transform.TransformPoint(p + poly.offset)).ToArray();
+        var ys = pts.Select(p => p.y).Distinct().OrderBy(y => y).ToArray();
+        var rects = new List<Rect>();
+        for (int i = 0; i + 1 < ys.Length; i++)
+        {
+            // hvor stribens midterlinje krydser kanterne; parvis er det ind og ud af rummet
+            float mid = (ys[i] + ys[i + 1]) / 2;
+            var xs = new List<float>();
+            for (int j = 0; j < pts.Length; j++)
+            {
+                Vector2 a = pts[j], b = pts[(j + 1) % pts.Length];
+                if (a.y > mid != b.y > mid) xs.Add(a.x + (mid - a.y) * (b.x - a.x) / (b.y - a.y));
+            }
+            xs.Sort();
+            for (int k = 0; k + 1 < xs.Count; k += 2)
+                rects.Add(Rect.MinMaxRect(xs[k], ys[i], xs[k + 1], ys[i + 1]));
+        }
+        return rects;
     }
 
     private Image NewImage(Transform parent, Vector2 pos, Vector2 size, Color color, Sprite sprite)

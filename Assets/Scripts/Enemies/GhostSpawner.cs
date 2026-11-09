@@ -52,7 +52,7 @@ public class GhostSpawner : NetworkBehaviour
     private bool PlayerInRoom()
     {
         foreach (var p in GameObject.FindGameObjectsWithTag("Player"))
-            if (room == null || room.OverlapPoint(p.transform.position)) return true;
+            if (!p.GetComponent<ResourceController>().IsDead && (room == null || room.OverlapPoint(p.transform.position))) return true;
         return false;
     }
 //draeb alle spoegelser, hvis bossen doer

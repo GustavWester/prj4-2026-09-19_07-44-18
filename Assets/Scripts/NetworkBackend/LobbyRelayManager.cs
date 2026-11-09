@@ -30,7 +30,9 @@ public class LobbyRelayManager : MonoBehaviour
         }
 
         await UnityServices.InitializeAsync();
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        // Try again genindlæser DungeonScene, og så er vi allerede logget ind
+        if (!AuthenticationService.Instance.IsSignedIn)
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
     public async void CreateGame()

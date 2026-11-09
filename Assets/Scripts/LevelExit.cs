@@ -27,7 +27,17 @@ public class LevelExit : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void UseRpc()
     {
-        if (Unlocked) NetworkManager.SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
+        if (Unlocked) StartCoroutine(LoadNext());
+    }
+
+    // ponytail: omvej for en Unity-editor-deadlock: Destroy() af en SpriteRenderer midt i en async scene-load fryser editoren.
+    // Netcode sletter loot/ghosts mv. under loadet, så de despawnes først og når at blive slettet før loadet starter.
+    private System.Collections.IEnumerator LoadNext()
+    {
+        foreach (var obj in new System.Collections.Generic.List<NetworkObject>(NetworkManager.SpawnManager.SpawnedObjectsList))
+            if (!obj.IsPlayerObject && !obj.InScenePlaced && obj.DestroyWithScene) obj.Despawn(true);
+        yield return null;
+        NetworkManager.SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
 
     private void OnTriggerEnter2D(Collider2D other) { if (IsMe(other)) playerNear = true; }

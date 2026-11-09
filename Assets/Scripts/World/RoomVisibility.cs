@@ -44,6 +44,19 @@ public class RoomVisibility : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Tænder rummet min wizard står i. Bruges efter scene-skift: wizarden overlever skiftet, så trigger-Enter
+    /// kan være fyret før PlayerMovementController slukkede alt lyset (fx Try again i startrummet), og så kommer den ikke igen.
+    /// </summary>
+    public static void LightAt(Vector2 position)
+    {
+        Collider2D area = RoomAt(position);
+        if (area == null) return;
+        var room = area.GetComponent<RoomVisibility>();
+        room.roomLight.enabled = true;
+        MinimapUI.Enter(room);
+    }
+
     // kun min egen wizard tæller, ikke de andre spillere eller fjender
     private static bool IsMe(Collider2D other)
     {

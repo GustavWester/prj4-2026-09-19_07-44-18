@@ -37,6 +37,9 @@ public class EnemyController : NetworkBehaviour
     [Header("Stats")]
     public EnemyStatsSO stats;
 
+    /// <summary>Bossens titel, ellers fjendens navn. Bruges til "Killed by" på game over-sedlen.</summary>
+    public string DisplayName => stats == null ? name : string.IsNullOrEmpty(stats.bossTitle) ? stats.enemyName : stats.bossTitle;
+
     [Header("Targeting")]
     private Transform player; // nærmeste spiller, findes på ny hver FixedUpdate
     private Collider2D room;  // rummet fjenden starter i. Den angriber kun spillere der står i det (null = alle)
@@ -110,6 +113,7 @@ public class EnemyController : NetworkBehaviour
         foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (room != null && !room.OverlapPoint(p.transform.position)) continue; // ikke i mit rum endnu
+            if (p.GetComponent<ResourceController>().IsDead) continue; // døde spillere jagtes ikke
             float d = ((Vector2)p.transform.position - rb.position).sqrMagnitude;
             if (d < best) { best = d; player = p.transform; }
         }
@@ -443,7 +447,7 @@ public class EnemyController : NetworkBehaviour
         BulletPatternSO pattern = attackPatterns[index];
         GameObject go = Instantiate(pattern.bulletPrefab, pos, Quaternion.identity);
         EnemyBullet b = go.GetComponent<EnemyBullet>();
-        if (b != null) b.Init(dir, pattern.bulletSpeed, pattern.damage);
+        if (b != null) b.Init(dir, pattern.bulletSpeed, pattern.damage, DisplayName);
     }
 
     // ---------------------------------------------------------------
@@ -465,7 +469,7 @@ public class EnemyController : NetworkBehaviour
             {
                 // med Animator giver AttackHit() (Animation Event) skaden på slag-framet
                 if (animator != null) SetTrigger("Attack");
-                else player.GetComponent<ResourceController>()?.TakeDamage(stats.attackDamage);
+                else player.GetComponent<ResourceController>()?.TakeDamage(stats.attackDamage, DisplayName);
             }
         }
     }
@@ -482,7 +486,7 @@ public class EnemyController : NetworkBehaviour
         {
             // spilleren kan være gået ud af rækkevidde under wind-up
             if (Vector2.Distance(transform.position, player.position) <= AttackRange)
-                player.GetComponent<ResourceController>()?.TakeDamage(stats.attackDamage);
+                player.GetComponent<ResourceController>()?.TakeDamage(stats.attackDamage, DisplayName);
         }
         else
         {

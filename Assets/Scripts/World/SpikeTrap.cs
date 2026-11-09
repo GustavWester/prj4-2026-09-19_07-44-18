@@ -60,6 +60,6 @@ public class SpikeTrap : MonoBehaviour
         if (!Up || !other.CompareTag("Player") || !other.TryGetComponent(out ResourceController hp)) return;
         if (lastHit.TryGetValue(hp, out float t) && Time.time - t < hitCooldown) return;
         lastHit[hp] = Time.time;
-        hp.TakeDamage(damage);
+        hp.TakeDamage(damage, "Spikes");
     }
 }

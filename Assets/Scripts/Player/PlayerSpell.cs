@@ -37,7 +37,8 @@ public abstract class PlayerSpell : MonoBehaviour
     {
         // Hver klient har sin egen spell, så kun hosten må give skade (ellers tælles den dobbelt)
         var nm = Unity.Netcode.NetworkManager.Singleton;
-        if (nm == null || !nm.IsListening || nm.IsServer)
-            other.SendMessage("TakeDamage", Damage, SendMessageOptions.DontRequireReceiver);
+        // direkte kald i stedet for SendMessage, som ikke kan se TakeDamage's valgfrie source-parameter
+        if ((nm == null || !nm.IsListening || nm.IsServer) && other.TryGetComponent(out ResourceController target))
+            target.TakeDamage(Damage);
     }
 }

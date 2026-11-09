@@ -77,6 +77,7 @@ public class PlayerMovementController : NetworkBehaviour
             transform.position = pos;
             rb.position = pos;
         }
+        RoomVisibility.LightAt(transform.position);
     }
     private bool isDashing = false;
     private float dashTimer = 0f;
@@ -142,7 +143,7 @@ public class PlayerMovementController : NetworkBehaviour
 
     private void ReadInput()
     {
-        if (Keyboard.current == null)
+        if (Keyboard.current == null || playerManager.Resources.IsDead) // død = står stille
         {
             moveInput = Vector2.zero;
             return;
