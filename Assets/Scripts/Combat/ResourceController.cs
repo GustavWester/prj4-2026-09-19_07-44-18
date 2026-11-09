@@ -147,11 +147,11 @@ public class ResourceController : NetworkBehaviour
         SetHealth(ResourceMath.ApplyHeal(CurrentHealth, amount, maxHealth));
     }
 
-    /// <summary>Fuldt liv igen, også hvis man er død. Bruges af Try again (DeathScreen). Kun hosten.</summary>
-    public void ResetHealth()
+    /// <summary>Liv igen (percent af max), også hvis man er død. Try again (DeathScreen) giver fuldt, Revive halvt. Kun hosten.</summary>
+    public void ResetHealth(float percent = 1f)
     {
         if (!HasHealthAuthority) return;
-        SetHealth(maxHealth);
+        SetHealth(Mathf.Max(1, Mathf.RoundToInt(maxHealth * percent)));
     }
 
     /// <summary>
@@ -169,13 +169,26 @@ public class ResourceController : NetworkBehaviour
         onHealthPercentChanged?.Invoke(HealthPercent);
     }
 
+    private static readonly Color HealColor = new(0.4f, 1f, 0.4f);
+    private static readonly Color PlayerHurtColor = new(1f, 0.3f, 0.3f);
+    private static readonly Color EnemyHurtColor = new(1f, 0.95f, 0.6f);
+
     private void OnHealthChanged(int previous, int current)
     {
+        // tal ved højre hjørne af figuren. Kører på alle maskiner, så alle ser heal og skade
+        int delta = current - previous;
+        if (delta != 0)
+            FloatingText.Spawn(PopupPosition, delta > 0 ? $"+{delta}" : delta.ToString(),
+                delta > 0 ? HealColor : CompareTag("Player") ? PlayerHurtColor : EnemyHurtColor);
+
         if (current < previous) onDamaged?.Invoke();
         onHealthPercentChanged?.Invoke(HealthPercent);
         if (current > 0) IsDead = false; // ResetHealth - kører også hos klienterne
         else if (!IsDead) Die();
     }
+
+    /// <summary>Figurens øverste højre hjørne (sprite), hvor FloatingText popper op.</summary>
+    public Vector3 PopupPosition => TryGetComponent(out Renderer r) ? r.bounds.max : transform.position;
 
     private void Die()
     {

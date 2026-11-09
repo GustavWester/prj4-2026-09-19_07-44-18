@@ -25,6 +25,8 @@ public class PotionHotkey : NetworkBehaviour
         if (!useful || !GetComponent<Inventory>().TryRemove(potion)) return; // fuldt liv/mana eller ingen potions
 
         res.RestoreMana(potion.manaAmount);
+        // mana er kun min, så kun jeg ser tallet. Liv giver sit eget tal i ResourceController, når hosten healer
+        if (potion.manaAmount > 0) FloatingText.Spawn(res.PopupPosition, $"+{potion.manaAmount}", new Color(0.4f, 0.7f, 1f));
         if (potion.healAmount > 0)
         {
             if (IsSpawned) HealRpc();

@@ -20,7 +20,7 @@ public class LevelExit : NetworkBehaviour
 
     private void Update()
     {
-        if (playerNear && Unlocked && Keyboard.current.eKey.wasPressedThisFrame) UseRpc();
+        if (playerNear && Unlocked && Keyboard.current.eKey.wasPressedThisFrame && !Revive.AnyNearby()) UseRpc();
     }
 
     // kun serveren må skifte scene, NGO tager alle klienter med. Serveren tjekker igen, den har det sidste ord
