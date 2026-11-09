@@ -16,7 +16,7 @@ MonoBehaviour:
   bossTitle: Sir John, the Fallen
   bossIcon: {fileID: 6120914730915384989, guid: cd0b4804e59d5a4418ff8863e391aa3b, type: 3}
   classSo: 0
-  Health: 600
+  Health: 1000
   attackDamage: 2
   moveSpeed: 2.2
   attackRange: 1.6
