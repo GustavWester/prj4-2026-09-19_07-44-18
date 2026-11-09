@@ -42,7 +42,7 @@ public class DoorController : NetworkBehaviour
 
     private void Update()
     {
-        if (!openWithE || !playerNear || !Keyboard.current.eKey.wasPressedThisFrame) return;
+        if (!openWithE || !playerNear || !Keyboard.current.eKey.wasPressedThisFrame || Revive.AnyNearby()) return;
         if (IsSpawned && !IsServer) OpenRpc(); // klienten beder hosten
         else Open();
     }

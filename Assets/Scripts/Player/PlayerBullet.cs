@@ -127,7 +127,9 @@ public class PlayerBullet : PlayerSpell
         if (impactEffectPrefab != null)
             Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
 
-        CameraShake.Instance?.Shake(cameraShakeDuration, cameraShakeMagnitude);
+        // spells laves på alle maskiner, men kun den der skød skal ryste
+        if (owner != null && owner.gameObject == LocalPlayer.Current)
+            CameraShake.Instance?.Shake(cameraShakeDuration, cameraShakeMagnitude);
         HitStop.Instance?.Stop(hitStopDuration);
     }
 }
