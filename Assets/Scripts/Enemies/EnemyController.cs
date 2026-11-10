@@ -105,6 +105,9 @@ public class EnemyController : NetworkBehaviour
         else animator.SetTrigger(trigger);
     }
 
+    /// <summary>Står punktet i mit rum? (null-rum = overalt). Samme regel for hvem jeg angriber og hvem der kan skade mig.</summary>
+    public bool InMyRoom(Vector2 p) => room == null || room.OverlapPoint(p);
+
     private void FindNearestPlayer()
     {
         //  søger alle spillere hver physics-frame, fint med få fjender 
@@ -112,7 +115,7 @@ public class EnemyController : NetworkBehaviour
         float best = float.MaxValue;
         foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (room != null && !room.OverlapPoint(p.transform.position)) continue; // ikke i mit rum endnu
+            if (!InMyRoom(p.transform.position)) continue; // ikke i mit rum endnu
             if (p.GetComponent<ResourceController>().IsDead) continue; // døde spillere jagtes ikke
             float d = ((Vector2)p.transform.position - rb.position).sqrMagnitude;
             if (d < best) { best = d; player = p.transform; }

@@ -19,7 +19,7 @@ public static class DeathScreenBuilder
     [MenuItem("Tools/Create Death Screen UI")]
     static void Create()
     {
-        var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/m5x7.asset");
+        var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/UI/Resources/Fonts/m5x7.asset");
         var paper = AssetDatabase.LoadAssetAtPath<Sprite>(Frames + "frame_4_beige.png");
         var buttonSprite = AssetDatabase.LoadAssetAtPath<Sprite>(Frames + "frame_1_dark.png");
 

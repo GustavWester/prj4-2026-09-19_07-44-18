@@ -14,6 +14,9 @@ public class CameraShake : MonoBehaviour
     private Vector3 originalLocalPos;
     private Coroutine activeShake;
 
+    /// <summary>Rystelsen lige nu. CameraController lægger den oveni, ellers overskriver den kameraet i LateUpdate.</summary>
+    public Vector3 Offset { get; private set; }
+
     private void Awake()
     {
         Instance = this;
@@ -40,11 +43,12 @@ public class CameraShake : MonoBehaviour
         float t = 0f;
         while (t < duration)
         {
-            Vector2 offset = Random.insideUnitCircle * magnitude;
-            transform.localPosition = originalLocalPos + (Vector3)offset;
+            Offset = Random.insideUnitCircle * magnitude;
+            transform.localPosition = originalLocalPos + Offset;
             t += Time.deltaTime;
             yield return null;
         }
+        Offset = Vector3.zero;
         transform.localPosition = originalLocalPos;
     }
 }

@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 using Unity.Netcode;
 
 /// <summary>
-/// Skyder spillerens spell (fireball, beam ...) i den retning, spilleren vender, når man trykker Enter.
-/// En stav kan skifte spell via SetSpell. Pris, cooldown og om man skal holde Enter står på spell-prefabben.
+/// Skyder spillerens spell (fireball, beam ...) i piletasternes retning (to piletaster = skråt).
+/// En stav kan skifte spell via SetSpell. Pris, cooldown og om man skal holde piletasten står på spell-prefabben.
 /// Koster mana (fra ResourceController via PlayerManager).
 /// Online: kun ejeren må skyde.
 /// </summary>
@@ -40,14 +40,17 @@ public class PlayerAttackController : NetworkBehaviour
 
         var kb = Keyboard.current;
         if (kb == null || cooldownTimer > 0f) return; //hvis der ikke er tilsluttet et tastatur stopper vi
-        bool fire = spell.HoldToFire
-            ? kb.enterKey.isPressed || kb.numpadEnterKey.isPressed // fx beam: skyder så længe tasten holdes
-            : kb.enterKey.wasPressedThisFrame || kb.numpadEnterKey.wasPressedThisFrame; // wasPressedThisFrame er kun true i den frame, hvor tasten trykkes ned.
+        // piletasterne bestemmer retningen, to på én gang = skråt (fx op + højre)
+        Vector2 dir = new Vector2(
+            (kb.rightArrowKey.isPressed ? 1f : 0f) - (kb.leftArrowKey.isPressed ? 1f : 0f),
+            (kb.upArrowKey.isPressed ? 1f : 0f) - (kb.downArrowKey.isPressed ? 1f : 0f)).normalized;
+        bool fire = dir != Vector2.zero && (spell.HoldToFire // fx beam: skyder så længe en piletast holdes
+            || kb.leftArrowKey.wasPressedThisFrame || kb.rightArrowKey.wasPressedThisFrame // ellers ét skud pr. tryk
+            || kb.upArrowKey.wasPressedThisFrame || kb.downArrowKey.wasPressedThisFrame);
         if (!fire) return;
 
         if (!playerManager.Resources.TrySpendMana(spell.ManaCost)) return; // ikke nok mana -> intet skud
 
-        Vector2 dir = GetComponent<PlayerMovementController>().FacingDirection;
         if (IsSpawned) ShootRpc(transform.position, dir);
         else Shoot(transform.position, dir); // offline
         cooldownTimer = spell.Cooldown; //starter nedtælling

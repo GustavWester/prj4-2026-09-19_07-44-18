@@ -2,7 +2,7 @@ using UnityEngine;
 
 // Stråle: rammer straks det første i retningen (op til range) og tegnes med en LineRenderer.
 // Lever kun ét cooldown. Sæt Hold To Fire på prefabben, så PlayerAttackController skyder en ny
-// hver cooldown mens Enter holdes - det ligner en sammenhængende stråle, der skader flere gange i sekundet.
+// hver cooldown mens en piletast holdes - det ligner en sammenhængende stråle, der skader flere gange i sekundet.
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerBeam : PlayerSpell
 {

@@ -61,7 +61,7 @@ public class ItemPickup : NetworkBehaviour
 
     private void Update()
     {
-        if (taken || nearPlayer == null || !Keyboard.current.eKey.wasPressedThisFrame)return;
+        if (taken || nearPlayer == null || !Keyboard.current.eKey.wasPressedThisFrame || Revive.AnyNearby()) return;
 
         if (IsSpawned) TakeRpc(nearPlayer.GetComponent<NetworkObject>());
         else { taken = true; Give(nearPlayer); Destroy(gameObject); } // offline

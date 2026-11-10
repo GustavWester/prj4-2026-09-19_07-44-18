@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Game over-skærm for min egen wizard.
-/// Lever en anden spiller endnu, venter man (revive kommer senere). Er alle døde (eller solo), kan man trykke
+/// Lever en anden spiller endnu, kan man trykke Wait for revive: sedlen forsvinder, og man ser kun rummet hvor man døde,
+/// indtil medspilleren revive'r en (Revive). Dør medspilleren også, kommer sedlen igen. Er alle døde (eller solo), kan man trykke
 /// Try again: hosten sender alle tilbage til første level (DungeonScene) uden items, powerups eller nyt spell.
 /// Sættes på wizard-prefabben.
 /// </summary>
@@ -17,6 +18,7 @@ public class DeathScreen : NetworkBehaviour
     private ResourceController health;
     private DeathScreenUI ui;
     private bool wasDead;
+    private bool waitingForRevive;
 
     private void Awake()
     {
@@ -59,6 +61,14 @@ public class DeathScreen : NetworkBehaviour
         return false;
     }
 
+    // Rummets lys gik ud, da wizarden døde (Rigidbody2D.simulated = false fyrer OnTriggerExit2D), så det tændes igen:
+    // man ser kun rummet hvor man døde. Kameraet følger stadig min døde wizard
+    private void WaitForRevive()
+    {
+        waitingForRevive = true;
+        RoomVisibility.LightAt(transform.position);
+    }
+
     private void TryAgain()
     {
         if (IsSpawned) TryAgainRpc();
@@ -91,15 +101,17 @@ public class DeathScreen : NetworkBehaviour
             GetComponent<PlayerMovementController>().enabled = true;
             GetComponent<PlayerAttackController>().enabled = true;
             GetComponent<Rigidbody2D>().simulated = true;
+            waitingForRevive = false;
         }
         wasDead = health.IsDead;
 
-        bool show = health.IsDead && (!IsSpawned || IsOwner);
+        // venter man på revive, er sedlen væk, indtil medspilleren også dør
+        bool show = health.IsDead && (!IsSpawned || IsOwner) && !(waitingForRevive && AnyoneAlive());
         if (show && ui == null && uiPrefab != null)
         {
             ui = Instantiate(uiPrefab);
             ui.tryAgainButton.onClick.AddListener(TryAgain);
-            // waitForReviveButton gør ikke noget endnu - revive kommer senere
+            ui.waitForReviveButton.onClick.AddListener(WaitForRevive);
         }
         if (ui == null) return;
 

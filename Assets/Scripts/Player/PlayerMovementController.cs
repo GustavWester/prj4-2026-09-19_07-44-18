@@ -149,15 +149,15 @@ public class PlayerMovementController : NetworkBehaviour
             return;
         }
 
-        // Læser både WASD og piletaster manuelt, da vi ikke bruger
-        // en genereret Input Actions-asset her.
+        // Læser WASD manuelt, da vi ikke bruger en genereret Input Actions-asset her.
+        // Piletasterne bruges til at skyde (PlayerAttackController).
         float x = 0f;
         float y = 0f;
 
-        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) x -= 1f;
-        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) x += 1f;
-        if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) y -= 1f;
-        if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) y += 1f;
+        if (Keyboard.current.aKey.isPressed) x -= 1f;
+        if (Keyboard.current.dKey.isPressed) x += 1f;
+        if (Keyboard.current.sKey.isPressed) y -= 1f;
+        if (Keyboard.current.wKey.isPressed) y += 1f;
         
         moveInput = new Vector2(x, y).normalized;
 
