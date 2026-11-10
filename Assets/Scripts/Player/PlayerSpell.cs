@@ -35,6 +35,8 @@ public abstract class PlayerSpell : MonoBehaviour
 
     protected void DealDamage(Collider2D other)
     {
+        // fjenden kan ikke se skytter uden for sit rum, så de kan heller ikke skade den (ingen cheese fra døren)
+        if (owner != null && other.TryGetComponent(out EnemyController enemy) && !enemy.InMyRoom(owner.transform.position)) return;
         // Hver klient har sin egen spell, så kun hosten må give skade (ellers tælles den dobbelt)
         var nm = Unity.Netcode.NetworkManager.Singleton;
         // direkte kald i stedet for SendMessage, som ikke kan se TakeDamage's valgfrie source-parameter
