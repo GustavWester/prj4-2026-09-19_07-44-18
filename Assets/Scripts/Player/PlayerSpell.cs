@@ -15,7 +15,7 @@ public abstract class PlayerSpell : MonoBehaviour
     [SerializeField, Min(0)] private int manaCost = 5;
     [Tooltip("Sekunder mellem skud.")]
     [SerializeField, Min(0f)] private float cooldown = 0.1f;
-    [Tooltip("Skyd så længe Enter holdes nede (fx beam). Ellers ét skud pr. tryk.")]
+    [Tooltip("Skyd så længe en piletast holdes nede (fx beam). Ellers ét skud pr. tryk.")]
     [SerializeField] private bool holdToFire;
     [Tooltip("Vinkel mellem skud når man har flere (projectileCount).")]
     [SerializeField] private float spreadDeg = 12f;
