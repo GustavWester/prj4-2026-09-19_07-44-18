@@ -217,29 +217,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Npc
   ShowTopMostFoldoutHeaderGroup: 1
-  npcName: Broder Ansgar
+  npcName: Brother Ansgar
   portrait: {fileID: 6120914730915384989, guid: ee65dc17df5ce0d4b9f68ec4ac3cda90, type: 3}
   idleFrames:
   - {fileID: 8793639957104055765, guid: 68b35d1c0b62b174ba73c244a2bd5149, type: 3}
   - {fileID: 6084859605308855041, guid: 68b35d1c0b62b174ba73c244a2bd5149, type: 3}
   pages:
-  - "Ah, endnu en troldmand har fundet vej ned i krypten. Jeg er Broder Ansgar. Jeg
-    har vogtet disse gange i mange \xE5r."
-  - "Engang var her et kloster. S\xE5 kom Markus den Gamle med sin m\xF8rke magi,
-    og de d\xF8de rejste sig fra deres grave."
-  - "G\xE5 med WASD, og skyd med piletasterne."
-  - "Tryk E for at \xE5bne d\xF8re og samle ting op. C viser din troldmand og dit
-    inventory, og M viser kortet."
-  - "Q drikker en livs-potion, og R drikker en mana-potion. Vil du smide et item,
-    s\xE5 mark\xE9r det i dit inventory og tryk G."
-  - "N\xE5r et rum er ryddet, \xE5bner kisten sig. \xC9n af kisterne gemmer n\xF8glen
-    til bossens d\xF8r."
-  - "Falder en af dine venner, s\xE5 hold E ved siden af dem for at hj\xE6lpe dem
-    op igen. Held og lykke, troldmand."
+  - "Ah, another wizard has found their way into the crypt. I am Brother Ansgar. I have watched over these halls for many years."
+  - "Once this was a monastery. Then Markus the Ancient came with his dark magic, and the dead rose from their graves."
+  - "Move with WASD, and shoot with the arrow keys."
+  - "Press E to open doors and pick things up. C shows your wizard and your inventory, and M shows the map."
+  - "Q drinks a health potion, and R drinks a mana potion. To drop an item, select it in your inventory and press G."
+  - "When a room is cleared, its chest opens. One of the chests hides the key to the boss door."
+  - "If one of your friends falls, hold E next to them to help them back up. Good luck, wizard."
   buff: {fileID: 0}
   box: {fileID: 2177970698972700299, guid: bb47c9a79ae23b54bb7abc7615a13ffd, type: 3}
   nextIcon: {fileID: 456959552232220578, guid: 7a5c5eb627d017340992c66abceb3e95, type: 3}
-  greeting: Snak med mig, tarnished
+  greeting: Talk to me, tarnished
   bubbleHeight: 1.4
   bubble: {fileID: 21300000, guid: b481fc7978c54e8d8a0939c51f7273e1, type: 3}
   bubbleTail: {fileID: 21300000, guid: 43e3e32dcfd44263b9aff9357ee330c6, type: 3}

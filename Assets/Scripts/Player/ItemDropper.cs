@@ -25,7 +25,7 @@ public class ItemDropper : NetworkBehaviour
         ItemSO item = slot.item;
         if (item.spell != null)
         {
-            FloatingText.Spawn(transform.position, "Kan ikke droppes", Color.yellow);
+            FloatingText.Spawn(transform.position, "Can't be dropped", Color.yellow);
             return;
         }
 

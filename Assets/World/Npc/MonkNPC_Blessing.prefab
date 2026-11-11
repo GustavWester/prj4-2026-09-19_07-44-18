@@ -18,19 +18,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000000007, guid: a829bc96fcef4681ab870cfc4a40cf1f, type: 3}
       propertyPath: pages.Array.data[0]
-      value: "Du er nået helt hertil! Markus den Gamle og Den Hule Emil er faldet."
+      value: "You made it all the way here! Markus the Ancient and The Hollow Emil have fallen."
       objectReference: {fileID: 0}
     - target: {fileID: 1000000007, guid: a829bc96fcef4681ab870cfc4a40cf1f, type: 3}
       propertyPath: pages.Array.data[1]
-      value: "Bag den sidste dør venter Sir John, den Faldne. Han var klostrets beskytter, før mørket tog ham."
+      value: "Behind the last door waits Sir John, the Fallen. He protected this monastery before the darkness took him."
       objectReference: {fileID: 0}
     - target: {fileID: 1000000007, guid: a829bc96fcef4681ab870cfc4a40cf1f, type: 3}
       propertyPath: pages.Array.data[2]
-      value: "Jo mere såret han bliver, jo hurtigere og farligere bliver han. Spar dine potions til sidst."
+      value: "The more wounded he gets, the faster and more dangerous he becomes. Save your potions for the end."
       objectReference: {fileID: 0}
     - target: {fileID: 1000000007, guid: a829bc96fcef4681ab870cfc4a40cf1f, type: 3}
       propertyPath: pages.Array.data[3]
-      value: "Tag min velsignelse med dig. Den giver dig mere liv og mere styrke."
+      value: "Take my blessing with you. It will give you more health and more strength."
       objectReference: {fileID: 0}
     - target: {fileID: 1000000007, guid: a829bc96fcef4681ab870cfc4a40cf1f, type: 3}
       propertyPath: buff

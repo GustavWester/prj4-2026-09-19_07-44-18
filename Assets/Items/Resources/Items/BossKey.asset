@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Boss Key
   icon: {fileID: 21300000, guid: da428e2f4a9241669577039f685aaf66, type: 3}
-  description: "\xC5bner d\xF8ren til bossrummet. Tryk E ved d\xF8ren."
+  description: "Opens the door to the boss room. Press E at the door."
   maxStack: 1
   isPowerup: 0
   healAmount: 0

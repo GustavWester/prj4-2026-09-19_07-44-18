@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c168bb2b78cf0448600d9bf6cf8f91, type: 3}
   m_Name: MonkBlessing
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemName: "Ansgars velsignelse"
+  itemName: "Ansgar's Blessing"
   icon: {fileID: 0}
-  description: "+2 liv, +1 damage"
+  description: "+2 health, +1 damage"
   maxStack: 1
   statModifier:
     maxHealth: 2

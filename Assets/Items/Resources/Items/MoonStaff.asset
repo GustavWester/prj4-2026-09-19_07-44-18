@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c168bb2b78cf0448600d9bf6cf8f91, type: 3}
   m_Name: MoonStaff
   m_EditorClassIdentifier: Game::ItemSO
-  itemName: Månestav
+  itemName: "Moon Staff"
   icon: {fileID: 21300000, guid: ca1a2ffd20c34d12adee64477e41584e, type: 3}
-  description: +4 fireballs, -40 max mana.
+  description: "+4 fireballs, -40 max mana."
   maxStack: 1
   statModifier:
     maxHealth: 0

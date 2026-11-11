@@ -16,7 +16,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Npc : NetworkBehaviour
 {
-    [SerializeField] private string npcName = "Broder Ansgar";
+    [SerializeField] private string npcName = "Brother Ansgar";
     [SerializeField] private Sprite portrait;
     [SerializeField] private Sprite[] idleFrames;
     [SerializeField, TextArea(2, 4)] private string[] pages;

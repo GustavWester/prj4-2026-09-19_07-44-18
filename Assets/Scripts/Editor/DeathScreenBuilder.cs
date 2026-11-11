@@ -49,8 +49,8 @@ public static class DeathScreenBuilder
         noteImage.sprite = paper;
         noteImage.type = Image.Type.Sliced;
 
-        Text(note.transform, "Title", "GAME OVER", 32, Ink, new Vector2(0, -30), new Vector2(260, 36), font);
-        Text(note.transform, "Message", "Try a little harder next time, pal.", 16, Ink, new Vector2(0, -62), new Vector2(250, 36), font);
+        ui.titleText = Text(note.transform, "Title", "GAME OVER", 32, Ink, new Vector2(0, -30), new Vector2(260, 36), font);
+        ui.messageText = Text(note.transform, "Message", "Try a little harder next time, pal.", 16, Ink, new Vector2(0, -62), new Vector2(250, 36), font);
         ui.killedByText = Text(note.transform, "KilledBy", "Killed by: Goblin", 16, Ink, new Vector2(0, -98), new Vector2(250, 24), font); // teksten sættes af DeathScreen
 
         ui.tryAgainButton = MakeButton(note.transform, "TryAgain", "Try again", -66, buttonSprite, font);

@@ -10054,6 +10054,11 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 1328430048
       objectReference: {fileID: 0}
+    - target: {fileID: 1000000007, guid: a829bc96fcef4681ab870cfc4a40cf1f, type: 3}
+      propertyPath: 'pages.Array.data[1]'
+      value: "Engang var her et kloster. S\xE5 kom Markus The Ancient med sin m\xF8rke
+        magi, og de d\xF8de rejste sig fra deres grave."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

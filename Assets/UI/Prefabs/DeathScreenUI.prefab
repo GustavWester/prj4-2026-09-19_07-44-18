@@ -254,6 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d3b0e41dbc74f259b64445f2327339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::DeathScreenUI
+  titleText: {fileID: 7102123936016349938}
+  messageText: {fileID: 8009263849880984888}
   killedByText: {fileID: 6463396214191348738}
   tryAgainButton: {fileID: 7165822018926044359}
   waitForReviveButton: {fileID: 6578745581302017534}

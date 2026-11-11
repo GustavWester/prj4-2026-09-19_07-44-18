@@ -22303,7 +22303,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
       propertyPath: greeting
-      value: "Ahh hj\xE6lp mig!!"
+      value: "Ahh, help me!!"
       objectReference: {fileID: 0}
     - target: {fileID: 98, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
       propertyPath: 'pages.Array.data[0]'

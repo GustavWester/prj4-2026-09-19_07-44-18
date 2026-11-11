@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c168bb2b78cf0448600d9bf6cf8f91, type: 3}
   m_Name: HasteRune
   m_EditorClassIdentifier: Game::ItemSO
-  itemName: Hasterune
+  itemName: "Haste Rune"
   icon: {fileID: 21300000, guid: 069c2b5a04c04ed69ee329f55597e95a, type: 3}
-  description: +0.5 fart, +2 mana regen.
+  description: "+0.5 speed, +2 mana regen."
   maxStack: 1
   statModifier:
     maxHealth: 0
