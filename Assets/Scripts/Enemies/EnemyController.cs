@@ -131,7 +131,7 @@ public class EnemyController : NetworkBehaviour
         netAnimator = GetComponent<NetworkAnimator>();
         if (resources != null)
         {
-            if (stats != null) resources.SetMaxHealth(stats.Health);
+            if (stats != null) resources.SetMaxHealth(Mathf.RoundToInt(stats.Health * LevelSettings.EnemyHealthMultiplier));
             if (animator != null && flinchOnHit)
                 resources.onDamaged.AddListener(() => { if (RunsAI && !resources.IsDead) SetTrigger("Hurt"); });
             resources.onDeath.AddListener(() =>
