@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: buff
       value: 
       objectReference: {fileID: 11400000, guid: 3cbafafebd1b455e9afc494b678b63bb, type: 2}
+    - target: {fileID: 1000000006, guid: a829bc96fcef4681ab870cfc4a40cf1f, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3956673091
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

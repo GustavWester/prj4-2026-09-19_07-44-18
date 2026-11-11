@@ -48,6 +48,12 @@ public class LobbyRelayManager : MonoBehaviour
             var allocation = await RelayService.Instance.CreateAllocationAsync(3);
             string relayCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
+            // hosten forbinder til Relay med det samme, før koden lægges i lobbyen. Ellers kan en langsom lobby-server
+            // forsinke det, og en klient kan finde koden, før hosten er klar
+            NetworkManager.Singleton.GetComponent<UnityTransport>()
+                .SetRelayServerData(new RelayServerData(allocation, "dtls"));
+            NetworkManager.Singleton.StartHost();
+
             await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, new UpdateLobbyOptions
             {
                 Data = new Dictionary<string, DataObject>
@@ -55,10 +61,6 @@ public class LobbyRelayManager : MonoBehaviour
                     { "RelayCode", new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
                 }
             });
-
-            NetworkManager.Singleton.GetComponent<UnityTransport>()
-                .SetRelayServerData(new RelayServerData(allocation, "dtls"));
-            NetworkManager.Singleton.StartHost();
         }
         finally { busy = false; }
     }
@@ -76,10 +78,13 @@ public class LobbyRelayManager : MonoBehaviour
                 .SetRelayServerData(new RelayServerData(joinAlloc, "dtls"));
             NetworkManager.Singleton.StartClient();
         }
-        catch (LobbyServiceException e)
+        // alle fejl vises (fx Relay), ikke kun "Forkert lobby-id", så man kan se hvad der går galt
+        catch (System.Exception e)
         {
             Debug.LogWarning($"Kunne ikke joine: {e.Message}");
-            statusMessage = "Forkert lobby-id";
+            statusMessage = e is LobbyServiceException { Reason: LobbyExceptionReason.LobbyNotFound or LobbyExceptionReason.InvalidJoinCode }
+                ? "Forkert lobby-id"
+                : $"Join failed: {e.Message}";
         }
         finally { busy = false; }
     }
@@ -107,6 +112,12 @@ private void OnGUI()
     if (NetworkManager.Singleton != null &&
         (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer))
     {
+        // klienten er startet, men hosten har ikke svaret endnu (giver op efter ca. 60 sek.)
+        if (!NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsConnectedClient)
+        {
+            GUILayout.Label("Connecting to host…");
+            return;
+        }
         GUILayout.Label($"Connected players: {NetworkManager.Singleton.ConnectedClients.Count}");
         if (lobby != null) GUILayout.Label($"Room code: {lobby.LobbyCode}");
         return;
