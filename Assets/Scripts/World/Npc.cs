@@ -155,7 +155,7 @@ public class Npc : NetworkBehaviour
 
         Image panel = AddImage(ui.transform, box, new Vector2(448, 64), new Vector2(0.5f, 0f), new Vector2(0, 40));
         AddImage(panel.transform, portrait, new Vector2(40, 40), new Vector2(0f, 0.5f), new Vector2(30, 0));
-        AddImage(panel.transform, nextIcon, new Vector2(24, 12), new Vector2(1f, 0f), new Vector2(-18, 12));
+        AddImage(panel.transform, nextIcon, new Vector2(12, 12), new Vector2(1f, 0f), new Vector2(-14, 12));
 
         var tmp = new GameObject("Text").AddComponent<TextMeshProUGUI>();
         tmp.transform.SetParent(panel.transform, false);

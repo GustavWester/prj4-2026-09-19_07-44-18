@@ -133,9 +133,9 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    oldSize: {x: 0.14, y: 0.17}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 1328430048
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
@@ -223,17 +223,23 @@ MonoBehaviour:
   - {fileID: 8793639957104055765, guid: 68b35d1c0b62b174ba73c244a2bd5149, type: 3}
   - {fileID: 6084859605308855041, guid: 68b35d1c0b62b174ba73c244a2bd5149, type: 3}
   pages:
-  - "Ah, endnu en troldmand har fundet vej ned i krypten. Jeg er Broder Ansgar. Jeg har vogtet disse gange i mange år."
-  - "Engang var her et kloster. Så kom Markus den Gamle med sin mørke magi, og de døde rejste sig fra deres grave."
-  - "Gå med WASD, og skyd med piletasterne. Hold Shift for at løbe, og tryk Space for at lave et dash."
-  - "Tryk E for at åbne døre og samle ting op. C viser din troldmand og dit inventory, og M viser kortet."
-  - "Q drikker en livs-potion, og R drikker en mana-potion. Vil du smide et item, så markér det i dit inventory og tryk G."
-  - "Når et rum er ryddet, åbner kisten sig. Én af kisterne gemmer nøglen til bossens dør."
-  - "Falder en af dine venner, så hold E ved siden af dem for at hjælpe dem op igen. Held og lykke, troldmand."
+  - "Ah, endnu en troldmand har fundet vej ned i krypten. Jeg er Broder Ansgar. Jeg
+    har vogtet disse gange i mange \xE5r."
+  - "Engang var her et kloster. S\xE5 kom Markus den Gamle med sin m\xF8rke magi,
+    og de d\xF8de rejste sig fra deres grave."
+  - "G\xE5 med WASD, og skyd med piletasterne."
+  - "Tryk E for at \xE5bne d\xF8re og samle ting op. C viser din troldmand og dit
+    inventory, og M viser kortet."
+  - "Q drikker en livs-potion, og R drikker en mana-potion. Vil du smide et item,
+    s\xE5 mark\xE9r det i dit inventory og tryk G."
+  - "N\xE5r et rum er ryddet, \xE5bner kisten sig. \xC9n af kisterne gemmer n\xF8glen
+    til bossens d\xF8r."
+  - "Falder en af dine venner, s\xE5 hold E ved siden af dem for at hj\xE6lpe dem
+    op igen. Held og lykke, troldmand."
   buff: {fileID: 0}
   box: {fileID: 2177970698972700299, guid: bb47c9a79ae23b54bb7abc7615a13ffd, type: 3}
   nextIcon: {fileID: 456959552232220578, guid: 7a5c5eb627d017340992c66abceb3e95, type: 3}
-  greeting: Talk to me, tarnished
+  greeting: Snak med mig, tarnished
   bubbleHeight: 1.4
   bubble: {fileID: 21300000, guid: b481fc7978c54e8d8a0939c51f7273e1, type: 3}
   bubbleTail: {fileID: 21300000, guid: 43e3e32dcfd44263b9aff9357ee330c6, type: 3}
