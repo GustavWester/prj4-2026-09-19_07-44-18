@@ -18,6 +18,7 @@ public class DoorController : NetworkBehaviour
     [SerializeField] private Collider2D blockingCollider; // den solide collider, slås fra når døren er åben
     [SerializeField] private bool openWithE = true; // slå fra på døre der kun skal åbnes via Open() (fx når en fjende dør)
     [SerializeField] private ResourceController enemy; // valgfri: døren åbner når denne fjende dør
+    [SerializeField] private ItemSO requiredKey; // valgfri: døren kræver denne nøgle i inventory (bossrum)
 
     private readonly NetworkVariable<bool> netOpen = new(); // hosten skriver
     private Animator animator;
@@ -43,6 +44,12 @@ public class DoorController : NetworkBehaviour
     private void Update()
     {
         if (!openWithE || !playerNear || !Keyboard.current.eKey.wasPressedThisFrame || Revive.AnyNearby()) return;
+        // nøglen tjekkes her hos klienten (inventory er ikke synket, samme som PotionHotkey). Bruges op ved åbning
+        if (requiredKey != null && !isOpen && !LocalPlayer.Current.GetComponent<Inventory>().TryRemove(requiredKey))
+        {
+            NeedKey();
+            return;
+        }
         if (IsSpawned && !IsServer) OpenRpc(); // klienten beder hosten
         else Open();
     }
@@ -75,7 +82,16 @@ public class DoorController : NetworkBehaviour
         if (blockingCollider != null) blockingCollider.enabled = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) { if (IsMe(other)) playerNear = true; }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!IsMe(other)) return;
+        playerNear = true;
+        // sig det allerede når man går hen til den låste dør, ikke først når man trykker E
+        if (requiredKey != null && !isOpen && LocalPlayer.Current.GetComponent<Inventory>().CountOf(requiredKey) == 0) NeedKey();
+    }
+
+    private void NeedKey() => FloatingText.Spawn(transform.position, $"Du skal have en {requiredKey.itemName}", Color.yellow);
+
     private void OnTriggerExit2D(Collider2D other) { if (IsMe(other)) playerNear = false; }
 
     // kun min egen wizard, så E ikke virker fordi en anden spiller står ved døren (samme som LevelExit)
