@@ -8,6 +8,8 @@ using UnityEngine.UI;
 /// </summary>
 public class DeathScreenUI : MonoBehaviour
 {
+    public TMP_Text titleText;   // byttes ud på victory-skærmen (DeathScreen.ShowVictory)
+    public TMP_Text messageText;
     public TMP_Text killedByText;
     public Button tryAgainButton;
     public Button waitForReviveButton;

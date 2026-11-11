@@ -2618,6 +2618,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7100000000000000002, guid: b9f01de745904b44b19470c62aa7914f, type: 3}
   m_PrefabInstance: {fileID: 441206682}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &459353408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139159166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b9f8b0598bf439dbeb1c78d70639d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSettings
+  enemyHealthMultiplier: 1.4
 --- !u!1001 &460341303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21023,6 +21036,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8d8c005e4404e16a6e607b9a48f5ee4, type: 3}
+--- !u!1 &1139159166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1638898959}
+  - component: {fileID: 459353408}
+  m_Layer: 0
+  m_Name: LevelSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &1163495768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22263,6 +22293,93 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7100000000000000002, guid: b9f01de745904b44b19470c62aa7914f, type: 3}
   m_PrefabInstance: {fileID: 1454273408}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1455761704
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 98, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: greeting
+      value: "Ahh, help me!!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 98, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: 'pages.Array.data[0]'
+      value: "Du er n\xE5et helt hertil! Markus The Ancient og The Hollow Emil er
+        faldet."
+      objectReference: {fileID: 0}
+    - target: {fileID: 98, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: 'pages.Array.data[1]'
+      value: "Bag den sidste d\xF8r venter Sir John, The Fallen. Han var klostrets
+        beskytter, f\xF8r m\xF8rket tog ham."
+      objectReference: {fileID: 0}
+    - target: {fileID: 99, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_InScenePlaced
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 99, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2376061714
+      objectReference: {fileID: 0}
+    - target: {fileID: 99, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 99, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3956673091
+      objectReference: {fileID: 0}
+    - target: {fileID: 100, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_Name
+      value: MonkNPC_Blessing
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 24.94069
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 103.77842
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c8ee80f587b844ef931a94af2782dcd6, type: 3}
 --- !u!1001 &1465518851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57098,6 +57215,21 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &1638898959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139159166}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1644240885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62805,3 +62937,5 @@ SceneRoots:
   - {fileID: 687278340}
   - {fileID: 85426579}
   - {fileID: 185293271}
+  - {fileID: 1638898959}
+  - {fileID: 1455761704}

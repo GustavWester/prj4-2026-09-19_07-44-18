@@ -90,7 +90,7 @@ public class DoorController : NetworkBehaviour
         if (requiredKey != null && !isOpen && LocalPlayer.Current.GetComponent<Inventory>().CountOf(requiredKey) == 0) NeedKey();
     }
 
-    private void NeedKey() => FloatingText.Spawn(transform.position, $"Du skal have en {requiredKey.itemName}", Color.yellow);
+    private void NeedKey() => FloatingText.Spawn(transform.position, $"You need a {requiredKey.itemName}", Color.yellow);
 
     private void OnTriggerExit2D(Collider2D other) { if (IsMe(other)) playerNear = false; }
 

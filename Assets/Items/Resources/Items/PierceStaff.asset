@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c168bb2b78cf0448600d9bf6cf8f91, type: 3}
   m_Name: PierceStaff
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemName: Spydstav
+  itemName: "Pierce Staff"
   icon: {fileID: 21300000, guid: 45d01029ae54438a8f8ffa9fb3aec93b, type: 3}
-  description: Fireballs flyver igennem op til 3 fjender.
+  description: "Fireballs pass through up to 3 enemies."
   maxStack: 1
   statModifier:
     maxHealth: 0

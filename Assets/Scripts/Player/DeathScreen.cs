@@ -29,6 +29,7 @@ public class DeathScreen : NetworkBehaviour
     public override void OnDestroy()
     {
         if (ui != null) Destroy(ui.gameObject); // fx når spilleren forlader spillet
+        if (victoryUi != null) Destroy(victoryUi.gameObject);
         base.OnDestroy();
     }
 
@@ -48,6 +49,7 @@ public class DeathScreen : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void LoadCheckpointRpc()
     {
+        gameWon = false; // nyt run
         GetComponent<Inventory>().LoadCheckpoint();
         GetComponent<PlayerManager>().LoadCheckpoint();
         GetComponent<PlayerAttackController>().LoadCheckpoint();
@@ -80,12 +82,66 @@ public class DeathScreen : NetworkBehaviour
     private void TryAgainRpc()
     {
         if (AnyoneAlive()) return;
+        Restart();
+    }
+
+    // hosten: alle tilbage til første level uden items, powerups eller nyt spell
+    private void Restart()
+    {
         foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
         {
             p.GetComponent<DeathScreen>().LoadCheckpointRpc();
             p.GetComponent<ResourceController>().ResetHealth(); // wizards overlever scene-skift, så de skal have livet igen
         }
         NetworkManager.SceneManager.LoadScene(FirstScene, LoadSceneMode.Single);
+    }
+
+    //---------VICTORY-SKÆRM---------
+    // Samme seddel som game over, med andre tekster. Statisk, fordi den gælder hele spillet på denne maskine
+    // (hosten bruger den også til at afvise et dobbelt-klik på Play again)
+    private static bool gameWon;
+    private DeathScreenUI victoryUi;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics() => gameWon = false;
+
+    /// <summary>Kaldes når den sidste boss dør (KnightBossPhases). onDeath kører på alle maskiner, så alle får skærmen.</summary>
+    public static void ShowVictory()
+    {
+        if (gameWon) return;
+        gameWon = true;
+        if (LocalPlayer.Current != null) LocalPlayer.Current.GetComponent<DeathScreen>().ShowVictoryUI();
+    }
+
+    private void ShowVictoryUI()
+    {
+        if (uiPrefab == null) return;
+        if (ui != null) ui.gameObject.SetActive(false); // game over-sedlen væk, hvis man lå død og ventede på revive
+        victoryUi = Instantiate(uiPrefab);
+        victoryUi.titleText.text = "VICTORY";
+        victoryUi.messageText.text = "Sir John has fallen. The crypt is free at last.";
+        victoryUi.killedByText.text = "Thanks for playing Dungeon Quest!";
+        SetButton(victoryUi.tryAgainButton, "Play again", PlayAgain);
+        SetButton(victoryUi.waitForReviveButton, "Quit", Application.Quit);
+    }
+
+    private static void SetButton(UnityEngine.UI.Button button, string label, UnityEngine.Events.UnityAction onClick)
+    {
+        button.GetComponentInChildren<TMPro.TMP_Text>().text = label;
+        button.interactable = true;
+        button.onClick.AddListener(onClick);
+    }
+
+    private void PlayAgain()
+    {
+        if (IsSpawned) PlayAgainRpc();
+        else { gameWon = false; SceneManager.LoadScene(FirstScene); } // offline
+    }
+
+    [Rpc(SendTo.Server)]
+    private void PlayAgainRpc()
+    {
+        if (gameWon) Restart(); // Restart sætter gameWon = false hos alle, så et klik mere gør ingenting
     }
 
     //---------GAME OVER-SKÆRM---------
@@ -106,7 +162,7 @@ public class DeathScreen : NetworkBehaviour
         wasDead = health.IsDead;
 
         // venter man på revive, er sedlen væk, indtil medspilleren også dør
-        bool show = health.IsDead && (!IsSpawned || IsOwner) && !(waitingForRevive && AnyoneAlive());
+        bool show = !gameWon && health.IsDead && (!IsSpawned || IsOwner) && !(waitingForRevive && AnyoneAlive());
         if (show && ui == null && uiPrefab != null)
         {
             ui = Instantiate(uiPrefab);
