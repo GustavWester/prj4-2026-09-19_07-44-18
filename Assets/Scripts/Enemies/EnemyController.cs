@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Netcode.Components;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// Universal behaviour for all enemies: movement + attacking.
@@ -71,6 +72,13 @@ public class EnemyController : NetworkBehaviour
 
     [Header("Keep-distance settings")]
     public float distanceTolerance = 0.5f;
+
+    // ChasePlayer uden udsyn: gitter over rummet (1 celle = 1 tile), og BFS til nærmeste tile med udsyn
+    private bool[,] walkable;
+    private Vector2 gridOrigin;
+    private Vector2? pathStep; // midten af næste celle på vejen
+    private float repathTimer;
+    private const float RepathInterval = 0.25f;
 
     [Header("Ranged attack")]
     public List<BulletPatternSO> attackPatterns;
@@ -172,6 +180,7 @@ public class EnemyController : NetworkBehaviour
     private void Start()
     {
         room = RoomVisibility.RoomAt(transform.position);
+        if (movementPattern == MovementPattern.ChasePlayer) BuildGrid();
         if (stats == null)
         {
             Debug.LogWarning($"{name}: no EnemyStatsSO assigned — falling back to default speeds/ranges.");
@@ -312,7 +321,53 @@ public class EnemyController : NetworkBehaviour
             rb.linearVelocity = Vector2.zero;
             return;
         }
+
+        // har fjenden selv udsyn går den direkte, ellers mod nærmeste tile med udsyn
+        if (walkable != null && !HasLos(rb.position, player.position))
+        {
+            repathTimer -= Time.fixedDeltaTime;
+            if (pathStep == null || repathTimer <= 0f || Vector2.Distance(rb.position, pathStep.Value) < 0.1f)
+            {
+                repathTimer = RepathInterval;
+                pathStep = NextPathStep();
+            }
+            if (pathStep != null) dir = pathStep.Value - rb.position;
+        }
+        else pathStep = null;
+
         rb.linearVelocity = dir.normalized * MoveSpeed;
+    }
+
+    // vægge er tilemap-collidere. Rum-triggere, spillere og fjender spærrer ikke udsynet
+    private static bool IsWall(Collider2D c) => !c.isTrigger && (c is TilemapCollider2D || c is CompositeCollider2D);
+
+    private static bool HasLos(Vector2 from, Vector2 to) =>
+        !System.Array.Exists(Physics2D.LinecastAll(from, to), hit => IsWall(hit.collider));
+
+    private Vector2 CellCenter(int x, int y) => gridOrigin + new Vector2(x + 0.5f, y + 0.5f);
+
+    // ponytail: gitteret bygges én gang, så døre/vægge der ændrer sig under spillet ses ikke. Byg om ved ændring hvis det bliver nødvendigt
+    private void BuildGrid()
+    {
+        if (room == null) return; // uden rum jager fjenden bare direkte
+        Bounds b = room.bounds;
+        gridOrigin = new Vector2(Mathf.Floor(b.min.x), Mathf.Floor(b.min.y));
+        int w = Mathf.CeilToInt(b.max.x - gridOrigin.x), h = Mathf.CeilToInt(b.max.y - gridOrigin.y);
+        walkable = new bool[w, h];
+        for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
+            {
+                Vector2 c = CellCenter(x, y);
+                walkable[x, y] = room.OverlapPoint(c) && !System.Array.Exists(Physics2D.OverlapPointAll(c), IsWall);
+            }
+    }
+
+    private Vector2? NextPathStep()
+    {
+        int sx = Mathf.FloorToInt(rb.position.x - gridOrigin.x), sy = Mathf.FloorToInt(rb.position.y - gridOrigin.y);
+        Vector2 target = player.position;
+        var step = EnemyAIMath.NextStepTowardLos(walkable, sx, sy, (x, y) => HasLos(CellCenter(x, y), target));
+        return step == null ? (Vector2?)null : CellCenter(step.Value.x, step.Value.y);
     }
 
     private void MoveKeepDistance()
