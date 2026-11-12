@@ -57,5 +57,52 @@ namespace Game.Core.Tests
         {
             Assert.AreEqual(expected, EnemyAIMath.AttackInterval(cooldown, jitter), 1e-5f);
         }
+
+        // '#' = væg/dekoration, alt andet er gangbart. Række i = y, tegn j = x
+        private static bool[,] Grid(params string[] rows)
+        {
+            var g = new bool[rows[0].Length, rows.Length];
+            for (int y = 0; y < rows.Length; y++)
+                for (int x = 0; x < rows[y].Length; x++)
+                    g[x, y] = rows[y][x] != '#';
+            return g;
+        }
+
+        // spilleren står over øverste række, så kun y == 0 har udsyn
+        private static bool TopRowHasLos(int x, int y) => y == 0;
+
+        [Test]
+        public void NextStepTowardLos_StartHasLos_ReturnsStart()
+        {
+            var grid = Grid("....", "....");
+            Assert.AreEqual((2, 0), EnemyAIMath.NextStepTowardLos(grid, 2, 0, TopRowHasLos));
+        }
+
+        [Test]
+        public void NextStepTowardLos_BehindWall_StepsAroundIt()
+        {
+            var grid = Grid(
+                "....",
+                "###.",  // eneste vej op er i højre side
+                "....");
+            // fjenden står nederst til venstre og må ikke gå op i væggen, men mod højre
+            Assert.AreEqual((1, 2), EnemyAIMath.NextStepTowardLos(grid, 0, 2, TopRowHasLos));
+        }
+
+        [Test]
+        public void NextStepTowardLos_NoReachableCellWithLos_ReturnsNull()
+        {
+            var grid = Grid(
+                "....",
+                "####",
+                "....");
+            Assert.IsNull(EnemyAIMath.NextStepTowardLos(grid, 0, 2, TopRowHasLos));
+        }
+
+        [Test]
+        public void NextStepTowardLos_StartOutsideGrid_ReturnsNull()
+        {
+            Assert.IsNull(EnemyAIMath.NextStepTowardLos(Grid("...."), 5, 0, TopRowHasLos));
+        }
     }
 }
