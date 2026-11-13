@@ -79,6 +79,8 @@ public class EnemyController : NetworkBehaviour
     private Vector2? pathStep; // midten af næste celle på vejen
     private float repathTimer;
     private const float RepathInterval = 0.25f;
+    private Vector2 bodySize;    // til HasLos' BoxCast
+    private Vector2 bodyOffset;  // kroppens collider sidder ved fødderne, ikke på pivot
 
     [Header("Ranged attack")]
     public List<BulletPatternSO> attackPatterns;
@@ -180,6 +182,13 @@ public class EnemyController : NetworkBehaviour
     private void Start()
     {
         room = RoomVisibility.RoomAt(transform.position);
+        // kroppen = den faste collider, ikke fx Mimics trigger-cirkel. Lidt mindre, så berøring ikke tæller som blokeret
+        Collider2D col = System.Array.Find(GetComponents<Collider2D>(), c => !c.isTrigger);
+        if (col != null)
+        {
+            bodySize = col.bounds.size * 0.9f;
+            bodyOffset = (Vector2)col.bounds.center - rb.position;
+        }
         if (movementPattern == MovementPattern.ChasePlayer) BuildGrid();
         if (stats == null)
         {
@@ -338,11 +347,13 @@ public class EnemyController : NetworkBehaviour
         rb.linearVelocity = dir.normalized * MoveSpeed;
     }
 
-    // vægge er tilemap-collidere. Rum-triggere, spillere og fjender spærrer ikke udsynet
-    private static bool IsWall(Collider2D c) => !c.isTrigger && (c is TilemapCollider2D || c is CompositeCollider2D);
+    // alt fast og statisk spærrer: tilemap-vægge, dekorationer, braziers, kister. Spillere/fjender har dynamisk Rigidbody2D, rum er triggere
+    private static bool IsWall(Collider2D c) =>
+        !c.isTrigger && (c.attachedRigidbody == null || c.attachedRigidbody.bodyType == RigidbodyType2D.Static);
 
-    private static bool HasLos(Vector2 from, Vector2 to) =>
-        !System.Array.Exists(Physics2D.LinecastAll(from, to), hit => IsWall(hit.collider));
+    // fri bane for fjendens krop (ikke bare en tynd streg), så den ikke hænger på hjørner
+    private bool HasLos(Vector2 from, Vector2 to) =>
+        !System.Array.Exists(Physics2D.BoxCastAll(from + bodyOffset, bodySize, 0f, to - from, Vector2.Distance(from, to)), hit => IsWall(hit.collider));
 
     private Vector2 CellCenter(int x, int y) => gridOrigin + new Vector2(x + 0.5f, y + 0.5f);
 
@@ -351,7 +362,10 @@ public class EnemyController : NetworkBehaviour
     {
         if (room == null) return; // uden rum jager fjenden bare direkte
         Bounds b = room.bounds;
-        gridOrigin = new Vector2(Mathf.Floor(b.min.x), Mathf.Floor(b.min.y));
+        // BFS-celler skal ligge præcis på tiles, ellers kan en "fri" celle overlappe en krukke
+        Tilemap tm = FindAnyObjectByType<TilemapCollider2D>()?.GetComponent<Tilemap>();
+        gridOrigin = tm != null ? (Vector2)tm.CellToWorld(tm.WorldToCell(b.min))
+                                : new Vector2(Mathf.Floor(b.min.x), Mathf.Floor(b.min.y));
         int w = Mathf.CeilToInt(b.max.x - gridOrigin.x), h = Mathf.CeilToInt(b.max.y - gridOrigin.y);
         walkable = new bool[w, h];
         for (int x = 0; x < w; x++)
@@ -364,10 +378,12 @@ public class EnemyController : NetworkBehaviour
 
     private Vector2? NextPathStep()
     {
-        int sx = Mathf.FloorToInt(rb.position.x - gridOrigin.x), sy = Mathf.FloorToInt(rb.position.y - gridOrigin.y);
+        // cellerne er hvor kroppens midte skal stå, så der regnes med bodyOffset frem og tilbage
+        Vector2 body = rb.position + bodyOffset;
+        int sx = Mathf.FloorToInt(body.x - gridOrigin.x), sy = Mathf.FloorToInt(body.y - gridOrigin.y);
         Vector2 target = player.position;
-        var step = EnemyAIMath.NextStepTowardLos(walkable, sx, sy, (x, y) => HasLos(CellCenter(x, y), target));
-        return step == null ? (Vector2?)null : CellCenter(step.Value.x, step.Value.y);
+        var step = EnemyAIMath.NextStepTowardLos(walkable, sx, sy, (x, y) => HasLos(CellCenter(x, y) - bodyOffset, target));
+        return step == null ? (Vector2?)null : CellCenter(step.Value.x, step.Value.y) - bodyOffset;
     }
 
     private void MoveKeepDistance()
