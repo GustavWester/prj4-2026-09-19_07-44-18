@@ -555,6 +555,7 @@ GameObject:
   - component: {fileID: 7311452908762213401}
   - component: {fileID: 5056156468732877860}
   - component: {fileID: 377581579858206399}
+  - component: {fileID: 3808683108195660638}
   m_Layer: 0
   m_Name: Wizard2
   m_TagString: Player
@@ -1097,6 +1098,20 @@ MonoBehaviour:
   fill: {fileID: 5575176937042235597}
   flashColor: {r: 0.6, g: 1, b: 0.6, a: 1}
   animTime: 0.4
+--- !u!114 &3808683108195660638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285184095884308798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd72974224b2140fea74819b6278553c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::ItemDropper
+  ShowTopMostFoldoutHeaderGroup: 1
+  pickupPrefab: {fileID: 2822671252504475119, guid: cf054f520c9e94e4ebe0d5a5c4afaedd, type: 3}
 --- !u!1 &7540704850449973178
 GameObject:
   m_ObjectHideFlags: 0

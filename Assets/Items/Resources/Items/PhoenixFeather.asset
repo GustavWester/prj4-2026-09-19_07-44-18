@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c168bb2b78cf0448600d9bf6cf8f91, type: 3}
   m_Name: PhoenixFeather
   m_EditorClassIdentifier: Game::ItemSO
-  itemName: Fønixfjer
+  itemName: "Phoenix Feather"
   icon: {fileID: 21300000, guid: aa433e30adb14e46bdf97fddfeb15f18, type: 3}
-  description: +3 max liv.
+  description: "+3 max health."
   maxStack: 1
   statModifier:
     maxHealth: 3

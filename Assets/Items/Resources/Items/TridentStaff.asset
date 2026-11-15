@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c168bb2b78cf0448600d9bf6cf8f91, type: 3}
   m_Name: TridentStaff
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemName: Trefork-stav
+  itemName: "Trident Staff"
   icon: {fileID: 21300000, guid: 67b48a8a4eaa42c9b035395cb4b7c9e9, type: 3}
-  description: Skyder 3 fireballs, men -25 max mana.
+  description: "Shoots 3 fireballs, but -25 max mana."
   maxStack: 1
   statModifier:
     maxHealth: 0

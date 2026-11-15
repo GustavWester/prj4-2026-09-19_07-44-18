@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Netcode.Components;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// Universal behaviour for all enemies: movement + attacking.
@@ -72,6 +73,15 @@ public class EnemyController : NetworkBehaviour
     [Header("Keep-distance settings")]
     public float distanceTolerance = 0.5f;
 
+    // ChasePlayer uden udsyn: gitter over rummet (1 celle = 1 tile), og BFS til nærmeste tile med udsyn
+    private bool[,] walkable;
+    private Vector2 gridOrigin;
+    private Vector2? pathStep; // midten af næste celle på vejen
+    private float repathTimer;
+    private const float RepathInterval = 0.25f;
+    private Vector2 bodySize;    // til HasLos' BoxCast
+    private Vector2 bodyOffset;  // kroppens collider sidder ved fødderne, ikke på pivot
+
     [Header("Ranged attack")]
     public List<BulletPatternSO> attackPatterns;
     public bool randomizePatternOrder = true;
@@ -131,7 +141,7 @@ public class EnemyController : NetworkBehaviour
         netAnimator = GetComponent<NetworkAnimator>();
         if (resources != null)
         {
-            if (stats != null) resources.SetMaxHealth(stats.Health);
+            if (stats != null) resources.SetMaxHealth(Mathf.RoundToInt(stats.Health * LevelSettings.EnemyHealthMultiplier));
             if (animator != null && flinchOnHit)
                 resources.onDamaged.AddListener(() => { if (RunsAI && !resources.IsDead) SetTrigger("Hurt"); });
             resources.onDeath.AddListener(() =>
@@ -172,6 +182,14 @@ public class EnemyController : NetworkBehaviour
     private void Start()
     {
         room = RoomVisibility.RoomAt(transform.position);
+        // kroppen = den faste collider, ikke fx Mimics trigger-cirkel. Lidt mindre, så berøring ikke tæller som blokeret
+        Collider2D col = System.Array.Find(GetComponents<Collider2D>(), c => !c.isTrigger);
+        if (col != null)
+        {
+            bodySize = col.bounds.size * 0.9f;
+            bodyOffset = (Vector2)col.bounds.center - rb.position;
+        }
+        if (movementPattern == MovementPattern.ChasePlayer) BuildGrid();
         if (stats == null)
         {
             Debug.LogWarning($"{name}: no EnemyStatsSO assigned — falling back to default speeds/ranges.");
@@ -312,7 +330,60 @@ public class EnemyController : NetworkBehaviour
             rb.linearVelocity = Vector2.zero;
             return;
         }
+
+        // har fjenden selv udsyn går den direkte, ellers mod nærmeste tile med udsyn
+        if (walkable != null && !HasLos(rb.position, player.position))
+        {
+            repathTimer -= Time.fixedDeltaTime;
+            if (pathStep == null || repathTimer <= 0f || Vector2.Distance(rb.position, pathStep.Value) < 0.1f)
+            {
+                repathTimer = RepathInterval;
+                pathStep = NextPathStep();
+            }
+            if (pathStep != null) dir = pathStep.Value - rb.position;
+        }
+        else pathStep = null;
+
         rb.linearVelocity = dir.normalized * MoveSpeed;
+    }
+
+    // alt fast og statisk spærrer: tilemap-vægge, dekorationer, braziers, kister. Spillere/fjender har dynamisk Rigidbody2D, rum er triggere
+    private static bool IsWall(Collider2D c) =>
+        !c.isTrigger && (c.attachedRigidbody == null || c.attachedRigidbody.bodyType == RigidbodyType2D.Static);
+
+    // fri bane for fjendens krop (ikke bare en tynd streg), så den ikke hænger på hjørner
+    private bool HasLos(Vector2 from, Vector2 to) =>
+        !System.Array.Exists(Physics2D.BoxCastAll(from + bodyOffset, bodySize, 0f, to - from, Vector2.Distance(from, to)), hit => IsWall(hit.collider));
+
+    private Vector2 CellCenter(int x, int y) => gridOrigin + new Vector2(x + 0.5f, y + 0.5f);
+
+    // ponytail: gitteret bygges én gang, så døre/vægge der ændrer sig under spillet ses ikke. Byg om ved ændring hvis det bliver nødvendigt
+    private void BuildGrid()
+    {
+        if (room == null) return; // uden rum jager fjenden bare direkte
+        Bounds b = room.bounds;
+        // BFS-celler skal ligge præcis på tiles, ellers kan en "fri" celle overlappe en krukke
+        Tilemap tm = FindAnyObjectByType<TilemapCollider2D>()?.GetComponent<Tilemap>();
+        gridOrigin = tm != null ? (Vector2)tm.CellToWorld(tm.WorldToCell(b.min))
+                                : new Vector2(Mathf.Floor(b.min.x), Mathf.Floor(b.min.y));
+        int w = Mathf.CeilToInt(b.max.x - gridOrigin.x), h = Mathf.CeilToInt(b.max.y - gridOrigin.y);
+        walkable = new bool[w, h];
+        for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
+            {
+                Vector2 c = CellCenter(x, y);
+                walkable[x, y] = room.OverlapPoint(c) && !System.Array.Exists(Physics2D.OverlapPointAll(c), IsWall);
+            }
+    }
+
+    private Vector2? NextPathStep()
+    {
+        // cellerne er hvor kroppens midte skal stå, så der regnes med bodyOffset frem og tilbage
+        Vector2 body = rb.position + bodyOffset;
+        int sx = Mathf.FloorToInt(body.x - gridOrigin.x), sy = Mathf.FloorToInt(body.y - gridOrigin.y);
+        Vector2 target = player.position;
+        var step = EnemyAIMath.NextStepTowardLos(walkable, sx, sy, (x, y) => HasLos(CellCenter(x, y) - bodyOffset, target));
+        return step == null ? (Vector2?)null : CellCenter(step.Value.x, step.Value.y) - bodyOffset;
     }
 
     private void MoveKeepDistance()

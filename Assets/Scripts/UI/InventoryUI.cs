@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Viser spillerens Inventory som et grid af slots. Klik på et slot for at se
@@ -76,6 +77,13 @@ public class InventoryUI : MonoBehaviour
             view.Init(i, Select);
             slotViews.Add(view);
         }
+    }
+
+    // G smider ét af det markerede item på jorden
+    private void Update()
+    {
+        if (inventory == null || selectedIndex < 0 || Keyboard.current == null || !Keyboard.current.gKey.wasPressedThisFrame) return;
+        if (inventory.TryGetComponent(out ItemDropper dropper)) dropper.Drop(selectedIndex);
     }
 
     private void Select(int index)

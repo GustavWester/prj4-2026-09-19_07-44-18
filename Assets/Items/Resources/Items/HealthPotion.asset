@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Health Potion
   icon: {fileID: 21300000, guid: 1da1defb897d48b4b8ccc1cd661f52d8, type: 3}
-  description: Giver 2 liv. Drik med Q.
+  description: "Restores 2 health. Drink with Q."
   maxStack: 10
   isPowerup: 0
   healAmount: 2

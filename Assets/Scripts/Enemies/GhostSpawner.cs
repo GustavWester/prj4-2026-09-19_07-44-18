@@ -16,6 +16,11 @@ public class GhostSpawner : NetworkBehaviour
     [SerializeField] private int maxAlive = 4;
     [SerializeField] private float spawnRadius = 2f;
 
+    [Header("Blå fireballs")]
+    [Tooltip("Mønstret der skydes. Skal også ligge i EnemyController.attackPatterns på bossen (sendes som nummer over netværket).")]
+    [SerializeField] private BulletPatternSO fireballs;
+    [SerializeField] private float fireInterval = 3f;
+
     private readonly List<ResourceController> alive = new();
     private ResourceController health;
     private Collider2D room;
@@ -31,6 +36,7 @@ public class GhostSpawner : NetworkBehaviour
     {
         room = RoomVisibility.RoomAt(transform.position);
         StartCoroutine(SpawnLoop());
+        if (fireballs != null) StartCoroutine(FireLoop());
     }
 
     private IEnumerator SpawnLoop()
@@ -46,6 +52,17 @@ public class GhostSpawner : NetworkBehaviour
             var ghost = Instantiate(minion, pos, Quaternion.identity);
             if (IsSpawned) ghost.GetComponent<NetworkObject>().Spawn(true); // true = forsvinder med scenen
             alive.Add(ghost.GetComponent<ResourceController>());
+        }
+    }
+
+    // skyder fireballs mod spilleren, mens der står en spiller i boss-rummet (ved siden af melee og spøgelserne)
+    private IEnumerator FireLoop()
+    {
+        var enemy = GetComponent<EnemyController>();
+        while (!health.IsDead)
+        {
+            yield return new WaitForSeconds(fireInterval);
+            if (RunsAI && !health.IsDead && PlayerInRoom()) enemy.FirePattern(fireballs);
         }
     }
 

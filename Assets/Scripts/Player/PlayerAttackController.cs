@@ -24,8 +24,10 @@ public class PlayerAttackController : NetworkBehaviour
         spell = fireballPrefab.GetComponent<PlayerSpell>();
     }
 
-    // kaldes på alle maskiner (fra ItemPickup), så alle laver den samme spell når der skydes
-    public void SetSpell(PlayerSpell newSpell) => spell = newSpell;
+    public PlayerSpell Spell => spell;
+
+    // kaldes på alle maskiner (fra ItemPickup/ItemDropper), så alle laver den samme spell når der skydes. null = start-fireball
+    public void SetSpell(PlayerSpell newSpell) => spell = newSpell != null ? newSpell : fireballPrefab.GetComponent<PlayerSpell>();
 
     // spell som da levelen startede (DeathScreen / Try again)
     private PlayerSpell savedSpell;

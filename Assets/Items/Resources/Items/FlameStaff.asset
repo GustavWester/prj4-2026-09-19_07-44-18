@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c168bb2b78cf0448600d9bf6cf8f91, type: 3}
   m_Name: FlameStaff
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemName: Flammestav
+  itemName: "Flame Staff"
   icon: {fileID: 21300000, guid: 3a4bbef178494053be7e1b9a92cd03f6, type: 3}
-  description: +2 skade.
+  description: "+2 damage."
   maxStack: 1
   statModifier:
     maxHealth: 0

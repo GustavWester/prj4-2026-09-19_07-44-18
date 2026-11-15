@@ -73,6 +73,7 @@ public class KnightBossPhases : NetworkBehaviour
         netAnimator = GetComponent<NetworkAnimator>();
         sr = GetComponent<SpriteRenderer>();
         health.onDeath.AddListener(OnDeath);
+        health.onDeath.AddListener(DeathScreen.ShowVictory); // sidste boss: victory-skærm på alle maskiner
     }
 
     // kører på alle maskiner, men gør kun noget hos hosten (scene-placerede objekter kan starte før de er spawnet)

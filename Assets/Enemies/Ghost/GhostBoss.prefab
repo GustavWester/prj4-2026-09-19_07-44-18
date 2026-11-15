@@ -76,6 +76,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2025229159568634788, guid: 426ac68fbba9d275b7b4fbcc377cb63e, type: 3}
+      propertyPath: attackPatterns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025229159568634788, guid: 426ac68fbba9d275b7b4fbcc377cb63e, type: 3}
+      propertyPath: attackPatterns.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e4b2145219d4ea69c2d3da9f63b6bc0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 9054537579217852965, guid: 426ac68fbba9d275b7b4fbcc377cb63e, type: 3}
@@ -110,6 +118,8 @@ MonoBehaviour:
   interval: 6
   maxAlive: 4
   spawnRadius: 2
+  fireballs: {fileID: 11400000, guid: 3e4b2145219d4ea69c2d3da9f63b6bc0, type: 2}
+  fireInterval: 3
 --- !u!114 &6699000892656524343
 MonoBehaviour:
   m_ObjectHideFlags: 0

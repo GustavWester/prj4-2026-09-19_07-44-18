@@ -16,7 +16,7 @@ MonoBehaviour:
   bossTitle: The Hollow Emil
   bossIcon: {fileID: 21300000, guid: 7128d703dd4344c6bfa156e73d54a6b2, type: 3}
   classSo: 0
-  Health: 700
+  Health: 500
   attackDamage: 2
   moveSpeed: 1.6
   attackRange: 1.2
