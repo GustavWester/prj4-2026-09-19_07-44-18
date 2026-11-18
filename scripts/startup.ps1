@@ -77,10 +77,6 @@ if ((Invoke-Native "docker" @("info")).ExitCode -ne 0) {
     throw "Docker is not running. Start Docker Desktop and run this script again."
 }
 
-if ((Invoke-Native "dotnet" @("ef", "--version")).ExitCode -ne 0) {
-    throw "dotnet-ef is not installed. Run 'dotnet tool install --global dotnet-ef' and try again."
-}
-
 if (-not (Test-Path $composeFile)) {
     throw "Could not find docker-compose.yml in $backendDirectory."
 }
@@ -89,8 +85,14 @@ if (-not (Test-Path $envFile) -or -not (Select-String -Path $envFile -Pattern '^
     throw "Missing MSSQL_SA_PASSWORD in $envFile. Create the file with MSSQL_SA_PASSWORD=<password> before starting the backend."
 }
 
+# Run dotnet checks inside the API folder: the repo root holds several Unity .csproj files,
+# which makes 'dotnet ef' fail with "contains more than one project file".
 Push-Location $apiDirectory
 try {
+    if ((Invoke-Native "dotnet" @("ef", "--version")).ExitCode -ne 0) {
+        throw "dotnet-ef is not installed. Run 'dotnet tool install --global dotnet-ef' and try again."
+    }
+
     $secrets = Invoke-Native "dotnet" @("user-secrets", "list")
 }
 finally {
