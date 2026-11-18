@@ -35,6 +35,14 @@ dotnet run
 ```
 
 ### 4. Start game-API'et (terminal 2)
+Kør startup-scriptet fra roden af dette repo. Det starter databasen, venter til den er `healthy`, kører migrations og åbner game-API'et i et nyt PowerShell-vindue:
+```powershell
+cd prj4-2026-09-19_07-44-18
+powershell -ExecutionPolicy Bypass -File scripts\startup.ps1
+```
+Scriptet tjekker først at Docker kører, at `dotnet-ef` er installeret, at `GameBackend\.env` har `MSSQL_SA_PASSWORD`, og at user secrets fra trin 2 er sat. Luk API-vinduet for at stoppe API'et.
+
+Manuelt alternativ:
 ```powershell
 cd prj4-2026-09-19_07-44-18\GameBackend
 docker compose up -d
