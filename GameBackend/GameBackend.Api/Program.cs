@@ -53,6 +53,14 @@ builder.Services.AddAuthorization(options =>
         .RequireClaim(GameTokenValidation.GameIdClaim));
 });
 
+// CORS: WebGL-spillet kører i browseren på hjemmesiden og kalder dette API derfra
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(policy => policy
+        .WithOrigins(allowedOrigins)
+        .AllowAnyHeader()
+        .AllowAnyMethod()));
+
 // Controllers/Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -67,6 +75,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthentication();   // Hvem er det? (validerer tokenet)
 app.UseAuthorization();    // Må du det her? ([Authorize(Policy = "GamePlay")])
 app.MapControllers();
