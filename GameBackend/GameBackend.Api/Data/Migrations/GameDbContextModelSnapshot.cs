@@ -51,10 +51,6 @@ namespace GameBackend.Api.Data.Migrations
 
                     b.HasKey("PlayerId");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[email] IS NOT NULL");
-
                     b.HasIndex("UserId", "GameId")
                         .IsUnique()
                         .HasFilter("[game_id] IS NOT NULL");
