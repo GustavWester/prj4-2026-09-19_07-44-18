@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -19,8 +20,9 @@ public class LobbyRelayManager : MonoBehaviour
     private float heartbeatTimer;
     
     private string statusMessage = "";
+    private Task signIn; // Host/Join venter på den, så et hurtigt klik ikke fejler fordi vi ikke er logget ind endnu
 
-    private async void Start()
+    private void Start()
     {
         // Ingen adgang til spillet uden login
         if (LoginScreen.Instance == null || !LoginScreen.Instance.IsVerified)
@@ -29,18 +31,38 @@ public class LobbyRelayManager : MonoBehaviour
             return;
         }
 
+        signIn = SignInAsync();
+    }
+
+    private static async Task SignInAsync()
+    {
         await UnityServices.InitializeAsync();
         // Try again genindlæser DungeonScene, og så er vi allerede logget ind
         if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            // Start altid en ny anonym Unity-session. En gemt session-token i browseren kan give en token uden
+            // adgang til Lobby ("svc:lobby"), og vinduer der deler lager (fx inkognito) bliver ellers samme spiller.
+            // Hvem man er i spillet kommer fra vores eget login, så det anonyme Unity-id er ligegyldigt.
+            AuthenticationService.Instance.ClearSessionToken();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
+    }
+
+    // Prøver igen, hvis det første login fejlede (fx ingen forbindelse)
+    private Task EnsureSignedIn()
+    {
+        if (signIn == null || signIn.IsFaulted || signIn.IsCanceled) signIn = SignInAsync();
+        return signIn;
     }
 
     public async void CreateGame()
     {
         if (busy || NetworkManager.Singleton.IsListening) return;
         busy = true;
+        statusMessage = "Opretter spil…";
         try
         {
+            await EnsureSignedIn();
             lobby = await LobbyService.Instance.CreateLobbyAsync("Lobby", 4);
             isHost = true;
             Debug.Log($"Room code: {lobby.LobbyCode}");
@@ -50,8 +72,7 @@ public class LobbyRelayManager : MonoBehaviour
 
             // hosten forbinder til Relay med det samme, før koden lægges i lobbyen. Ellers kan en langsom lobby-server
             // forsinke det, og en klient kan finde koden, før hosten er klar
-            NetworkManager.Singleton.GetComponent<UnityTransport>()
-                .SetRelayServerData(new RelayServerData(allocation, "dtls"));
+            UseRelay(new RelayServerData(allocation, "wss"));
             NetworkManager.Singleton.StartHost();
 
             await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, new UpdateLobbyOptions
@@ -61,6 +82,16 @@ public class LobbyRelayManager : MonoBehaviour
                     { "RelayCode", new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
                 }
             });
+            statusMessage = "";
+        }
+        // før forsvandt fejl her, og der skete bare ingenting, når man trykkede Host
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"Kunne ikke hoste: {e}");
+            statusMessage = $"Host failed: {e.Message}";
+            if (NetworkManager.Singleton.IsListening) NetworkManager.Singleton.Shutdown();
+            lobby = null;
+            isHost = false;
         }
         finally { busy = false; }
     }
@@ -69,13 +100,14 @@ public class LobbyRelayManager : MonoBehaviour
     {
         if (busy || NetworkManager.Singleton.IsListening) return;
         busy = true;
+        statusMessage = "";
         try
         {
+            await EnsureSignedIn();
             lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code);
             var joinAlloc = await RelayService.Instance.JoinAllocationAsync(lobby.Data["RelayCode"].Value);
 
-            NetworkManager.Singleton.GetComponent<UnityTransport>()
-                .SetRelayServerData(new RelayServerData(joinAlloc, "dtls"));
+            UseRelay(new RelayServerData(joinAlloc, "wss"));
             NetworkManager.Singleton.StartClient();
         }
         // alle fejl vises (fx Relay), ikke kun "Forkert lobby-id", så man kan se hvad der går galt
@@ -87,6 +119,15 @@ public class LobbyRelayManager : MonoBehaviour
                 : $"Join failed: {e.Message}";
         }
         finally { busy = false; }
+    }
+
+    // Browsere (WebGL) kan kun bruge WebSockets, så alle platforme bruger "wss".
+    // Ellers kan en WebGL-spiller og en desktop-spiller ikke spille sammen.
+    private static void UseRelay(RelayServerData relayData)
+    {
+        var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        transport.UseWebSockets = true;
+        transport.SetRelayServerData(relayData);
     }
 
     private async void Update()
